@@ -5,7 +5,7 @@ include '../library/library.php';
 
 $id_user = $_SESSION['id_user'];
 $norm = buatKode("pasien", "RM");
-$nama = $_POST['nama'];
+$nm_pasien = $_POST['nama'];
 $kelamin = $_POST['kelamin'];
 $tmpt_lahir = $_POST['t_lahir'];
 $nik = $_POST['nik'];
