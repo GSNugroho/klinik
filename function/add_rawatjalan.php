@@ -163,9 +163,9 @@ $_SESSION['rm'] = $_GET['rm'];
                                     <option value="KOSONG">......</option>
                                     <?php
                                     $dataPetugas = isset($_POST['pilihPetugas']) ? $_POST['pilihPetugas'] : '';
-                                    $bacaSql = mysql_query("SELECT * FROM petugas_kesehatan ORDER BY id_petugas");
+                                    $bacaSql = mysqli_query($koneksi, "SELECT * FROM petugas_kesehatan ORDER BY id_petugas");
 
-                                    while ($bacaData = mysql_fetch_array($bacaSql)) {
+                                    while ($bacaData = mysqli_fetch_array($bacaSql)) {
                                         if ($bacaData['id_petugas'] == $dataPetugas) {
                                             $cek = " selected";
                                         } else {
@@ -193,9 +193,9 @@ $_SESSION['rm'] = $_GET['rm'];
                                     <option value="KOSONG">......</option>
                                     <?php
                                     $daftarTindakan = isset($_POST['daftarTindakan']) ? $_POST['daftarTindakan'] : '';
-                                    $bacaSql = mysql_query("SELECT * FROM daftar_tindakan ORDER BY id_tindakan");
+                                    $bacaSql = mysqli_query($koneksi, "SELECT * FROM daftar_tindakan ORDER BY id_tindakan");
 
-                                    while ($bacaData = mysql_fetch_array($bacaSql)) {
+                                    while ($bacaData = mysqli_fetch_array($bacaSql)) {
                                         if ($bacaData['id_tindakan'] == $daftarTindakan) {
                                             $cek = " selected";
                                         } else {
@@ -267,9 +267,9 @@ $_SESSION['rm'] = $_GET['rm'];
                             <tbody id="myTable">
 
                                 <?php
-                                $query = mysql_query("select * from tmp_tindakan_medis  p INNER JOIN daftar_tindakan u ON p.id_tindakan = u.id_tindakan");
+                                $query = mysqli_query($koneksi, "select * from tmp_tindakan_medis  p INNER JOIN daftar_tindakan u ON p.id_tindakan = u.id_tindakan");
                                 $no = 0;
-                                while ($hasil = mysql_fetch_array($query)) {
+                                while ($hasil = mysqli_fetch_array($query)) {
                                     $no++;
 //                                    $jumlah = $_POST['jumlahObat'];
 //                                    $jumlah = 10;

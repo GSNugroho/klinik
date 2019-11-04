@@ -12,9 +12,9 @@ $term = trim(strip_tags($_GET['term']));
 
 $qstring = "SELECT * FROM diagnosis WHERE nama_indonesia LIKE '" . $term . "%'";
 //query database untuk mengecek tabel anime 
-$result = mysql_query($qstring);
+$result = mysqli_query($koneksi, $qstring);
 
-while ($row = mysql_fetch_array($result)) {
+while ($row = mysqli_fetch_array($result)) {
     $row['value'] = htmlentities(stripslashes($row['nama_indonesia']));
 //    $row['id']=htmlentities(stripslashes($row['id_obat']));
 //buat array yang nantinya akan di konversi ke json

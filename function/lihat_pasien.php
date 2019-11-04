@@ -82,7 +82,7 @@ if (!isset($_SESSION['level'])) {
                                         <th>Umur</th>
                                         <th>Tempat Lahir</th>
                                         <th>Tanggal Lahir</th>
-                                        <th>Jenis Kelamin</th>
+                                        <th>JK</th>
                                         <th>Tanggal Daftar</th>
                                         <th>Cabang Klinik</th>
                                         <th>Pilih</th>
@@ -91,21 +91,24 @@ if (!isset($_SESSION['level'])) {
                                 <tbody id="myTable">
                                     <?php
                                     include_once '../koneksi.php';
-//                                    $query = mysql_query("select * from pasien");
-                                    $query = mysqli_query($koneksi, "select * from pasien p INNER JOIN user u ON p.id_user = u.id_user");
+                                    // $query = mysqli_query($koneksi, "select * from pasien p INNER JOIN user u ON p.id_user = u.id_user");
+                                    $query = mysqli_query($koneksi, "select pasien_b.no_rm, pasien_b.nm_pasien, pasien_b.alamat_pasien, pasien_b.umur_pasien, pasien_b.tmpt_lahir, pasien_b.tgl_lahir, pasien_b.jk_pasien, pasien_b.tgl_daftar_pasien, user.cabang
+                                                            from pasien_b 
+                                                            LEFT JOIN user ON pasien_b.id_user = user.id_user 
+                                                            ORDER BY pasien_b.no_rm ASC");
                                     $no = 0;
                                     while ($hasil = mysqli_fetch_array($query)) {
                                         $no++;
                                         echo "<tr>
                                         <td>" . $no . "</td>
                                         <td>" . $hasil['no_rm'] . "</td>
-                                        <td>" . $hasil['nama_pasien'] . "</td>
+                                        <td>" . $hasil['nm_pasien'] . "</td>
                                         <td>" . $hasil['alamat_pasien'] . "</td>
-                                        <td>" . $hasil['umur'] . "</td>
-                                        <td>" . $hasil['tempat_lahir'] . "</td>
-                                        <td>" . $hasil['tgl_lahir_pasien'] . "</td>
+                                        <td>" . $hasil['umur_pasien'] . "</td>
+                                        <td>" . $hasil['tmpt_lahir'] . "</td>
+                                        <td>" . date('d-m-Y', strtotime($hasil['tgl_lahir'])) . "</td>
                                         <td>" . $hasil['jk_pasien'] . "</td>
-                                        <td>" . $hasil['tgl_daftar'] . "</td>
+                                        <td>" . date('d-m-Y', strtotime($hasil['tgl_daftar_pasien'])) . "</td>
                                         <td>" . $hasil['cabang'] . "</td>
                                         <td><a href='add_rawatjalan.php?rm=".$hasil['no_rm']."'>Pilih</a></td>
                                     </tr>";

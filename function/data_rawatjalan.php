@@ -104,7 +104,7 @@ if (!isset($_SESSION['level'])) {
                                     include_once '../koneksi.php';
 //                                    $query = mysql_query("select * from pasien");
 //                                    $query = mysql_query("select * from kunjungan p INNER JOIN user u ON p.id_user = u.id_user");
-                                    $query = mysqli_query($koneksi, "select * from kunjungan p INNER JOIN user u ON p. id_user = u.id_user LEFT JOIN pasien s ON p.no_rm = s.no_rm ORDER BY id_kunjungan DESC");
+                                    $query = mysqli_query($koneksi, "select * from kunjungan p INNER JOIN user u ON p. id_user = u.id_user LEFT JOIN pasien_b s ON p.no_rm = s.no_rm ORDER BY id_kunjungan DESC");
 //                                        if ($_SESSION['level'] == 'admin'){
 //                                            $query = mysql_query("select * from kunjungan p LEFT JOIN pasien s ON p.no_rm = s.no_rm
 //                                                                LEFT JOIN user u ON p. id_user = u.id_user") or die(mysql_error());
@@ -116,8 +116,8 @@ if (!isset($_SESSION['level'])) {
                                     $no = 0;
                                     
                                     while ($hasil = mysqli_fetch_array($query)) {
-                                         $query_cekresep = mysql_query ("SELECT id_resep FROM kuitansi WHERE id_kunjungan = '$hasil[0]'")or die(mysql_error());
-                                         $a = mysql_fetch_array($query_cekresep);
+                                         $query_cekresep = mysqli_query ($koneksi, "SELECT id_resep FROM kuitansi WHERE id_kunjungan = '$hasil[0]'")or die(mysql_error());
+                                         $a = mysqli_fetch_array($query_cekresep);
                                         
                                         $no++;
                                         echo "<tr>
@@ -126,7 +126,7 @@ if (!isset($_SESSION['level'])) {
                                         <td>" . $hasil['cabang'] . "</td>
                                         <td>" . $hasil['tgl_periksa'] . "</td>
                                         <td>" . $hasil['no_rm'] . "</td>
-                                        <td>" . $hasil['nama_pasien'] . "</td>
+                                        <td>" . $hasil['nm_pasien'] . "</td>
                                         <td>" . $hasil['biaya_periksa'] . "</td>
                                         <td><a href='detail_tindakan.php?i=".$hasil['id_kunjungan']."'>Lihat</a></td>
                                         <td><a href='cetak/cetak_transaksi.php?i=".$hasil['id_kunjungan']."' target='_blank' >Cetak</a></td>

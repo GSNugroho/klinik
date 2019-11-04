@@ -13,14 +13,14 @@ if (isset($_GET['id_resep'])) {
     header('location:../data_resep.php');
 }
 
-$query = mysql_query("SELECT * FROM resep r "
+$query = mysqli_query($koneksi, "SELECT * FROM resep r "
         . "LEFT JOIN detail_resep dr ON r.id_resep = dr.id_resep "
         . "LEFT JOIN obat o ON dr.id_obat = o.id_obat "
         . "LEFT JOIN kunjungan k ON r.id_kunjungan = k.id_kunjungan "
         . "LEFT JOIN user u ON k.id_user = u.id_user "
         . "LEFT JOIN petugas_kesehatan pk ON dr.id_petugas = pk.id_petugas "
-        . "LEFT JOIN pasien p ON k.no_rm = p.no_rm WHERE r.id_resep = '$id_resep'") or die(mysql_error());
-$hasil = mysql_fetch_array($query);
+        . "LEFT JOIN pasien_b p ON k.no_rm = p.no_rm WHERE r.id_resep = '$id_resep'") or die(mysql_error());
+$hasil = mysqli_fetch_array($query);
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -60,7 +60,7 @@ $hasil = mysql_fetch_array($query);
                 <td colspan="2"></td>
             </tr>
             <tr>
-                <td colspan="5">Pasien   : <?php echo $hasil['nama_pasien']; ?></td>
+                <td colspan="5">Pasien   : <?php echo $hasil['nm_pasien']; ?></td>
             </tr>
             <tr>
                 <td colspan="5">User     : <?php echo $hasil['username']; ?></td>
@@ -78,14 +78,14 @@ $hasil = mysql_fetch_array($query);
             </tr>
             <?php
 
-            $query = mysql_query("SELECT * FROM resep r "
+            $query = mysqli_query($koneksi, "SELECT * FROM resep r "
                     . "LEFT JOIN detail_resep dr ON r.id_resep = dr.id_resep "
                     . "LEFT JOIN obat o ON dr.id_obat = o.id_obat "
                     . "LEFT JOIN petugas_kesehatan pk ON dr.id_petugas = pk.id_petugas "
                     . "LEFT JOIN kunjungan k ON r.id_kunjungan = k.id_kunjungan "
                     . "LEFT JOIN pasien p ON k.no_rm = p.no_rm WHERE r.id_resep = '$id_resep'") or die(mysql_error());
             $no = 0;
-            while ($detail = mysql_fetch_array($query)) {
+            while ($detail = mysqli_fetch_array($query)) {
                 $no++;
                 $biaya_resep = $detail['biaya_resep']
                 ?>

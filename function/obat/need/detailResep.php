@@ -73,21 +73,21 @@ if (isset($_GET['id_resep'])) {
                                 <tbody id="myTable">
                                     <?php
                                     include_once '../../../koneksi.php';
-                                    $query = mysql_query("SELECT * FROM resep r "
+                                    $query = mysqli_query($koneksi, "SELECT * FROM resep r "
                                             . "LEFT JOIN detail_resep dr ON r.id_resep = dr.id_resep LEFT JOIN obat o ON dr.id_obat = o.id_obat "
-                                            . "LEFT JOIN kunjungan k ON r.id_kunjungan = k.id_kunjungan LEFT JOIN pasien p ON "
+                                            . "LEFT JOIN kunjungan k ON r.id_kunjungan = k.id_kunjungan LEFT JOIN pasien_b p ON "
                                             . "k.no_rm = p.no_rm WHERE r.id_resep = '$id_resep'");
                                     $no = 0;
                                     $harga = 0;
 
-                                    while ($hasil = mysql_fetch_array($query)) {
+                                    while ($hasil = mysqli_fetch_array($query)) {
                                         $no++;
                                         $harga = $hasil['jumlah_obat'] * $hasil['harga_jual'];
                                         echo "<tr>
                                         <td>" . $no . "</td>
                                         <td>" . $hasil['id_resep'] . "</td>
                                         <td>" . $hasil['no_rm'] . "</td>
-                                        <td>" . $hasil['nama_pasien'] . "</td>
+                                        <td>" . $hasil['nm_pasien'] . "</td>
                                         <td>" . $hasil['id_obat'] . "</td>
                                         <td>" . $hasil['nama_dagang'] . "</td>
                                         <td>" . $hasil['jumlah_obat'] . "</td>

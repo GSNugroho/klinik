@@ -81,12 +81,12 @@ if (!isset($_SESSION['level'])) {
 //                                                . "LEFT JOIN pasien p ON p.no_rm = k.no_rm "
 //                                                . "LEFT JOIN user u ON u.id_user = k.id_user WHERE cabang='" . $_SESSION['cabang'] . "' ORDER BY r.id_resep DESC") or die(mysql_error());
 //                                    }
-                                    $query = mysql_query("SELECT * FROM resep r LEFT JOIN kunjungan k ON r.id_kunjungan = k.id_kunjungan "
+                                    $query = mysqli_query($koneksi, "SELECT * FROM resep r LEFT JOIN kunjungan k ON r.id_kunjungan = k.id_kunjungan "
                                             . "LEFT JOIN pasien p ON p.no_rm = k.no_rm "
                                             . "LEFT JOIN user u ON u.id_user = k.id_user ORDER BY r.id_resep DESC") or die(mysql_error());
                                     $no = 0;
 
-                                    while ($hasil = mysql_fetch_array($query)) {
+                                    while ($hasil = mysqli_fetch_array($query)) {
                                         $no++;
                                         echo "<tr>
                                         <td>" . $no . "</td>

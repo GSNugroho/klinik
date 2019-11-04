@@ -92,10 +92,10 @@ if (!isset($_SESSION['level'])) {
                                         <th>Nama</th>
                                         <th>Alamat</th>
                                         <th>Umur</th>
-                                        <th>Tempat Lahir</th>
-                                        <th>Tgl Lahir</th>
-                                        <th>Jenis Kelamin</th>
-                                        <th>Tgl Daftar</th>
+                                        <th>Tmpt. Lahir</th>
+                                        <th>Tgl. Lahir</th>
+                                        <th style="width : 5%">JK</th>
+                                        <th>Tgl. Daftar</th>
                                         <th>Cabang</th>
                                         <th>Update</th>
                                         <th>Rawat</th>
@@ -107,21 +107,24 @@ if (!isset($_SESSION['level'])) {
                                 <tbody id="myTable">
                                     <?php
                                     include_once '../koneksi.php';
-//                                    $query = mysql_query("select * from pasien");
-                                    $query = mysqli_query($koneksi, "select * from pasien p LEFT JOIN user u ON p.id_user = u.id_user ORDER BY no_rm DESC");
+                                    // $query = mysqli_query($koneksi, "select * from pasien p LEFT JOIN user u ON p.id_user = u.id_user ORDER BY no_rm DESC");
+                                    $query = mysqli_query($koneksi, "select pasien_b.no_rm, pasien_b.nm_pasien, pasien_b.alamat_pasien, pasien_b.umur_pasien, pasien_b.tmpt_lahir, pasien_b.tgl_lahir, pasien_b.jk_pasien, pasien_b.tgl_daftar_pasien, user.cabang
+                                                            from pasien_b 
+                                                            LEFT JOIN user ON pasien_b.id_user = user.id_user 
+                                                            ORDER BY pasien_b.no_rm ASC");
                                     $no = 0;
                                     while ($hasil = mysqli_fetch_array($query)) {
                                         $no++;
                                         echo "<tr>
                                         <td>" . $no . "</td>
                                         <td>" . $hasil['no_rm'] . "</td>
-                                        <td>" . $hasil['nama_pasien'] . "</td>
+                                        <td>" . $hasil['nm_pasien'] . "</td>
                                         <td>" . $hasil['alamat_pasien'] . "</td>
-                                        <td>" . $hasil['umur'] . "</td>
-                                        <td>" . $hasil['tempat_lahir'] . "</td>
-                                        <td>" . $hasil['tgl_lahir_pasien'] . "</td>
+                                        <td>" . $hasil['umur_pasien'] . "</td>
+                                        <td>" . $hasil['tmpt_lahir'] . "</td>
+                                        <td>" . date('d-m-Y', strtotime($hasil['tgl_lahir'])) . "</td>
                                         <td>" . $hasil['jk_pasien'] . "</td>
-                                        <td>" . $hasil['tgl_daftar'] . "</td>
+                                        <td>" . date('d-m-Y', strtotime($hasil['tgl_daftar_pasien'])) . "</td>
                                         <td>" . $hasil['cabang'] . "</td>
                                         <td><a href='edit_pasien.php?i=" . $hasil['no_rm'] . "'>Edit</a></td>
                                         <td><a href='add_rawatjalan.php?rm=" . $hasil['no_rm'] . "'>Rawat</a></td>

@@ -1,8 +1,8 @@
 <?php
 $arrActive['buat_resep'] = 'active';
 session_start();
-include __DIR__ . '../../../koneksi.php';
-include __DIR__ . '../../../library/library.php';
+include '../../koneksi.php';
+require '../../library/library.php';
 if (!isset($_SESSION['level'])) {
     header('location:../../index.php');
 }
@@ -61,10 +61,10 @@ if (isset($_GET['id_kunjungan'])) {
                         <h2 class="sub-header">Kunjungan</h2>
                         <?php
                         $noResep = buatKode("resep", "R");
-                        $query = mysql_query("SELECT k.no_rm, p.nama_pasien FROM kunjungan k INNER JOIN pasien p ON p.no_rm = k.no_rm  WHERE k.id_kunjungan = '$id_kunjungan'");
-                        while ($result = mysql_fetch_array($query)) {
+                        $query = mysqli_query($koneksi, "SELECT kunjungan.no_rm, pasien_b.nm_pasien FROM kunjungan INNER JOIN pasien_b ON kunjungan.no_rm = pasien_b.no_rm WHERE kunjungan.id_kunjungan = '$id_kunjungan'");
+                        while ($result = mysqli_fetch_array($query)) {
                             $no_rm = $result['no_rm'];
-                            $nama = $result['nama_pasien'];
+                            $nama = $result['nm_pasien'];
                         }
                         ?>
                         <!--input data dari kunjungan-->
@@ -102,9 +102,9 @@ if (isset($_GET['id_kunjungan'])) {
                                     <option value="KOSONG">......</option>
                                     <?php
                                     $dataPetugas = isset($_POST['pilihPetugas']) ? $_POST['pilihPetugas'] : '';
-                                    $bacaSql = mysql_query("SELECT * FROM tindakan_medis tm LEFT JOIN petugas_kesehatan pk ON pk.id_petugas = tm.id_petugas WHERE tm.id_kunjungan = '$id_kunjungan'");
+                                    $bacaSql = mysqli_query($koneksi, "SELECT * FROM tindakan_medis tm LEFT JOIN petugas_kesehatan pk ON pk.id_petugas = tm.id_petugas WHERE tm.id_kunjungan = '$id_kunjungan'");
 
-                                    while ($bacaData = mysql_fetch_array($bacaSql)) {
+                                    while ($bacaData = mysqli_fetch_array($bacaSql)) {
                                         if ($bacaData['id_petugas'] == $dataPetugas) {
                                             $cek = " selected";
                                         } else {
@@ -126,9 +126,9 @@ if (isset($_GET['id_kunjungan'])) {
                                     <option value="KOSONG">......</option>
                                     <?php
                                     $daftarObat = isset($_POST['daftarObat']) ? $_POST['daftarObat'] : '';
-                                    $bacaSql = mysql_query("SELECT * FROM obat ORDER BY id_obat");
+                                    $bacaSql = mysqli_query($koneksi, "SELECT * FROM obat ORDER BY id_obat");
 
-                                    while ($bacaData = mysql_fetch_array($bacaSql)) {
+                                    while ($bacaData = mysqli_fetch_array($bacaSql)) {
                                         if ($bacaData['id_obat'] == $daftarObat) {
                                             $cek = " selected";
                                         } else {
@@ -206,10 +206,10 @@ if (isset($_GET['id_kunjungan'])) {
                                 <!--isi detail dari obat yang ditambahkan-->
                                 <tbody id="myTable">
                                     <?php
-                                    $query = mysql_query("SELECT * FROM tmp_detail_resep tmp INNER JOIN obat o ON tmp.id_obat = o.id_obat");
+                                    $query = mysqli_query($koneksi, "SELECT * FROM tmp_detail_resep tmp INNER JOIN obat o ON tmp.id_obat = o.id_obat");
                                     $no = 0;
                                     $harga = 0;
-                                    while ($hasil = mysql_fetch_array($query)) {
+                                    while ($hasil = mysqli_fetch_array($query)) {
                                         $no++;
                                         echo "<tr>
                                         <td>" . $no . "</td>

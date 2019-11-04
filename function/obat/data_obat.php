@@ -80,10 +80,10 @@ if (!isset($_SESSION['level'])) {
 //                                            $query = mysql_query("SELECT * FROM obat o LEFT JOIN user u ON o.id_user = u.id_user WHERE cabang = '" . $_SESSION['cabang'] . "' ORDER BY id_obat DESC");
 //                                        }
 
-                                    $query = mysql_query("SELECT * FROM obat o LEFT JOIN user u ON o.id_user = u.id_user ORDER BY id_obat DESC");
+                                    $query = mysqli_query($koneksi, "SELECT * FROM obat o LEFT JOIN user u ON o.id_user = u.id_user ORDER BY id_obat DESC");
 
                                     $no = 0;
-                                    while ($hasil = mysql_fetch_array($query)) {
+                                    while ($hasil = mysqli_fetch_array($query)) {
                                         $no++;
                                         echo "<tr>
                                         <td>" . $no . "</td>

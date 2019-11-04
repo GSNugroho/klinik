@@ -25,26 +25,27 @@ class database {
 
 //method koneksi
     function connectMySQL() {
-        mysql_connect($this->server, $this->username, $this->password);
-        mysql_select_db($this->database_name);
+        $con = mysqli_connect($this->server, $this->username, $this->password);
+        mysqli_select_db($con, $this->database_name);
 
 //        mysqli_connect($this->server, $this->username, $this->password, $this->database_name);
     }
 
     function tambahData($nama_obat, $nama_dagang, $harga_beli, $harga_jual, $stok) {
-        $query = mysql_query("insert into obat (nama_obat, nama_dagang, harga_beli, harga_jual, stok) values ('" . $nama_obat . "','" . $nama_dagang . "','" . $harga_beli . "','" . $harga_jual . "','" . $stok . "')");
+        connectMySQL();
+        $query = mysqli_query($con, "insert into obat (nama_obat, nama_dagang, harga_beli, harga_jual, stok) values ('" . $nama_obat . "','" . $nama_dagang . "','" . $harga_beli . "','" . $harga_jual . "','" . $stok . "')");
 
         header('location:function/obat/data_obat.php');
     }
 
     function editDataObat($id_obatD, $nama_obat, $nama_dagang, $harga_beli, $harga_jual, $stok) {
-        mysql_query("update obat set nama_obat = '" . $nama_obat . "' , nama_dagang = '" . $nama_dagang . "', harga_beli ='" . $harga_beli . "', harga_jual ='" . $harga_jual . "', stok = '" . $stok . "' where id_obat = '" . $id_obatD . "' ");
+        mysqli_query($con, "update obat set nama_obat = '" . $nama_obat . "' , nama_dagang = '" . $nama_dagang . "', harga_beli ='" . $harga_beli . "', harga_jual ='" . $harga_jual . "', stok = '" . $stok . "' where id_obat = '" . $id_obatD . "' ");
 
         header('location:function/obat/data_obat.php');
     }
 
     function bacaDataObat($type, $id_obat) {
-        $query = mysql_query("select * from obat where id_obat = '$id_obat' ");
+        $query = mysql_query($con, "select * from obat where id_obat = '$id_obat' ");
         while ($hasil = mysql_fetch_array($query)) {
             if ($type == 'id_obat') {
                 echo $hasil['id_obat'];

@@ -96,7 +96,7 @@ if (!isset($_SESSION['level'])) {
                             <?php
 //                            include '../koneksi.php';
 //                            include '../library/library.php';
-                            $dataKode	= buatKode("pasien", "RM");
+                            $dataKode	= buatKode("pasien_b", "RM");
                             ?>
                             <label for="inputNoRM" class="col-sm-2 control-label">No. RM</label>
                             <div class="col-sm-2">
@@ -251,7 +251,7 @@ if (!isset($_SESSION['level'])) {
                         <div class="form-group">
                             <label for="inputPrs" class="col-sm-2 control-label">Pegawai RS</label>
                             <div class="col-sm-1">
-                                <input type="text" name="pegrs" id="inputPrs" class="form-control" placeholder="Y/ T">
+                                <input type="text" name="pegrs" id="inputPrs" class="form-control" placeholder="Y/T">
                             </div>
                         </div>
                         <div class="form-group">
@@ -379,14 +379,14 @@ if (!isset($_SESSION['level'])) {
             </div>
         </div>
         <script>
-            var timeDisplay = document.getElementById("waktu");
-            function refreshTime() {
-            var dateString = new Date().toLocaleString("en-US", {timeZone: "Asia/Jakarta"});
-            var formattedString = dateString.replace(", ", " - ");
-            timeDisplay.innerHTML = formattedString;
-            }
+            // var timeDisplay = document.getElementById("waktu");
+            // function refreshTime() {
+            // var dateString = new Date().toLocaleString("en-US", {timeZone: "Asia/Jakarta"});
+            // var formattedString = dateString.replace(", ", " - ");
+            // timeDisplay.innerHTML = formattedString;
+            // }
 
-            setInterval(refreshTime, 1000);
+            // setInterval(refreshTime, 1000);
         </script>
     </body>
 </html>

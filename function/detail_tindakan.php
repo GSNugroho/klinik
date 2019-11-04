@@ -111,11 +111,11 @@ if (!isset($_SESSION['level'])) {
 //                                    $query = mysql_query("select * from pasien");
 //                                    $query = mysql_query("select * from kunjungan p INNER JOIN user u ON p.id_user = u.id_user");
   //                                  $query = mysql_query("select * from kunjungan p INNER JOIN user u ON p. id_user = u.id_user LEFT JOIN pasien s ON p.no_rm = s.no_rm");
-                                    $query = mysql_query("select * from tindakan_medis p INNER JOIN petugas_kesehatan u ON p.id_petugas = u.id_petugas 
+                                    $query = mysqli_query($koneksi, "select * from tindakan_medis p INNER JOIN petugas_kesehatan u ON p.id_petugas = u.id_petugas 
                                                         LEFT JOIN diagnosis t ON p.id_diagnosis = t.id_diagnosis
                                                         LEFT JOIN daftar_tindakan s ON p.id_tindakan = s.id_tindakan WHERE p.id_kunjungan = '".$id_kunjungan."'");
                                     $no = 0;
-                                    while ($hasil = mysql_fetch_array($query)) {
+                                    while ($hasil = mysqli_fetch_array($query)) {
                                         $no++;
                                         echo "<tr>
                                         <td>" . $no . "</td>

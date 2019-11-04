@@ -17,12 +17,12 @@ if (isset($_POST['btntambah'])) {
     $poliklinik = $_POST['poliklinik'];
     $diagnosis = $_POST['diagnosis'];
     $id_tindakan = $_POST['daftarTindakan'];
-    $query_diagnosis = mysql_query("SELECT id_diagnosis FROM diagnosis WHERE nama_indonesia = '$diagnosis'");
-    $cari_diagnosis = mysql_fetch_array($query_diagnosis);
+    $query_diagnosis = mysqli_query($koneksi, "SELECT id_diagnosis FROM diagnosis WHERE nama_indonesia = '$diagnosis'");
+    $cari_diagnosis = mysqli_fetch_array($query_diagnosis);
     $id_diagnosis = $cari_diagnosis['id_diagnosis'];
     $query = "INSERT INTO tmp_tindakan_medis (id_kunjungan,poliklinik, id_diagnosis, id_tindakan, id_petugas) VALUES ('$id_kunjungan','$poliklinik', '$id_diagnosis', '$id_tindakan', '$id_petugas')";
 
-    $input_tindakan = mysql_query($query) or die(mysql_error());
+    $input_tindakan = mysqli_query($koneksi, $query) or die(mysqli_error($koneksi));
     header('location: add_rawatjalan.php?rm=' . $_SESSION['rm']);
 }
 
@@ -30,14 +30,14 @@ if ($_GET['id']) {
 
 //$id_tm = buatKode("tindakan_medis", "TM");
     $query = "select distinct p.poliklinik as poli, p.id_diagnosis as diag,p.id_tindakan as tin,p.id_petugas as pet,u.harga_tindakan as total
-from tmp_tindakan_medis p INNER JOIN daftar_tindakan u ON p.id_tindakan = u.id_tindakan where p.id_kunjungan = '" . $_GET['id'] . "'";
+    from tmp_tindakan_medis p INNER JOIN daftar_tindakan u ON p.id_tindakan = u.id_tindakan where p.id_kunjungan = '" . $_GET['id'] . "'";
     $date = date('Y-m-d');
-    $load = mysql_query($query) or die(mysql_error());
+    $load = mysqli_query($koneksi, $query) or die(mysqli_error($koneksi));
     $total = 0;
-    $masuk = mysql_query("INSERT INTO kunjungan (id_kunjungan, no_rm, id_user, tgl_periksa)
-                    VALUES ('" . $_GET['id'] . "', '" . $_SESSION['rm'] . "', '" . $_SESSION['id_user'] . "', '$date')") or die(mysql_error());
+    $masuk = mysqli_query($koneksi, "INSERT INTO kunjungan (id_kunjungan, no_rm, id_user, tgl_periksa)
+                    VALUES ('" . $_GET['id'] . "', '" . $_SESSION['rm'] . "', '" . $_SESSION['id_user'] . "', '$date')") or die(mysqli_error($koneksi));
 
-    while ($hasil = mysql_fetch_array($load)) {
+    while ($hasil = mysqli_fetch_array($load)) {
         $total = $total + $hasil['total'];
         $poli = $hasil['poli'];
         $diag = $hasil['diag'];
@@ -47,17 +47,17 @@ from tmp_tindakan_medis p INNER JOIN daftar_tindakan u ON p.id_tindakan = u.id_t
         $id = $_GET['id'];
 
         $query = "INSERT INTO tindakan_medis (poliklinik, id_diagnosis, id_tindakan, id_petugas,id_kunjungan) VALUES ('$poli', '$diag', '$id_tin', '$pet','$id')";
-        $input_tindakan = mysql_query($query) or die(mysql_error());
+        $input_tindakan = mysqli_query($koneksi, $query) or die(mysqli_error($koneksi));
     }
-    $update = mysql_query("UPDATE kunjungan SET biaya_periksa ='$total' WHERE id_kunjungan = '" . $_GET['id'] . "'") or die(mysql_error());
+    $update = mysqli_query($koneksi, "UPDATE kunjungan SET biaya_periksa ='$total' WHERE id_kunjungan = '" . $_GET['id'] . "'") or die(mysql_error());
 
 
     $delete = "DELETE FROM tmp_tindakan_medis where id_kunjungan='" . $_GET['id'] . "'";
-    $die = mysql_query($delete) or die(mysql_error());
+    $die = mysqli_query($koneksi, $delete) or die(mysqli_error($koneksi));
     $id_kuitansi = buatKode("kuitansi", "K");
 
 
-    $insert_kuitansi = mysql_query("INSERT INTO kuitansi (id_kuitansi, id_kunjungan, id_user, biaya_periksa, biaya_resep, total_bayar) VALUES 
+    $insert_kuitansi = mysqli_query($koneksi, "INSERT INTO kuitansi (id_kuitansi, id_kunjungan, id_user, biaya_periksa, biaya_resep, total_bayar) VALUES 
                 ('" . $id_kuitansi . "', '" . $_GET['id'] . "', '" . $_SESSION['id_user'] . "', '" . $total . "', '0', '" . $total . "')");
 
     header('location: data_rawatjalan.php');
@@ -66,7 +66,7 @@ from tmp_tindakan_medis p INNER JOIN daftar_tindakan u ON p.id_tindakan = u.id_t
 if (isset($_GET['delete'])) {
     $query = "Delete from tmp_tindakan_medis where id_tmp_tm = " . $_GET['delete'];
 
-    $jipot = mysql_query($query) or die(mysql_error());
+    $jipot = mysqli_query($koneksi, $query) or die(mysqli_error($koneksi));
     header('location: add_rawatjalan.php?rm=' . $_SESSION['rm']);
 }
 
