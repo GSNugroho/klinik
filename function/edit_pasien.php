@@ -55,9 +55,9 @@ if (!isset($_SESSION['level'])) {
                         <?php
 //                            include '../koneksi.php';
 //                            include '../library/library.php';
-                            $query = mysql_query("SELECT * FROM pasien WHERE no_rm ='".$no_rm."'");
+                            $query = mysqli_query($koneksi, "SELECT * FROM pasien_b WHERE no_rm ='".$no_rm."'");
                             $no = 0;
-                            while ($hasil = mysql_fetch_array($query)) {
+                            while ($hasil = mysqli_fetch_array($query)) {
                                 ?>
                         <div class="form-group">
                             
@@ -69,7 +69,7 @@ if (!isset($_SESSION['level'])) {
                         <div class="form-group">
                             <label for="inputNama" class="col-sm-3 control-label">Nama</label>
                             <div class="col-sm-9">
-                                <input type="text" name="nama" class="form-control" id="inputNama" value="<?php echo $hasil['nama_pasien'];?>" placeholder="Nama Pasien">
+                                <input type="text" name="nama" class="form-control" id="inputNama" value="<?php echo $hasil['nm_pasien'];?>" placeholder="Nama Pasien">
                             </div>
                         </div>
                         <div class="form-group">
@@ -81,19 +81,19 @@ if (!isset($_SESSION['level'])) {
                         <div class="form-group">
                             <label for="inputUmur" class="col-sm-3 control-label">Umur</label>
                             <div class="col-sm-9">
-                                <input type="text" name="umur" class="form-control" value="<?php echo $hasil['umur'];?>" id="inputUmur" placeholder="Umur Pasien">
+                                <input type="text" name="umur" class="form-control" value="<?php echo $hasil['umur_pasien'];?>" id="inputUmur" placeholder="Umur Pasien">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="inputTempatLahir" class="col-sm-3 control-label">Tempat Lahir</label>
                             <div class="col-sm-9">
-                                <input type="text" name="tempat_lahir" value="<?php echo $hasil['tempat_lahir'];?>" class="form-control" id="inputTempatLahir" placeholder="Tempat Lahir Pasien">
+                                <input type="text" name="tempat_lahir" value="<?php echo $hasil['tmpt_lahir'];?>" class="form-control" id="inputTempatLahir" placeholder="Tempat Lahir Pasien">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="inputTanggalLahir" class="col-sm-3 control-label">Tanggal Lahir</label>
                             <div class="col-sm-9">
-                                <input type="date" name="tgl_lahir" class="form-control" value="<?php echo $hasil['tgl_lahir_pasien'];?>" id="inputTanggalLahir" placeholder="Tahun-Bulan-tanggal">
+                                <input type="date" name="tgl_lahir" class="form-control" value="<?php echo date('mm-dd-yyyy', strtotime($hasil['tgl_lahir']));?>" id="inputTanggalLahir" placeholder="Tahun-Bulan-tanggal">
                             </div>
                         </div>
                         <div class="form-group">

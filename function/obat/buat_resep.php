@@ -126,7 +126,7 @@ if (isset($_GET['id_kunjungan'])) {
                                     <option value="KOSONG">......</option>
                                     <?php
                                     $daftarObat = isset($_POST['daftarObat']) ? $_POST['daftarObat'] : '';
-                                    $bacaSql = mysqli_query($koneksi, "SELECT * FROM obat ORDER BY id_obat");
+                                    $bacaSql = mysqli_query($koneksi, "SELECT * FROM obat ORDER BY nama_obat");
 
                                     while ($bacaData = mysqli_fetch_array($bacaSql)) {
                                         if ($bacaData['id_obat'] == $daftarObat) {

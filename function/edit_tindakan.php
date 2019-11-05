@@ -55,9 +55,9 @@ if (!isset($_SESSION['level'])) {
                        <?php
 //                            include '../koneksi.php';
 //                            include '../library/library.php';
-                            $query = mysql_query("SELECT * FROM daftar_tindakan WHERE id_tindakan ='".$id_tindakan."'");
+                            $query = mysqli_query($koneksi, "SELECT * FROM daftar_tindakan WHERE id_tindakan ='".$id_tindakan."'");
                             $no = 0;
-                            while ($hasil = mysql_fetch_array($query)) {
+                            while ($hasil = mysqli_fetch_array($query)) {
                             ?>
                         
                         <div class="form-group">

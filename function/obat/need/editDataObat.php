@@ -44,8 +44,8 @@ if (!isset($_SESSION['level'])) {
                     </div>
                     <form class="form-horizontal" action="proses.php?aksi=editObat" method="POST" >
                         <?php
-                        $query = mysql_query("select * from obat where id_obat ='" . $id_obat . "'");
-                        while ($hasil = mysql_fetch_array($query)) {
+                        $query = mysqli_query($koneksi, "select * from obat where id_obat ='" . $id_obat . "'");
+                        while ($hasil = mysqli_fetch_array($query)) {
                             ?>
 
                             <div class="form-group">

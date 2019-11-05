@@ -14,6 +14,13 @@ if (!isset($_SESSION['level'])) {
         <title><?=namaKlinik()?></title>
         <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="../css/dashboard.css">
+        <!-- <link rel="stylesheet" type="text/css" href="../datepicker/css/bootstrap.min.css"> -->
+        <link rel="stylesheet" type="text/css" href="../datepicker/css/ilmudetil.css">
+        <link rel="stylesheet" type="text/css" href="../datepicker/css/bootstrap-datetimepicker.css">
+        <script src="../datepicker/js/bootstrap.min.js"></script>
+        <script src="../datepicker/js/moment-with-locales.js"></script>
+        <script src="../datepicker/js/jquery-1.11.3.min.js"></script>
+        <script src="../datepicker/js/bootstrap-datetimepicker.js"></script>
     </head>
     <body>
 
@@ -72,15 +79,15 @@ if (!isset($_SESSION['level'])) {
                 }
                 ?>
 
-                <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main" style="margin-left:15%;">
+                <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main" style="margin-left: 20%;">
                     <h1 class="page-header">Penambahan Pasien</h1>
                     <form class="form-horizontal" name="addPasien" action="tambah_pasien.php" method="post" >
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="inputTgl_dftr" class="col-sm-2 control-label">Tgl. Daftar</label>
                             <div class="col-sm-2">
-                                <input type="text" name="tgl_dftr" class="form-control" id="inputTgl_dftr" value="<?php echo date('d/m/Y')?>" readonly> <!--<span id="waktu"></span>-->
+                                <input type="text" name="tgl_dftr" class="form-control" id="inputTgl_dftr" value="<?php //echo date('d/m/Y')?>" readonly> 
                             </div>
-                        </div>
+                        </div> -->
                         
                         <div class="form-group">
                             <?php
@@ -108,7 +115,7 @@ if (!isset($_SESSION['level'])) {
                             <div class="col-sm-3">
                                 <input type="text" name="nama" class="form-control" id="inputNama" required="" placeholder="Nama Pasien">
                             </div>
-                            <label for="inputKln" class="col-sm-2 control-label">Kelamin</label>
+                            <label for="inputKln" class="col-sm-3 control-label">Kelamin</label>
                             <div class="col-sm-1">
                                 <input type="text" name="kelamin" class="form-control" id="inputKln" required="" placeholder="L/ P">
                             </div>
@@ -118,7 +125,7 @@ if (!isset($_SESSION['level'])) {
                             <div class="col-sm-3">
                                 <input type="text" name="t_lahir" class="form-control" id="inputTlahir" required="" placeholder="Tempat Lahir">
                             </div>
-                            <label for="inputNik" class="col-sm-2 control-label">NIK</label>
+                            <label for="inputNik" class="col-sm-3 control-label">NIK</label>
                             <div class="col-sm-3">
                                 <input type="text" name="nik" class="form-control" id="inputNik" required="" placeholder="NIK">
                             </div>
@@ -126,7 +133,7 @@ if (!isset($_SESSION['level'])) {
                         <div class="form-group">
                             <label for="inputTanggalLahir" class="col-sm-2 control-label">Tanggal Lahir</label>
                             <div class="col-sm-2">
-                                <input type="date" name="tgl_lahir" class="form-control" id="inputTanggalLahir" required="" placeholder="Tahun-Bulan-tanggal">
+                                <input type="text" name="tgl_lahir" class="form-control" id="inputTanggalLahir" required="" >
                             </div>
                         </div>
                         <div class="form-group">
@@ -142,7 +149,7 @@ if (!isset($_SESSION['level'])) {
                                     <option>Konghucu</option>
                                 </select>
                             </div>
-                            <label for="inputNegara" class="col-sm-3 control-label">Negara</label>
+                            <label for="inputNegara" class="col-sm-4 control-label">Negara</label>
                             <div class="col-sm-2">
                                 <select name="negara" id="inputNegara" class="form-control">
                                     <option></option>
@@ -160,7 +167,7 @@ if (!isset($_SESSION['level'])) {
                                 <option>Tidak Kawin</option>
                             </select>
                             </div>
-                            <label for="inputPndd" class="col-sm-3 control-label">Pendidikan</label>
+                            <label for="inputPndd" class="col-sm-4 control-label">Pendidikan</label>
                             <div class="col-sm-2">
                                 <select name="pndd" id="inputPndd" class="form-control">
                                     <option></option>
@@ -183,7 +190,7 @@ if (!isset($_SESSION['level'])) {
                         </div>
                         <div class="form-group">
                             <label for="inputAlamat" class="col-sm-2 control-label">Alamat</label>
-                            <div class="col-sm-8">
+                            <div class="col-sm-9">
                                 <input type="text" name="alamat" class="form-control" id="inputAlamat" required="" placeholder="Alamat Pasien">
                             </div>
                         </div>
@@ -192,7 +199,7 @@ if (!isset($_SESSION['level'])) {
                             <div class="col-sm-2">
                                 <input type="text" name="telpon" class="form-control" id="inputTelp" required="">
                             </div>
-                            <label for="inputHP" class="col-sm-3 control-label">HP</label>
+                            <label for="inputHP" class="col-sm-4 control-label">HP</label>
                             <div class="col-sm-2">
                                 <input type="text" name="hp" class="form-control" id="inputHP" required="">
                             </div>
@@ -239,7 +246,7 @@ if (!isset($_SESSION['level'])) {
                                     <option>Mojosongo</option>
                                 </select>
                             </div>
-                            <label for="inputRt" class="col-sm-3 control-label">RT</label>
+                            <label for="inputRt" class="col-sm-4 control-label">RT</label>
                             <div class="col-sm-1">
                                 <input type="text" name="rt" id="inputRt" class="form-control">
                             </div>
@@ -292,7 +299,7 @@ if (!isset($_SESSION['level'])) {
                         </div>
                         <div class="form-group">
                             <label for="inputWal" class="col-sm-2 control-label">Nama Wali</label>
-                            <div class="col-sm-2">
+                            <div class="col-sm-3">
                                 <input type="text" class="form-control" name="nm_wali" id="inputWal" required="">
                             </div>
                             <label for="inputHub" class="col-sm-3 control-label">Hub. Dgn. Pasien</label>
@@ -306,7 +313,7 @@ if (!isset($_SESSION['level'])) {
                         </div>
                         <div class="form-group">
                             <label for="inputOrtu" class="col-sm-2 control-label">Nama Ortu</label>
-                            <div class="col-sm-2">
+                            <div class="col-sm-3">
                                 <input type="text" class="form-control" name="nm_ortu" id="inputOrtu" required="">
                             </div>
                             <label for="inputPkrWal" class="col-sm-3 control-label">Pekerjaan Wali</label>
@@ -379,14 +386,31 @@ if (!isset($_SESSION['level'])) {
             </div>
         </div>
         <script>
-            // var timeDisplay = document.getElementById("waktu");
-            // function refreshTime() {
-            // var dateString = new Date().toLocaleString("en-US", {timeZone: "Asia/Jakarta"});
-            // var formattedString = dateString.replace(", ", " - ");
-            // timeDisplay.innerHTML = formattedString;
-            // }
-
-            // setInterval(refreshTime, 1000);
+            function getAge() {
+	var date = document.getElementById('birthday').value;
+ 
+	if(date === ""){
+		alert("Please complete the required field!");
+    }else{
+		var today = new Date();
+		var birthday = new Date(date);
+		var year = 0;
+		if (today.getMonth() < birthday.getMonth()) {
+			year = 1;
+		} else if ((today.getMonth() == birthday.getMonth()) && today.getDate() < birthday.getDate()) {
+			year = 1;
+		}
+		var age = today.getFullYear() - birthday.getFullYear() - year;
+ 
+		if(age < 0){
+			age = 0;
+		}
+		document.getElementById('result').innerHTML = age;
+	}
+}
+        $(function() {
+            $('#inputTanggalLahir').datetimepicker({locale: 'id', format: "DD-MM-YYYY"});
+        });
         </script>
     </body>
 </html>

@@ -7,14 +7,14 @@ if (isset($_POST['submit'])){
         include '../library/library.php';
         
         
-        $idUser = $_POST[idUser];
+        $idUser = $_POST['idUser'];
         $nama = $_POST['nama'];
         $username = $_POST['username'];
         $password = md5($_POST['password']);
         $status = $_POST['status'];
          print_r($_POST);
          
-         $edit = mysql_query("UPDATE user SET nama_user='".$nama."',username='".$username."', password='".$password."', status='".$status."'WHERE id_user = '".$idUser."'");
+         $edit = mysqli_query($koneksi, "UPDATE user SET nama_user='".$nama."',username='".$username."', password='".$password."', status='".$status."'WHERE id_user = '".$idUser."'");
         
         
          if ($edit){

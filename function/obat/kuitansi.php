@@ -70,9 +70,9 @@
                                 <tbody id="myTable">
                                     <?php
                                     include_once '../../db/koneksi.php';
-                                    $query = mysql_query("select * from obat");
+                                    $query = mysqli_query($koneksi, "select * from obat");
                                     $no = 0;
-                                    while ($hasil = mysql_fetch_array($query)) {
+                                    while ($hasil = mysqli_fetch_array($query)) {
                                         $no++;
                                         echo "<tr>
                                         <td>" . $no . "</td>

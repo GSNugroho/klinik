@@ -7,7 +7,7 @@ if (isset($_POST['submit'])){
         include '../library/library.php';
         
         
-        $idPetugas = $_POST[idPetugas];
+        $idPetugas = $_POST['idPetugas'];
         $nama = $_POST['nama'];
         $alamat = $_POST['alamat'];
         $tempat_lahir = $_POST['tempat_lahir'];
@@ -17,7 +17,7 @@ if (isset($_POST['submit'])){
         $status = $_POST['status'];
          print_r($_POST);
          
-         $edit = mysql_query("UPDATE petugas_kesehatan SET nama_petugas='".$nama."',alamat_petugas='".$alamat."', tempat_lahir='".$tempat_lahir."', tgl_lahir_petugas='".$tgl_lahir."', no_telp='".$no_telp."', poliklinik='".$poliklinik."', status='".$status."' WHERE id_petugas = '".$idPetugas."'");
+         $edit = mysqli_query($koneksi, "UPDATE petugas_kesehatan SET nama_petugas='".$nama."',alamat_petugas='".$alamat."', tempat_lahir='".$tempat_lahir."', tgl_lahir_petugas='".$tgl_lahir."', no_telp='".$no_telp."', poliklinik='".$poliklinik."', status='".$status."' WHERE id_petugas = '".$idPetugas."'");
         
         
          if ($edit){

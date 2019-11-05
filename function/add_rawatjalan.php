@@ -93,7 +93,7 @@ $_SESSION['rm'] = $_GET['rm'];
                 ?>
 
 
-                <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main">
+                <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main" style="margin-left: 20%">
                     <h1 class="page-header">Rawat Jalan Pasien</h1>
                     <form class="form-horizontal" name="addRawatjalan" action="tambah_rawatjalan.php" method="post" >
                         <h2 class="sub-header">Data Kunjungan</h2>
@@ -206,7 +206,6 @@ $_SESSION['rm'] = $_GET['rm'];
                                     }
                                     ?>
                                 </select>
-
                             </div>
                         </div>
                         <div class="form-group">

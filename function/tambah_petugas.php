@@ -17,10 +17,10 @@ $poliklinik = $_POST['poliklinik'];
 $status = $_POST['status'];
 
 
-$input= mysql_query("INSERT INTO petugas_kesehatan (id_petugas, nama_petugas, alamat_petugas, 
+$input= mysqli_query($koneksi, "INSERT INTO petugas_kesehatan (id_petugas, nama_petugas, alamat_petugas, 
 					tempat_lahir, tgl_lahir_petugas, no_telp, poliklinik, id_user, status) 
 					VALUES ('$idPetugas','$nama','$alamat','$tempat_lahir','$tgl_lahir','$no_telp',
-                                            '$poliklinik','$id_user', '$status')") or die(mysql_error());
+                                            '$poliklinik','$id_user', '$status')") or die(mysqli_error($koneksi));
 if ($input){
     header('location: data_petugas.php');
     

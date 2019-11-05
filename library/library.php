@@ -28,6 +28,9 @@ function buatKode($tabel, $inisial){
 	}else if($inisial == "K"){
 		require "../koneksi.php";
 		$struktur = mysqli_query($koneksi, "SELECT id_kuitansi FROM $tabel");
+	}else if($inisial == "P"){
+		require "../koneksi.php";
+		$struktur = mysqli_query($koneksi, "SELECT id_petugas FROM $tabel");
 	}
 	
 	// $field = mysql_field_name($struktur,0);

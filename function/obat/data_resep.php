@@ -82,8 +82,8 @@ if (!isset($_SESSION['level'])) {
 //                                                . "LEFT JOIN user u ON u.id_user = k.id_user WHERE cabang='" . $_SESSION['cabang'] . "' ORDER BY r.id_resep DESC") or die(mysql_error());
 //                                    }
                                     $query = mysqli_query($koneksi, "SELECT * FROM resep r LEFT JOIN kunjungan k ON r.id_kunjungan = k.id_kunjungan "
-                                            . "LEFT JOIN pasien p ON p.no_rm = k.no_rm "
-                                            . "LEFT JOIN user u ON u.id_user = k.id_user ORDER BY r.id_resep DESC") or die(mysql_error());
+                                            . "LEFT JOIN pasien_b p ON p.no_rm = k.no_rm "
+                                            . "LEFT JOIN user u ON u.id_user = k.id_user ORDER BY r.id_resep DESC") or die(mysqli_error($koneksi));
                                     $no = 0;
 
                                     while ($hasil = mysqli_fetch_array($query)) {
@@ -93,7 +93,7 @@ if (!isset($_SESSION['level'])) {
                                         <td>" . $hasil['id_resep'] . "</td>
                                         <td>" . $hasil['id_kunjungan'] . "</td>
                                         <td>" . $hasil['no_rm'] . "</td>
-                                        <td>" . $hasil['nama_pasien'] . "</td>
+                                        <td>" . $hasil['nm_pasien'] . "</td>
                                         <td>" . $hasil['username'] . "</td>
                                         <td>" . $hasil['biaya_resep'] . "</td>
                                         <td><a class = 'btn btn-success' href = 'need/detailResep.php?id_resep=" . $hasil['id_resep'] . "'>Detail</a></td>

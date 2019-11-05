@@ -52,9 +52,9 @@ if (!isset($_SESSION['level'])) {
                        <?php
 //                            include '../koneksi.php';
 //                            include '../library/library.php';
-                            $query = mysql_query("SELECT * FROM user WHERE id_user ='".$id_user."'");
+                            $query = mysqli_query($koneksi, "SELECT * FROM user WHERE id_user ='".$id_user."'");
                             $no = 0;
-                            while ($hasil = mysql_fetch_array($query)) {
+                            while ($hasil = mysqli_fetch_array($query)) {
                             ?>
                         
                         <div class="form-group">

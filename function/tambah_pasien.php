@@ -7,9 +7,9 @@ $id_user = $_SESSION['id_user'];
 $norm = buatKode("pasien_b", "RM");
 $nm_pasien = $_POST['nama'];
 $kelamin = $_POST['kelamin'];
-$tmpt_lahir = date('Y-m-d', strtotime($_POST['t_lahir']));
+$tmpt_lahir = $_POST['t_lahir'];
 $nik = $_POST['nik'];
-$tgl_lahir = $_POST['tgl_lahir'];
+$tgl_lahir = date('Y-m-d', strtotime($_POST['tgl_lahir']));
 $agama = $_POST['agama'];
 $negara = $_POST['negara'];
 $sts_kawin = $_POST['st_kawin'];
@@ -37,9 +37,10 @@ $nm_wali = $_POST['nm_wali'];
 $hub_wali = $_POST['hub_wali'];
 $nm_ortu = $_POST['nm_ortu'];
 $pkrj_wali = $_POST['pkrj_wali'];
-$tgl_dftr = date('Y-m-d', strtotime($_POST['tgl_dftr']));
-$umur = $tgl_dftr-$tgl_lahir;
-echo $umur;
+// $tgl_dftr = date('Y-m-d', strtotime($_POST['tgl_dftr']));
+$tgl_dftr = date('Y-m-d');
+// $umur = $tgl_dftr-$tgl_lahir;
+// echo $umur;
 // $input= mysqli_query($koneksi, "INSERT INTO pasien (no_rm, nama_pasien, alamat_pasien, 
 // 					tempat_lahir, tgl_lahir_pasien, umur, jk_pasien, tgl_daftar, id_user) 
 // 					VALUES ('$norm','$nama','$alamat','$tempat_lahir','$tgl_lahir','$umur',
