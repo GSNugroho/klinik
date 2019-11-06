@@ -10,7 +10,7 @@ include '../koneksi.php';
 
 $term = trim(strip_tags($_GET['term']));
 
-$qstring = "SELECT * FROM diagnosis WHERE nama_indonesia LIKE '" . $term . "%'";
+$qstring = "SELECT nama_indonesia FROM diagnosis WHERE nama_indonesia LIKE '" . $term . "%'";
 //query database untuk mengecek tabel anime 
 $result = mysqli_query($koneksi, $qstring);
 

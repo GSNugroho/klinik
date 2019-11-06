@@ -17,10 +17,13 @@ if (!isset($_SESSION['level'])) {
         <!-- <link rel="stylesheet" type="text/css" href="../datepicker/css/bootstrap.min.css"> -->
         <link rel="stylesheet" type="text/css" href="../datepicker/css/ilmudetil.css">
         <link rel="stylesheet" type="text/css" href="../datepicker/css/bootstrap-datetimepicker.css">
+        <link rel="stylesheet" type="text/css" href="../js/jquery-ui-1.11.4/jquery-ui-1.11.4/jquery-ui.min.css"> 
+        
+        <script src="../datepicker/js/jquery-1.11.3.min.js"></script>
         <script src="../datepicker/js/bootstrap.min.js"></script>
         <script src="../datepicker/js/moment-with-locales.js"></script>
-        <script src="../datepicker/js/jquery-1.11.3.min.js"></script>
         <script src="../datepicker/js/bootstrap-datetimepicker.js"></script>
+        <script type="text/javascript" src="../js/jquery-ui-1.11.4/jquery-ui-1.11.4/jquery-ui.js"></script>
     </head>
     <body>
 
@@ -80,7 +83,8 @@ if (!isset($_SESSION['level'])) {
                 ?>
 
                 <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main" style="margin-left: 20%;">
-                    <h1 class="page-header">Penambahan Pasien</h1>
+                    <h1 class="page-header">Pendaftaran Pasien</h1>
+                    <h2 class="sub-header">Data Pasien</h2>
                     <form class="form-horizontal" name="addPasien" action="tambah_pasien.php" method="post" >
                         <!-- <div class="form-group">
                             <label for="inputTgl_dftr" class="col-sm-2 control-label">Tgl. Daftar</label>
@@ -113,7 +117,7 @@ if (!isset($_SESSION['level'])) {
                         <div class="form-group">
                             <label for="inputNama" class="col-sm-2 control-label">Nama</label>
                             <div class="col-sm-3">
-                                <input type="text" name="nama" class="form-control" id="inputNama" required="" placeholder="Nama Pasien">
+                                <input type="text" name="nama" class="form-control" id="inputNama" required="">
                             </div>
                             <label for="inputKln" class="col-sm-3 control-label">Kelamin</label>
                             <div class="col-sm-1">
@@ -123,7 +127,7 @@ if (!isset($_SESSION['level'])) {
                         <div class="form-group">
                             <label for="inputTlahir" class="col-sm-2 control-label">Tempat Lahir</label>
                             <div class="col-sm-3">
-                                <input type="text" name="t_lahir" class="form-control" id="inputTlahir" required="" placeholder="Tempat Lahir">
+                                <input type="text" name="t_lahir" class="form-control" id="inputTlahir" required="">
                             </div>
                             <label for="inputNik" class="col-sm-3 control-label">NIK</label>
                             <div class="col-sm-3">
@@ -297,6 +301,8 @@ if (!isset($_SESSION['level'])) {
                                 <input type="text" name="h_rate" class="form-control" id="inputHr">
                             </div>
                         </div>
+                        
+                        <h2 class="sub-header"></h2>
                         <div class="form-group">
                             <label for="inputWal" class="col-sm-2 control-label">Nama Wali</label>
                             <div class="col-sm-3">
@@ -326,12 +332,13 @@ if (!isset($_SESSION['level'])) {
                                 </select>
                             </div>
                         </div>
-                        <!-- <div class="form-group">
+                        <h2 class="sub-header"></h2>
+                        <div class="form-group">
                             <label for="inputAl" class="col-sm-2 control-label">Alergi Thd.</label>
                             <div class="col-sm-3">
                                 <input type="text" class="form-control" name="alergi" id="inputAl" required="">
                             </div>
-                            <label for="inputUrk" class="col-sm-2 control-label">No. Urut Klinik</label>
+                            <label for="inputUrk" class="col-sm-3 control-label">No. Urut Klinik</label>
                             <div class="col-sm-1">
                                 <input type="text" class="form-control" name="no_urk" id="inputUrk" readonly>
                             </div>
@@ -344,7 +351,7 @@ if (!isset($_SESSION['level'])) {
                                     <option></option>
                                 </select>
                             </div>
-                            <label for="inputSmp" class="col-sm-2 control-label">Sumber Pasien</label>
+                            <label for="inputSmp" class="col-sm-3 control-label">Sumber Pasien</label>
                             <div class="col-sm-3">
                                 <select name="sm_psn" class="form-control" id="inputSmp">
                                     <option></option>
@@ -357,7 +364,7 @@ if (!isset($_SESSION['level'])) {
                             <div class="col-sm-1">
                                 <input type="text" name="sts_psn" class="form-control" id="inputStsp" placeholder="B/ L">
                             </div>
-                            <label for="inputPng" class="col-sm-4 control-label">NIK PNG</label>
+                            <label for="inputPng" class="col-sm-5 control-label">NIK PNG</label>
                             <div class="col-sm-3">
                                 <select name="nik_png" class="form-control" id="inputPng">
                                     <option></option>
@@ -370,18 +377,217 @@ if (!isset($_SESSION['level'])) {
                             <div class="col-sm-1">
                                 <input type="text" name="kr_b" class="form-control" id="inputKba">
                             </div>
-                            <label for="inputNurd" class="col-sm-4 control-label">No. Urut Dokter</label>
+                            <label for="inputNurd" class="col-sm-5 control-label">No. Urut Dokter</label>
                             <div class="col-sm-1">
                                 <input type="text" name="no_urd" class="form-control" id="inputNurd" readonly>
                             </div>
-                        </div> -->
+                        </div>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-9">
                                 <button class="btn btn-primary" type="submit">Tambahkan</button>
                             </div>
                         </div>
 
+                        <h2 class="sub-header">Peserta BPJS</h2>
+                        <div class="form-group">
+                            <label for="inputNokartu" class="col-sm-1 control-label">No. Kartu</label>
+                            <div class="col-sm-2">
+                                <input type="text" name="no_kartu" class="form-control" id="inputNokartu">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputNmbpjs" class="col-sm-1 control-label">Nama</label>
+                            <div class="col-sm-3">
+                                <input type="text" name="nm_bpjs" class="form-control" id="inputNmbpjs" readonly>
+                            </div>
+                            <label for="inputJkbpjs" class="col-sm-2 control-label">Jk</label>
+                            <div class="col-sm-1">
+                                <input type="text" name="jk_bpjs" class="form-control" id="inputJkbpjs" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputTglbpjs" class="col-sm-1 control-label">Tgl. Lahir</label>
+                            <div class="col-sm-2">
+                                <input type="text" name="tgl_bpjs" class="form-control" id="inputTglbpjs" readonly>
+                            </div>
+                            <label for="inputPstbpjs" class="col-sm-1 control-label">PISAT</label>
+                            <div class="col-sm-2">
+                                <input type="text" name="pst_bpjs" class="form-control" id="inputPstbpjs" readonly>
+                            </div>
+                            <label for="inputKlsbpjs" class="col-sm-1 control-label">Kelas</label>
+                            <div class="col-sm-2">
+                                <input type="text" name="kls_bpjs" class="form-control" id="inputKlsbpjs" readonly>
+                            </div>
+                            <label for="inputPsrbpjs" class="col-sm-1 control-label">Peserta</label>
+                            <div class="col-sm-2">
+                                <input type="text" name="psr_bpjs" class="form-control" id="inputPsrbpjs" readonly>
+                            </div>
+                        </div>
+                        <h2 class="sub-header">Poliklinik</h2>
+                        <div class="form-group">
+                            <label for="inputJnsrawat" class="col-sm-2 control-label">Jenis Rawat</label>
+                            <div class="col-sm-2">
+                                <select name="jnsrwt_bpjs" class="form-control" id="inputJnsrawat">
+                                    <option>Jns. Rawat</option>
+                                    <option>Rawat Jalan</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <select name="klsrwt_bpjs" class="form-control" id="inputKlsrwt" readonly>
+                                    <option>Kelas I</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <select name="fksrwt_bpjs" class="form-control" id="inputFksrwt">
+                                    <option>Faskes 1</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <select class="form-control">
+                                    <option></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputTglruj" class="col-sm-2 control-label">Tgl. Rujukan</label>
+                            <div class="col-sm-2">
+                                <input type="text" name="tglruj_bpjs" class="form-control" id="inputTglruj">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputNoruj" class="col-sm-2 control-label">No Rujukan</label>
+                            <div class="col-sm-2">
+                                <input type="text" name="noruj_bpjs" class="form-control" id="inputNoruj">
+                            </div>
+                            <label for="inputNokon" class="col-sm-2 control-label">No. Kontrol</label>
+                            <div class="col-sm-2">
+                                <input type="text" name="nokon_bpjs" class="form-control" id="inputNokon">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPoli" class="col-sm-2 control-label">Poli Tujuan</label>
+                            <div class="col-sm-2">
+                                <select name="poli7an_bpjs" class="form-control" id="inputPoli">
+                                    <option></option>
+                                    <option>Umum</option>
+                                    <option>Gigi</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputDrrs" class="col-sm-2 control-label">Petugas Kesehatan</label>
+                            <div class="col-sm-2">
+                                <select name="drrs_bpjs" class="form-control" id="inputDrrs">
+                                    <option value=""></option>
+                                    <?php
+                                        $dataPetugas = isset($_POST['pilihPetugas']) ? $_POST['pilihPetugas'] :"";
+                                        $sql = mysqli_query($koneksi, "SELECT id_petugas, nama_petugas FROM petugas_kesehatan ORDER BY id_petugas");
+                                        
+                                        while($row = mysqli_fetch_array($sql))
+                                        {
+                                            if($row['id_petugas'] == $dataPetugas) {
+                                                $pilih = "selected";
+                                            }else{
+                                                $pilih ="";
+                                            }
+                                            echo "<option value='".$row['id_petugas']."' ".$pilih.">".$row['nama_petugas']."</option>";
+                                        }
+                                    ?>
+                                </select>
+                            </div>
+                            <label for="inputPrks" class="col-sm-2 control-label">Periksa</label>
+                            <div class="col-sm-2">
+                                <select name="prks_bpjs" class="form-control" id="inputPrks">
+                                    <option>P/S</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <select name="dr_bpjs" class="form-control" id="inputDrbpjs">
+                                    <option></option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <select name="drsbl_bpjs" class="form-control" id="inputDrsbl">
+                                    <option></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputDiag" class="col-sm-2 control-label">Diagnosa</label>
+                            <div class="col-sm-4">
+                                <!-- <select name="diag_bpjs" class="form-control" id="inputDiag">
+                                    <option></option>
+                                </select> -->
+                                <input type="text" name="diag_bpjs" class="form-control" id="inputDiag">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputTind" class="col-sm-2 control-label">Tindakan</label>
+                            <div class="col-sm-3">
+                                <select name="tind_bpjs" class="form-control" id="inputTind">
+                                    <option></option>
+                                    <?php
+                                        $daftarTindakan = isset($_POST['tind_bpjs']) ? $_POST['tind_bpjs'] : "";
+                                        $sql = mysqli_query($koneksi, "SELECT id_tindakan, nama_tindakan FROM daftar_tindakan ORDER BY id_tindakan asc");
+                                        while($row = mysqli_fetch_array($sql))
+                                        {
+                                            if($row['id_tindakan'] == $daftarTindakan){
+                                                $pilih = " selected";
+                                            }else{
+                                                $pilih = "";
+                                            }
+                                            echo "<option value='".$row['id_tindakan']."'> [".$row['id_tindakan']."] ".$row['nama_tindakan']."</option>";
+                                        }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputCat" class="col-sm-2 control-label">Catatan</label>
+                            <div class="col-sm-4">
+                                <input type="text" name="catat_bpjs" class="form-control" id="inputCat">
+                            </div>
+                        </div>
+                        <!-- <div class="form-group" style="margin-left: 10px">
+                            <label for="inputKhs"  style="background-color:greenyellow">Khusus</label>
+                                <input type="checkbox" name="khs_bpjs" id="inputKhs">
+                            <label for="inputCito" style="background-color:#ff5959">Cito</label>
+                                <input type="checkbox" name="cito_bpjs" id="inputCito">
+                            <label for="inputInden" style="background-color:teal">Inden</label>
+                                <input type="checkbox" name="inden_bpjs" id="inputInden">
+                            <label for="inputKec" style="background-color:orange">Kecelakaan</label>
+                                <input type="checkbox" name="kec_bpjs" id="inputKec">
+                            <label for="inputMan" style="background-color:green">Manual</label>
+                                <input type="checkbox" name="man_bpjs" id="inputMan">
+                            <label for="inputKat" style="background-color:pink">Katarak</label>
+                                <input type="checkbox" name="kat_bpjs" id="inputKat">
+                            <label for="inputFas" style="background-color:red">Fast Track</label>
+                                <input type="checkbox" name="fas_bpjs" id="inputFas">
+                        </div> -->
+                        <div class="form-group">
+                            <label for="inputCsep" class="col-sm-2 control-label">Cari No. SEP</label>
+                            <div class="col-sm-4">
+                                <input type="text" name="csep_bpjs" class="form-control" id="inputCsep">
+                            </div>
+                            <div class="col-sm-1">
+                            <button class="form-control" style="background-color:#05deff; color: white; border-radius: 5px 5px; border: none;">Cari</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <button class="form-control" style="background-color:red; color:white; border-radius: 5px 5px;">Tambah</button>
+                            </div>
+                            <div class="col-sm-2">
+                                <button class="form-control" style="background-color:#05deff; color:white; border-radius: 5px 5px;">Simpan</button>
+                            </div>
+                        </div>
                     </form>
+
                 </div>
             </div>
         </div>
@@ -410,6 +616,17 @@ if (!isset($_SESSION['level'])) {
 }
         $(function() {
             $('#inputTanggalLahir').datetimepicker({locale: 'id', format: "DD-MM-YYYY"});
+        });
+
+        $(function() {
+            $('#inputTglruj').datetimepicker({locale: 'id', format: "DD-MM-YYYY"});
+        });
+
+        $(function() {
+            $('#inputDiag').autocomplete({
+                source: "data.php",
+                minLength: 1,
+            });
         });
         </script>
     </body>

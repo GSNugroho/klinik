@@ -12,13 +12,13 @@ if (isset($_GET['i'])) {
     echo 'asdasd';
 }
 
-$query = mysql_query("SELECT kuitansi.*, kunjungan.*, user.* FROM kuitansi
+$query = mysqli_query($koneksi, "SELECT kuitansi.*, kunjungan.*, user.* FROM kuitansi
                     LEFT JOIN kunjungan ON kuitansi.id_kunjungan = kunjungan.id_kunjungan
                     LEFT JOIN user ON kuitansi.id_user = user.id_user
-                    WHERE kunjungan.id_kunjungan = '".$id_kunjungan."'") or die(mysql_error());
-$kolomData = mysql_fetch_array($query);
+                    WHERE kunjungan.id_kunjungan = '".$id_kunjungan."'") or die(mysqli_error($koneksi));
+$kolomData = mysqli_fetch_array($query);
 $no_rm = $kolomData['no_rm'];
-$query_pasien = mysql_query("SELECT nama_pasien FROM pasien where no_rm='$no_rm'");
+$query_pasien = mysqli_query($koneksi, "SELECT nama_pasien FROM pasien where no_rm='$no_rm'");
 $data = mysql_fetch_array($query_pasien);
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
