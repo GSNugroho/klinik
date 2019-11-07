@@ -11,22 +11,22 @@ if (!isset($_SESSION['level'])) {
 <html>
     <head>
         <title><?=namaKlinik()?></title>
+        <link rel="stylesheet" type="text/css" href="../../css/dataTables.bootstrap.css"> 
         <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="../css/dashboard.css">
-        <!--<link rel="stylesheet" type="text/css" href="../../css/dataTables.bootstrap.css">--> 
         <link rel="stylesheet" type="text/css" href="../css/jquery.dataTables.css">
-        <link rel="stylesheet" type="text/css" href="../css/dataTables.tableTools.css">
-        <link rel="stylesheet" type="text/css" href="../css/dataTables.colVis.css">
-        <!--<link rel="stylesheet" type="text/css" href="../../css/dataTables.responsive.css">-->
+        <!-- <link rel="stylesheet" type="text/css" href="../css/dataTables.tableTools.css"> -->
+        <!-- <link rel="stylesheet" type="text/css" href="../css/dataTables.colVis.css"> -->
+        <!-- <link rel="stylesheet" type="text/css" href="../../css/dataTables.responsive.css"> -->
 <!--        <script type="text/javascript" src="../../js/bootstrap.min.js"></script>-->
 
         <!--<script type="text/javascript" src="../../js/jquery.min.js"></script>-->
         <script type="text/javascript" src="../js/jquery.js"></script>
         <script type="text/javascript" src="../js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../js/jquery.dataTables.js"></script>
-        <script type="text/javascript" src="../js/dataTables.tableTools.js"></script>
         <script type="text/javascript" src="../js/dataTables.bootstrap.js"></script>
-        <script type="text/javascript" src="../js/dataTables.colVis.js"></script>
+        <!-- <script type="text/javascript" src="../js/dataTables.tableTools.js"></script> -->
+        <!-- <script type="text/javascript" src="../js/dataTables.colVis.js"></script> -->
 
 <!--        <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>-->
 
@@ -88,7 +88,7 @@ if (!isset($_SESSION['level'])) {
                             <table id="tabelku" class="table table-hover display responsive compact"  cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
-                                        <th style="width : 5%">No.</th>
+                                        <!-- <th style="width : 5%">No.</th> -->
                                         <th>No. RM</th>
                                         <th>Nama</th>
                                         <th>Alamat</th>
@@ -98,62 +98,56 @@ if (!isset($_SESSION['level'])) {
                                         <th style="width : 5%">JK</th>
                                         <th>Tgl. Daftar</th>
                                         <th>Cabang</th>
-                                        <th>Update</th>
-                                        <th>Rawat</th>
+                                        <th>Aksi</th>
+                                        <!-- <th>Rawat</th> -->
                                     </tr>
                                 </thead>
-                                <tbody id="myTable">
-                                    <?php
-                                    include_once '../koneksi.php';
-                                    // $query = mysqli_query($koneksi, "select * from pasien p LEFT JOIN user u ON p.id_user = u.id_user ORDER BY no_rm DESC");
-                                    $query = mysqli_query($koneksi, "select pasien_b.no_rm, pasien_b.nm_pasien, pasien_b.alamat_pasien, pasien_b.umur_pasien, pasien_b.tmpt_lahir, pasien_b.tgl_lahir, pasien_b.jk_pasien, pasien_b.tgl_daftar_pasien, user.cabang
-                                                            from pasien_b 
-                                                            LEFT JOIN user ON pasien_b.id_user = user.id_user 
-                                                            ORDER BY pasien_b.no_rm ASC");
-                                    $no = 0;
-                                    while ($hasil = mysqli_fetch_array($query)) {
-                                        $no++;
-                                        echo "<tr>
-                                        <td>" . $no . "</td>
-                                        <td>" . $hasil['no_rm'] . "</td>
-                                        <td>" . $hasil['nm_pasien'] . "</td>
-                                        <td>" . $hasil['alamat_pasien'] . "</td>
-                                        <td>" . $hasil['umur_pasien'] . "</td>
-                                        <td>" . $hasil['tmpt_lahir'] . "</td>
-                                        <td>" . date('d-m-Y', strtotime($hasil['tgl_lahir'])) . "</td>
-                                        <td>" . $hasil['jk_pasien'] . "</td>
-                                        <td>" . date('d-m-Y', strtotime($hasil['tgl_daftar_pasien'])) . "</td>
-                                        <td>" . $hasil['cabang'] . "</td>
-                                        <td><a data-toggle='modal' data-target='#exampleModal' data-whatever='". $hasil['no_rm']."'>Edit</a></td>
-                                        <td><a href='add_rawatjalan.php?rm=" . $hasil['no_rm'] . "'>Rawat</a></td>
-                                    </tr>";
-                                    }
-                                    ?>
-                                </tbody>
+                                
                             </table>
                         </div>
                     </div>
                     <script type="text/javascript" >
-
-                        $(document).ready(function() {
-                            var table = $('#tabelku').dataTable();
-                            var tt = new $.fn.dataTable.TableTools(table, {
-                                sRowSelect: 'double',
-                                responsive: true,
-                                aButtons: [{
-                                        "sExtends": "print",
-                                        "sButtonText": "Print"
-                                    }]
-                            });
-
-                            $(tt.fnContainer()).insertBefore('div.table');
-                            var colvis = new $.fn.dataTable.ColVis(table, {
-                                buttonText: 'Select columns'
-                            });
-
-                            $(colvis.button()).insertBefore('div.table');
-                        });
-
+                        $(document).ready(function(){
+	   $('#tabelku').DataTable({
+		language: {
+	"sEmptyTable":	 "Tidak ada data yang tersedia pada tabel ini",
+	"sProcessing":   "Sedang memproses...",
+	"sLengthMenu":   "Tampilkan _MENU_ entri",
+	"sZeroRecords":  "Tidak ditemukan data yang sesuai",
+	"sInfo":         "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+	"sInfoEmpty":    "Menampilkan 0 sampai 0 dari 0 entri",
+	"sInfoFiltered": "(disaring dari _MAX_ entri keseluruhan)",
+	"sInfoPostFix":  "",
+	"sSearch":       "Cari:",
+	"sUrl":          "",
+	"oPaginate": {
+		"sFirst":    "Pertama",
+		"sPrevious": "Sebelumnya",
+		"sNext":     "Selanjutnya",
+		"sLast":     "Terakhir"
+	}
+	},
+	  'order': [[ 0, "asc" ]],
+      'processing': true,
+      'serverSide': true,
+      'serverMethod': 'post',
+      'ajax': {
+          'url':'ajaxdtpasien.php'
+      },
+      'columns': [
+         { data: 'no_rm' },
+		 { data: 'nm_pasien' },
+         { data: 'alamat_pasien' },
+         { data: 'umur_pasien' },
+         { data: 'tmpt_lahir' },
+		 { data: 'tgl_lahir'},
+         { data: 'jk_pasien' },
+         { data: 'tgl_daftar_pasien' },
+         { data: 'cabang' },
+		 { data: 'action'}
+      ]
+	});
+	});
                     </script>
                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg" role="document">
@@ -162,7 +156,7 @@ if (!isset($_SESSION['level'])) {
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h5 class="modal-title" id="exampleModalLabel">Edit Data Pasien</h5>
+                            <h4 class="modal-title" id="exampleModalLabel">Edit Data Pasien</h4>
                         </div>
                         <div class="modal-body">
                         <form class="form-horizontal" name="addPasien" action="" method="post" id="pendaftaran">
@@ -766,13 +760,8 @@ if (!isset($_SESSION['level'])) {
                     url: 'edit_save_pasien.php',
                     data: dataString,
                     success: function() {
-                        $('#pendaftaran').html("<div id='message'></div>");
-                        $('#message').html("<h2>Data Berhasil Disimpan</h2>")
-                        .append("<p>We will be in touch soon.</p>")
-                        .hide()
-                        .fadeIn(1500, function() {
-                            $('#message').append("<img id='checkmark' src='images/check.png' />");
-                        });
+                        $('#tabelku').DataTable().ajax.reload();
+                        $('#exampleModal').modal('hide');
                         }
                 });
             });

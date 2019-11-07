@@ -3,8 +3,15 @@ session_start();
 include '../koneksi.php';
 include '../library/library.php';
 
+if($_POST['no_rm'] == ''){
+    $koderm = buatKode('pasien_b', 'RM');
+}else{
+    $koderm = $_POST['no_rm'];
+}
+
+
 $id_user = $_SESSION['id_user'];
-$no_rm = $_POST['no_rm'];
+$no_rm = $koderm;
 $nm_pasien = $_POST['nm_pasien'];
 $jk_pasien = $_POST['jk_pasien'];
 $tmpt_lahir = $_POST['tmpt_lahir'];
@@ -57,12 +64,12 @@ VALUES ('$no_rm','$nm_pasien','$jk_pasien','$tmpt_lahir','$nik','$tgl_lahir','$a
         '$hp_pasien','$prov_pasien','$kot_pasien','$kec_pasien','$kel_pasien','$rt_pasien','$rw_pasien','$peg_rs',
         '$tinggi_pasien','$berat_pasien','$lp_pasien','$imp_pasien','$sis_pasien','$dia_pasien','$rr_pasien','$hr_pasien',
         '$nm_wali','$hub_wali','$nm_ortu','$pkrj_wali','$tgl_dftr','$id_user')") or die(mysqli_error($koneksi));
-if ($input){
-    header('location: data_pasien.php');
+// if ($input){
+//     header('location: data_pasien.php');
     
-}
-else{
-    echo '<h1>Input gagal</h1>';
- header('location: penambahan_pasien.php?Message=' . urlencode("Gagal Input"));
-}
+// }
+// else{
+//     echo '<h1>Input gagal</h1>';
+//  header('location: penambahan_pasien.php?Message=' . urlencode("Gagal Input"));
+// }
 ?>
