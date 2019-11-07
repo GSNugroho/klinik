@@ -85,7 +85,7 @@ if (!isset($_SESSION['level'])) {
                 <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main" style="margin-left: 20%;">
                     <h1 class="page-header">Pendaftaran Pasien</h1>
                     <h2 class="sub-header">Data Pasien</h2>
-                    <form class="form-horizontal" name="addPasien" action="tambah_pasien.php" method="post" >
+                    <form class="form-horizontal" name="addPasien" action="" method="post" id="pendaftaran">
                         <!-- <div class="form-group">
                             <label for="inputTgl_dftr" class="col-sm-2 control-label">Tgl. Daftar</label>
                             <div class="col-sm-2">
@@ -111,7 +111,7 @@ if (!isset($_SESSION['level'])) {
                             ?>
                             <label for="inputNoRM" class="col-sm-2 control-label">No. RM</label>
                             <div class="col-sm-2">
-                                <input type="text" name="norm" class="form-control" id="inputNoRM" value="<?php echo $dataKode;?>" placeholder="No. RM">
+                                <input type="text" name="norm" class="form-control" id="inputNoRM"  >
                             </div>
                         </div>
                         <div class="form-group">
@@ -195,7 +195,7 @@ if (!isset($_SESSION['level'])) {
                         <div class="form-group">
                             <label for="inputAlamat" class="col-sm-2 control-label">Alamat</label>
                             <div class="col-sm-9">
-                                <input type="text" name="alamat" class="form-control" id="inputAlamat" required="" placeholder="Alamat Pasien">
+                                <input type="text" name="alamat" class="form-control" id="inputAlamat" required="" >
                             </div>
                         </div>
                         <div class="form-group">
@@ -332,7 +332,7 @@ if (!isset($_SESSION['level'])) {
                                 </select>
                             </div>
                         </div>
-                        <h2 class="sub-header"></h2>
+                        <!-- <h2 class="sub-header"></h2>
                         <div class="form-group">
                             <label for="inputAl" class="col-sm-2 control-label">Alergi Thd.</label>
                             <div class="col-sm-3">
@@ -381,12 +381,12 @@ if (!isset($_SESSION['level'])) {
                             <div class="col-sm-1">
                                 <input type="text" name="no_urd" class="form-control" id="inputNurd" readonly>
                             </div>
-                        </div>
-                        <div class="form-group">
+                        </div> -->
+                        <!-- <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-9">
                                 <button class="btn btn-primary" type="submit">Tambahkan</button>
                             </div>
-                        </div>
+                        </div> -->
 
                         <h2 class="sub-header">Peserta BPJS</h2>
                         <div class="form-group">
@@ -526,27 +526,27 @@ if (!isset($_SESSION['level'])) {
                                 <input type="text" name="diag_bpjs" class="form-control" id="inputDiag">
                             </div>
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="inputTind" class="col-sm-2 control-label">Tindakan</label>
                             <div class="col-sm-3">
                                 <select name="tind_bpjs" class="form-control" id="inputTind">
                                     <option></option>
                                     <?php
-                                        $daftarTindakan = isset($_POST['tind_bpjs']) ? $_POST['tind_bpjs'] : "";
-                                        $sql = mysqli_query($koneksi, "SELECT id_tindakan, nama_tindakan FROM daftar_tindakan ORDER BY id_tindakan asc");
-                                        while($row = mysqli_fetch_array($sql))
-                                        {
-                                            if($row['id_tindakan'] == $daftarTindakan){
-                                                $pilih = " selected";
-                                            }else{
-                                                $pilih = "";
-                                            }
-                                            echo "<option value='".$row['id_tindakan']."'> [".$row['id_tindakan']."] ".$row['nama_tindakan']."</option>";
-                                        }
+                                        // $daftarTindakan = isset($_POST['tind_bpjs']) ? $_POST['tind_bpjs'] : "";
+                                        // $sql = mysqli_query($koneksi, "SELECT id_tindakan, nama_tindakan FROM daftar_tindakan ORDER BY id_tindakan asc");
+                                        // while($row = mysqli_fetch_array($sql))
+                                        // {
+                                        //     if($row['id_tindakan'] == $daftarTindakan){
+                                        //         $pilih = " selected";
+                                        //     }else{
+                                        //         $pilih = "";
+                                        //     }
+                                        //     echo "<option value='".$row['id_tindakan']."'> [".$row['id_tindakan']."] ".$row['nama_tindakan']."</option>";
+                                        // }
                                     ?>
                                 </select>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="form-group">
                             <label for="inputCat" class="col-sm-2 control-label">Catatan</label>
                             <div class="col-sm-4">
@@ -580,10 +580,12 @@ if (!isset($_SESSION['level'])) {
                         </div>
                         <div class="form-group">
                             <div class="col-sm-2">
-                                <button class="form-control" style="background-color:red; color:white; border-radius: 5px 5px;">Tambah</button>
+                                <!-- <button class="form-control" style="background-color:red; color:white; border-radius: 5px 5px;" onclick="tambah()">Tambah</button> -->
+                                <a href="#" class="btn btn-danger" style="background-color:red; color:white; border-radius: 5px 5px;" onclick="tambah()">Bersihkan</a>
                             </div>
                             <div class="col-sm-2">
-                                <button class="form-control" style="background-color:#05deff; color:white; border-radius: 5px 5px;">Simpan</button>
+                                <!-- <button class="form-control" style="background-color:#05deff; color:white; border-radius: 5px 5px;">Simpan</button> -->
+                                <input type="submit" name="submit" class="form-control" id="submit" value="Simpan" style="background-color:#05deff; color:white; border-radius: 5px 5px;">
                             </div>
                         </div>
                     </form>
@@ -614,6 +616,44 @@ if (!isset($_SESSION['level'])) {
 		document.getElementById('result').innerHTML = age;
 	}
 }
+        function tambah()
+        {
+            document.getElementById('inputNoRM').value = "";
+            document.getElementById('inputNama').value = "";
+            document.getElementById('inputKln').value = "";
+            document.getElementById('inputTlahir').value = "";
+            document.getElementById('inputNik').value = "";
+            document.getElementById('inputTanggalLahir').value = "";
+            document.getElementById('inputAgama').value = "";
+            document.getElementById('inputNegara').value = "";
+            document.getElementById('inputStkw').value = "";
+            document.getElementById('inputPndd').value = "";
+            document.getElementById('inputPkrj').value = "";
+            document.getElementById('inputAlamat').value = "";
+            document.getElementById('inputTelp').value = "";
+            document.getElementById('inputHP').value = "";
+            document.getElementById('inputProv').value = "";
+            document.getElementById('inputKt').value = "";
+            document.getElementById('inputKec').value = "";
+            document.getElementById('inputKel').value = "";
+            document.getElementById('inputRt').value = "";
+            document.getElementById('inputRw').value = "";
+            document.getElementById('inputPrs').value = "";
+            document.getElementById('inputTb').value = "";
+            document.getElementById('inputBb').value = "";
+            document.getElementById('inputLp').value = "";
+            document.getElementById('inputImt').value = "";
+            document.getElementById('inputSt').value = "";
+            document.getElementById('inputDt').value = "";
+            document.getElementById('inputRr').value = "";
+            document.getElementById('inputHr').value = "";
+            document.getElementById('inputWal').value = "";
+            document.getElementById('inputHub').value = "";
+            document.getElementById('inputOrtu').value = "";
+            document.getElementById('inputPkrWal').value = "";
+        }
+
+
         $(function() {
             $('#inputTanggalLahir').datetimepicker({locale: 'id', format: "DD-MM-YYYY"});
         });
@@ -626,6 +666,277 @@ if (!isset($_SESSION['level'])) {
             $('#inputDiag').autocomplete({
                 source: "data.php",
                 minLength: 1,
+            });
+        });
+
+        $(function() {
+			$("#inputNoRM").on('keyup', function(){
+            var dtrm = $('#inputNoRM').val();
+            $.ajax({
+                type: "POST",      
+                url: "ajaxrm.php",    
+                dataType: "json",
+                data: { 'dtrm': dtrm},
+                success: function(data){
+                    $('#inputNama').val(data['nm_pasien']);
+                    $('#inputKln').val(data['jk_pasien']);
+                    $('#inputTlahir').val(data['tmpt_lahir']);
+                    $('#inputNik').val(data['nik']);
+                    $('#inputTanggalLahir').val(data['tgl_lahir']);
+                    $('#inputAgama').val(data['agm_pasien']);
+                    $('#inputNegara').val(data['neg_pasien']);
+                    $('#inputStkw').val(data['sts_kwn']);
+                    $('#inputPndd').val(data['pend_pasien']);
+                    $('#inputPkrj').val(data['pkrj_pasien']);
+                    $('#inputAlamat').val(data['alamat_pasien']);
+                    $('#inputTelp').val(data['tlp_pasien']);
+                    $('#inputHP').val(data['hp_pasien']);
+                    $('#inputProv').val(data['prov_pasien']);
+                    $('#inputKt').val(data['kot_pasien']);
+                    $('#inputKec').val(data['kec_pasien']);
+                    $('#inputKel').val(data['kel_pasien']);
+                    $('#inputRt').val(data['rt_pasien']);
+                    $('#inputRw').val(data['rw_pasien']);
+                    $('#inputPrs').val(data['peg_rs']);
+                    $('#inputTb').val(data['tinggi_pasien']);
+                    $('#inputBb').val(data['berat_pasien']);
+                    $('#inputLp').val(data['lp_pasien']);
+                    $('#inputImt').val(data['imp_pasien']);
+                    $('#inputSt').val(data['sis_pasien']);
+                    $('#inputDt').val(data['dia_pasien']);
+                    $('#inputRr').val(data['rr_pasien']);
+                    $('#inputHr').val(data['hr_pasien']);
+                    $('#inputWal').val(data['nm_wali']);
+                    $('#inputHub').val(data['hub_wali']);
+                    $('#inputOrtu').val(data['nm_ortu']);
+                    $('#inputPkrWal').val(data['pkrj_wali']);
+                }
+                });
+            });
+	    });
+
+        $(function() {
+            $('#submit').click(function(){
+                var norm = $('#inputNoRM').val();
+                if(norm == '')
+                {
+                    $('#inputNoRM').focus();
+                    return false;
+                }
+                var nmpas = $('#inputNama').val();
+                if(nmpas == '')
+                {
+                    $('#inputNama').focus();
+                    return false;
+                }
+                var jk = $('#inputKln').val();
+                if(jk == '')
+                {
+                    $('#inputKln').focus();
+                    return false;
+                }
+                var tlahir = $('#inputTlahir').val();
+                if(tlahir == '')
+                {
+                    $('#inputTlahir').focus();
+                    return false;
+                }
+                var nik = $('#inputNik').val();
+                if(nik == '')
+                {
+                    $('#inputNik').focus();
+                    return false;
+                }
+                var tgll = $('#inputTanggalLahir').val();
+                if(tgll == '')
+                {
+                    $('#inputTanggalLahir').focus();
+                    return false;
+                }
+                var agm = $('#inputAgama').val();
+                if(agm == '')
+                {
+                    $('#inputAgama').focus();
+                    return false;
+                }
+                var neg = $('#inputNegara').val();
+                if(neg == '')
+                {
+                    $('#inputNegara').val();
+                    return false;
+                }
+                var stkw = $('#inputStkw').val();
+                if(stkw == '')
+                {
+                    $('#inputStkw').focus();
+                    return false;
+                }
+                var pndd = $('#inputPndd').val();
+                if(pndd == '')
+                {
+                    $('#inputPndd').focus();   
+                    return false;
+                }
+                var pkrj = $('#inputPkrj').val();
+                if(pkrj == '')
+                {
+                    $('#inputPkrj').focus();
+                    return false;
+                }
+                var almt = $('#inputAlamat').val();
+                if(almt == '')
+                {
+                    $('#inputAlamat').focus();
+                    return false;
+                }
+                var tlp = $('#inputTelp').val();
+                if(tlp == '')
+                {
+                    $('#inputTelp').focus();
+                    return false;
+                }
+                var hp = $('#inputHP').val();
+                if(hp == '')
+                {
+                    $('#inputHP').focus();
+                    return false;
+                }
+                var prov = $('#inputProv').val();
+                if(prov == '')
+                {
+                    $('#inputProv').focus();
+                    return false;
+                }
+                var kot = $('#inputKt').val();
+                if(kot == '')
+                {
+                    $('#inputKt').focus();
+                    return false;
+                }
+                var kec = $('#inputKec').val();
+                if(kec == '')
+                {
+                    $('#inputKec').focus();
+                    return false;
+                }
+                var kel = $('#inputKel').val()
+                if(kel == '')
+                {
+                    $('#inputKel').focus();
+                    return false;
+                }
+                var rt = $('#inputRt').val();
+                if(rt == '')
+                {
+                    $('#inputRt').focus();
+                    return false;
+                }
+                var rw = $('#inputRw').val();
+                if(rw == '')
+                {
+                    $('#inputRw').focus();
+                    return false;
+                }
+                var prs = $('#inputPrs').val();
+                if(prs == '')
+                {
+                    $('#inputPrs').focus();
+                    return false;
+                }
+                var tb = $('#inputTb').val();
+                if(tb == '')
+                {
+                    $('#inputTb').focus();
+                    return false;
+                }
+                var bb = $('#inputBb').val();
+                if(bb == '')
+                {
+                    $('#inputBb').focus();
+                    return false;
+                }
+                var lp = $('#inputBb').val();
+                if(lp == '')
+                {
+                    $('#inputBb').focus();
+                    return false;
+                }
+                var imt = $('#inputImt').val();
+                if(imt == '')
+                {
+                    $('#inputImt').focus();
+                    return false;
+                }
+                var st = $('#inputSt').val();
+                if(st == '')
+                {
+                    $('#inputSt').focus();
+                    return false;
+                }
+                var ds = $('#inputDt').val();
+                if(ds == '')
+                {
+                    $('#inputDt').focus();
+                    return false;
+                }
+                var rr = $('#inputRr').val();
+                if(rr == '')
+                {
+                    $('#inputRr').focus();
+                    return false;
+                }
+                var hr = $('#inputHr').val();
+                if(hr == '')
+                {
+                    $('#inputHr').focus();
+                    return false;
+                }
+                var nmwl = $('#inputWal').val();
+                if(nmwl == '')
+                {
+                    $('#inputWal').focus();
+                    return false;
+                }
+                var hbwl = $('#inputHub').val();
+                if(hbwl == '')
+                {
+                    $('#inputHub').focus();
+                    return false;
+                }
+                var orwl = $('#inputOrtu').val();
+                if(orwl == '')
+                {
+                    $('#inputOrtu').focus();
+                    return false;
+                }
+                var prwl = $('#inputPkrWal').val();
+                if(prwl == '')
+                {
+                    $('#inputPkrWal').focus();
+                    return false;
+                }
+                var dataString = 'no_rm='+ norm + '&nm_pasien=' + nmpas + '&jk_pasien=' + jk + '&tmpt_lahir=' + tlahir 
+                + '&nik=' + nik + '&tgl_lahir=' + tgll + '&agm_pasien=' + agm + '&neg_pasien=' + neg + '&sts_kwn=' + stkw
+                + '&pend_pasien=' + pndd + '&pkrj_pasien=' + pkrj + '&alamat_pasien=' + almt + '&tlp_pasien=' + tlp 
+                + '&hp_pasien=' + hp + '&prov_pasien=' + prov + '&kot_pasien=' + kot + '&kec_pasien=' + kec + '&kel_pasien=' + kel
+                + '&rt_pasien=' + rt + '&rw_pasien=' + rw + '&peg_rs=' + prs + '&tinggi_pasien=' + tb + '&berat_pasien=' + bb 
+                + '&lp_pasien=' + lp + '&imp_pasien=' + imt + '&sis_pasien=' + st + '&dia_pasien=' + ds + '&rr_pasien=' + rr 
+                + '&hr_pasien=' + hr + '&nm_wali=' + nmwl + '&hub_wali=' + hbwl + '&nm_ortu=' + orwl + '&pkrj_wali=' + prwl;
+
+                $.ajax({
+                    type: 'post',
+                    url: 'tambah_pasien.php',
+                    data: dataString,
+                    success: function() {
+                        $('#pendaftaran').html("<div id='message'></div>");
+                        $('#message').html("<h2>Data Berhasil Disimpan</h2>")
+                        .append("<p>We will be in touch soon.</p>")
+                        .hide()
+                        .fadeIn(1500, function() {
+                            $('#message').append("<img id='checkmark' src='images/check.png' />");
+                        });
+                        }
+                });
             });
         });
         </script>
