@@ -392,7 +392,7 @@ if (!isset($_SESSION['level'])) {
                         <div class="form-group">
                             <label for="inputNokartu" class="col-sm-1 control-label">No. Kartu</label>
                             <div class="col-sm-2">
-                                <input type="text" name="no_kartu" class="form-control" id="inputNokartu">
+                                <input type="text" name="no_bpjs" class="form-control" id="inputNokartu">
                             </div>
                         </div>
                         <div class="form-group">
@@ -423,6 +423,7 @@ if (!isset($_SESSION['level'])) {
                                 <input type="text" name="psr_bpjs" class="form-control" id="inputPsrbpjs" readonly>
                             </div>
                         </div>
+
                         <h2 class="sub-header">Poliklinik</h2>
                         <div class="form-group">
                             <label for="inputJnsrawat" class="col-sm-2 control-label">Jenis Rawat</label>
@@ -481,7 +482,7 @@ if (!isset($_SESSION['level'])) {
                             <label for="inputDrrs" class="col-sm-2 control-label">Petugas Kesehatan</label>
                             <div class="col-sm-2">
                                 <select name="drrs_bpjs" class="form-control" id="inputDrrs">
-                                    <option value=""></option>
+                                    <option value=''></option>
                                     <?php
                                         $dataPetugas = isset($_POST['pilihPetugas']) ? $_POST['pilihPetugas'] :"";
                                         $sql = mysqli_query($koneksi, "SELECT id_petugas, nama_petugas FROM petugas_kesehatan ORDER BY id_petugas");
@@ -520,33 +521,9 @@ if (!isset($_SESSION['level'])) {
                         <div class="form-group">
                             <label for="inputDiag" class="col-sm-2 control-label">Diagnosa</label>
                             <div class="col-sm-4">
-                                <!-- <select name="diag_bpjs" class="form-control" id="inputDiag">
-                                    <option></option>
-                                </select> -->
                                 <input type="text" name="diag_bpjs" class="form-control" id="inputDiag">
                             </div>
                         </div>
-                        <!-- <div class="form-group">
-                            <label for="inputTind" class="col-sm-2 control-label">Tindakan</label>
-                            <div class="col-sm-3">
-                                <select name="tind_bpjs" class="form-control" id="inputTind">
-                                    <option></option>
-                                    <?php
-                                        // $daftarTindakan = isset($_POST['tind_bpjs']) ? $_POST['tind_bpjs'] : "";
-                                        // $sql = mysqli_query($koneksi, "SELECT id_tindakan, nama_tindakan FROM daftar_tindakan ORDER BY id_tindakan asc");
-                                        // while($row = mysqli_fetch_array($sql))
-                                        // {
-                                        //     if($row['id_tindakan'] == $daftarTindakan){
-                                        //         $pilih = " selected";
-                                        //     }else{
-                                        //         $pilih = "";
-                                        //     }
-                                        //     echo "<option value='".$row['id_tindakan']."'> [".$row['id_tindakan']."] ".$row['nama_tindakan']."</option>";
-                                        // }
-                                    ?>
-                                </select>
-                            </div>
-                        </div> -->
                         <div class="form-group">
                             <label for="inputCat" class="col-sm-2 control-label">Catatan</label>
                             <div class="col-sm-4">
@@ -651,6 +628,13 @@ if (!isset($_SESSION['level'])) {
             document.getElementById('inputHub').value = "";
             document.getElementById('inputOrtu').value = "";
             document.getElementById('inputPkrWal').value = "";
+            document.getElementById('inputNokartu').value = "";
+            document.getElementById('inputNmbpjs').value = "";
+            document.getElementById('inputJkbpjs').value = "";
+            document.getElementById('inputTglbpjs').value = "";
+            document.getElementById('inputPstbpjs').value = "";
+            document.getElementById('inputKlsbpjs').value = "";
+            document.getElementById('inputPsrbpjs').value = "";
         }
 
 
@@ -710,6 +694,7 @@ if (!isset($_SESSION['level'])) {
                     $('#inputHub').val(data['hub_wali']);
                     $('#inputOrtu').val(data['nm_ortu']);
                     $('#inputPkrWal').val(data['pkrj_wali']);
+                    $('#inputNokartu').val(data['no_bpjs']);
                 }
                 });
             });
@@ -718,11 +703,11 @@ if (!isset($_SESSION['level'])) {
         $(function() {
             $('#submit').click(function(){
                 var norm = $('#inputNoRM').val();
-                if(norm == '')
-                {
-                    $('#inputNoRM').focus();
-                    return false;
-                }
+                // if(norm == '')
+                // {
+                //     $('#inputNoRM').focus();
+                //     return false;
+                // }
                 var nmpas = $('#inputNama').val();
                 if(nmpas == '')
                 {
@@ -915,13 +900,28 @@ if (!isset($_SESSION['level'])) {
                     $('#inputPkrWal').focus();
                     return false;
                 }
+                var nobpjs = $('#inputNokartu').val();
+
+                var jnswrt = $('#inputKlsrwt').val();
+                var klsrwt = $('#inputKlsrwt').val();
+                var fksrwt = $('#inputFksrwt').val();
+                var tglruj = $('#inputTglruj').val();
+                var noruj = $('#inputNoruj').val();
+                var nokon = $('#inputNokon').val();
+                var poli7a = $('#inputPoli').val();
+                var petrs = $('#inputDrrs').val();
+                var diag = $('#inputDiag').val();
+                var cata = $('#inputCat').val();
+
                 var dataString = 'no_rm='+ norm + '&nm_pasien=' + nmpas + '&jk_pasien=' + jk + '&tmpt_lahir=' + tlahir 
                 + '&nik=' + nik + '&tgl_lahir=' + tgll + '&agm_pasien=' + agm + '&neg_pasien=' + neg + '&sts_kwn=' + stkw
                 + '&pend_pasien=' + pndd + '&pkrj_pasien=' + pkrj + '&alamat_pasien=' + almt + '&tlp_pasien=' + tlp 
                 + '&hp_pasien=' + hp + '&prov_pasien=' + prov + '&kot_pasien=' + kot + '&kec_pasien=' + kec + '&kel_pasien=' + kel
                 + '&rt_pasien=' + rt + '&rw_pasien=' + rw + '&peg_rs=' + prs + '&tinggi_pasien=' + tb + '&berat_pasien=' + bb 
                 + '&lp_pasien=' + lp + '&imp_pasien=' + imt + '&sis_pasien=' + st + '&dia_pasien=' + ds + '&rr_pasien=' + rr 
-                + '&hr_pasien=' + hr + '&nm_wali=' + nmwl + '&hub_wali=' + hbwl + '&nm_ortu=' + orwl + '&pkrj_wali=' + prwl;
+                + '&hr_pasien=' + hr + '&nm_wali=' + nmwl + '&hub_wali=' + hbwl + '&nm_ortu=' + orwl + '&pkrj_wali=' + prwl
+                + '&no_bpjs=' + nobpjs + '&jns_rwt=' + jnswrt + '&kls_rwt=' + klsrwt + '&fks_rwt=' + fksrwt + '&tgl_ruj=' + tglruj
+                + '&no_ruj=' + noruj + '&no_kon=' + nokon + '&poli=' + poli7a + '&pet_rs=' + petrs + '&diag=' + diag + '&cata=' + cata;
 
                 $.ajax({
                     type: 'post',
