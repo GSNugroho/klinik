@@ -19,7 +19,7 @@ $query = mysqli_query($koneksi, "SELECT kuitansi.*, kunjungan.*, user.* FROM kui
 $kolomData = mysqli_fetch_array($query);
 $no_rm = $kolomData['no_rm'];
 $query_pasien = mysqli_query($koneksi, "SELECT nama_pasien FROM pasien where no_rm='$no_rm'");
-$data = mysql_fetch_array($query_pasien);
+$data = mysqli_fetch_array($query_pasien);
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -89,8 +89,8 @@ $data = mysql_fetch_array($query_pasien);
 //            $totalBayar = 0;
 //            $uangKembali = 0;
 
-            $query = mysql_query("SELECT * FROM kuitansi WHERE id_kunjungan = '".$id_kunjungan."'") or die(mysql_error());
-            $hasil = mysql_fetch_array($query);
+            $query = mysqli_query($koneksi, "SELECT * FROM kuitansi WHERE id_kunjungan = '".$id_kunjungan."'") or die(mysqli_error($koneksi));
+            $hasil = mysqli_fetch_array($query);
             ?>
             <tr>
                 <td bgcolor="#F5F5F5">1.</td>

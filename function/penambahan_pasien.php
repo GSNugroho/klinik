@@ -484,17 +484,13 @@ if (!isset($_SESSION['level'])) {
                                 <select name="drrs_bpjs" class="form-control" id="inputDrrs">
                                     <option value=''></option>
                                     <?php
-                                        $dataPetugas = isset($_POST['pilihPetugas']) ? $_POST['pilihPetugas'] :"";
+                                        // $dataPetugas = isset($_POST['pilihPetugas']) ? $_POST['pilihPetugas'] :"";
                                         $sql = mysqli_query($koneksi, "SELECT id_petugas, nama_petugas FROM petugas_kesehatan ORDER BY id_petugas");
                                         
                                         while($row = mysqli_fetch_array($sql))
                                         {
-                                            if($row['id_petugas'] == $dataPetugas) {
-                                                $pilih = "selected";
-                                            }else{
-                                                $pilih ="";
-                                            }
-                                            echo "<option value='".$row['id_petugas']."' ".$pilih.">".$row['nama_petugas']."</option>";
+
+                                            echo "<option value='".$row['id_petugas']."'>".$row['nama_petugas']."</option>";
                                         }
                                     ?>
                                 </select>
@@ -908,11 +904,11 @@ if (!isset($_SESSION['level'])) {
                 var tglruj = $('#inputTglruj').val();
                 var noruj = $('#inputNoruj').val();
                 var nokon = $('#inputNokon').val();
-                var poli7a = $('#inputPoli').val();
-                var petrs = $('#inputDrrs').val();
+                var poli7a = $('#inputPoli option:selected').val();
+                var petrs = $('#inputDrrs option:selected').val();
                 var diag = $('#inputDiag').val();
                 var cata = $('#inputCat').val();
-
+                
                 var dataString = 'no_rm='+ norm + '&nm_pasien=' + nmpas + '&jk_pasien=' + jk + '&tmpt_lahir=' + tlahir 
                 + '&nik=' + nik + '&tgl_lahir=' + tgll + '&agm_pasien=' + agm + '&neg_pasien=' + neg + '&sts_kwn=' + stkw
                 + '&pend_pasien=' + pndd + '&pkrj_pasien=' + pkrj + '&alamat_pasien=' + almt + '&tlp_pasien=' + tlp 

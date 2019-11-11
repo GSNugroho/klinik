@@ -77,7 +77,7 @@ if($_POST['no_bpjs'] != ''){
     VALUES ('$no_bpjs','$no_rm')") or die(mysqli_error($koneksi));
 }
 
-if($_POST['poli'] != ''){
+if($_POST['poli'] != ' '){
     $jns_rwt = $_POST['jns_rwt'];
     $kls_rwt = $_POST['kls_rwt'];
     $fks_rwt = $_POST['fks_rwt'];
@@ -91,7 +91,7 @@ if($_POST['poli'] != ''){
     $id_kunjungan = buatKode('kunjungan', 'RJ');
     $tgl_periksa = date('Y-m-d');
 
-    $cek = mysqli_query($koneksi, "INSERT INTO kunjungand (id_kunjungan, no_rm, id_user, tgl_periksa)
+    $cek = mysqli_query($koneksi, "INSERT INTO kunjungan (id_kunjungan, no_rm, id_user, tgl_periksa)
     VALUES ('$id_kunjungan','$no_rm','$id_user', '$tgl_periksa')") or die(mysqli_error($koneksi));
 
 }
