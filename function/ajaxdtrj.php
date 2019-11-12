@@ -33,12 +33,12 @@ foreach($records as $row){
 $empQuery = mysqli_query($koneksi, "SELECT id_kunjungan, kunjungan.no_rm as rm, nm_pasien, cabang, tgl_periksa, biaya_periksa FROM kunjungan 
 INNER JOIN user on kunjungan.id_user = user.id_user 
 LEFT JOIN pasien_b on kunjungan.no_rm = pasien_b.no_rm WHERE 1=1 ".$searchQuery." ORDER BY ".$columnName." "
-.$columnSortOrder." LIMIT ".$rowperpage);
+.$columnSortOrder." LIMIT ".$baris.", ".$rowperpage);
 $empRecords = mysqli_fetch_all($empQuery, MYSQLI_ASSOC);
 
 $data = array();
 foreach($empRecords as $row){
-    $tindakan = '<a class="btn btn-warning" data-toggle="modal" data-target="#exampleModal" data-whatever="'.$row["id_kunjungan"].'">Tindakan</a>';
+    $tindakan = '<a class="btn btn-warning" data-toggle="modal" data-target="#exampleModal" data-whatever="'.$row["id_kunjungan"].'" onclick="load()">Tindakan</a>';
     $detail = '<a class="btn btn-info" data-toggle="modal" data-target="#exampleModal" data-whatever="'.$row["id_kunjungan"].'">Detail</a>';
     $resep = '<a class="btn btn-primary" href="obat/buat_resep.php?id_kunjungan='.$row['id_kunjungan'].'">Resep</a>';
     $kuitansi = '<a class="btn btn-success" href="cetak/cetak_kuitansi.php?i='.$row['id_kunjungan'].'" target="_blank">Kuitansi</a>';

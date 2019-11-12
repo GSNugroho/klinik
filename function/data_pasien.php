@@ -108,46 +108,46 @@ if (!isset($_SESSION['level'])) {
                     </div>
                     <script type="text/javascript" >
                         $(document).ready(function(){
-	   $('#tabelku').DataTable({
-		language: {
-	"sEmptyTable":	 "Tidak ada data yang tersedia pada tabel ini",
-	"sProcessing":   "Sedang memproses...",
-	"sLengthMenu":   "Tampilkan _MENU_ entri",
-	"sZeroRecords":  "Tidak ditemukan data yang sesuai",
-	"sInfo":         "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
-	"sInfoEmpty":    "Menampilkan 0 sampai 0 dari 0 entri",
-	"sInfoFiltered": "(disaring dari _MAX_ entri keseluruhan)",
-	"sInfoPostFix":  "",
-	"sSearch":       "Cari:",
-	"sUrl":          "",
-	"oPaginate": {
-		"sFirst":    "Pertama",
-		"sPrevious": "Sebelumnya",
-		"sNext":     "Selanjutnya",
-		"sLast":     "Terakhir"
-	}
-	},
-	  'order': [[ 0, "asc" ]],
-      'processing': true,
-      'serverSide': true,
-      'serverMethod': 'post',
-      'ajax': {
-          'url':'ajaxdtpasien.php'
-      },
-      'columns': [
-         { data: 'no_rm' },
-		 { data: 'nm_pasien' },
-         { data: 'alamat_pasien' },
-         { data: 'umur_pasien' },
-         { data: 'tmpt_lahir' },
-		 { data: 'tgl_lahir'},
-         { data: 'jk_pasien' },
-         { data: 'tgl_daftar_pasien' },
-         { data: 'cabang' },
-		 { data: 'action'}
-      ]
-	});
-	});
+                        $('#tabelku').DataTable({
+                            language: {
+                        "sEmptyTable":	 "Tidak ada data yang tersedia pada tabel ini",
+                        "sProcessing":   "Sedang memproses...",
+                        "sLengthMenu":   "Tampilkan _MENU_ entri",
+                        "sZeroRecords":  "Tidak ditemukan data yang sesuai",
+                        "sInfo":         "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+                        "sInfoEmpty":    "Menampilkan 0 sampai 0 dari 0 entri",
+                        "sInfoFiltered": "(disaring dari _MAX_ entri keseluruhan)",
+                        "sInfoPostFix":  "",
+                        "sSearch":       "Cari:",
+                        "sUrl":          "",
+                        "oPaginate": {
+                            "sFirst":    "Pertama",
+                            "sPrevious": "Sebelumnya",
+                            "sNext":     "Selanjutnya",
+                            "sLast":     "Terakhir"
+                        }
+                        },
+                        'order': [[ 0, "asc" ]],
+                        'processing': true,
+                        'serverSide': true,
+                        'serverMethod': 'post',
+                        'ajax': {
+                            'url':'ajaxdtpasien.php'
+                        },
+                        'columns': [
+                            { data: 'no_rm' },
+                            { data: 'nm_pasien' },
+                            { data: 'alamat_pasien' },
+                            { data: 'umur_pasien' },
+                            { data: 'tmpt_lahir' },
+                            { data: 'tgl_lahir'},
+                            { data: 'jk_pasien' },
+                            { data: 'tgl_daftar_pasien' },
+                            { data: 'cabang' },
+                            { data: 'action'}
+                        ]
+                        });
+                        });
                     </script>
                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg" role="document">
