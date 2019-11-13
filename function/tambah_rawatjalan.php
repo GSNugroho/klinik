@@ -11,11 +11,12 @@ if (isset($_POST['tambah'])) {
     $poliklinik = $_POST['poli'];
     $diagnosis = $_POST['diag'];
     $id_tindakan = $_POST['tind'];
+    $jmlh_tind = $_POST['jmlh'];
     $query_diagnosis = mysqli_query($koneksi, "SELECT id_diagnosis FROM diagnosis WHERE nama_indonesia = '$diagnosis'");
     $cari_diagnosis = mysqli_fetch_array($query_diagnosis);
     $id_diagnosis = $cari_diagnosis['id_diagnosis'];
-    $query = "INSERT INTO tmp_tindakan_medis (id_kunjungan, poliklinik, id_diagnosis, id_tindakan, id_petugas) 
-    VALUES ('$id_kunjungan','$poliklinik', '$id_diagnosis', '$id_tindakan', '$id_petugas')";
+    $query = "INSERT INTO tmp_tindakan_medis (id_kunjungan, poliklinik, id_diagnosis, id_tindakan, id_petugas, jmlh_tind) 
+    VALUES ('$id_kunjungan','$poliklinik', '$id_diagnosis', '$id_tindakan', '$id_petugas', '$jmlh_tind')";
 
     $input_tindakan = mysqli_query($koneksi, $query) or die(mysqli_error($koneksi));
     header('location: add_rawatjalan.php?rm=' . $_SESSION['rm']);
@@ -23,22 +24,23 @@ if (isset($_POST['tambah'])) {
 
 if ($_GET['id']) {
 
-    $query = "SELECT DISTINCT tmp_tindakan_medis.poliklinik AS poli ,tmp_tindakan_medis.id_diagnosis AS diag ,tmp_tindakan_medis.id_tindakan AS tindakan ,tmp_tindakan_medis.id_petugas AS petugas ,daftar_tindakan.harga_tindakan AS total FROM tmp_tindakan_medis 
+    $query = "SELECT tmp_tindakan_medis.id_kunjungan AS kunjungan ,tmp_tindakan_medis.poliklinik AS poli ,tmp_tindakan_medis.id_diagnosis AS diag ,tmp_tindakan_medis.id_tindakan AS tindakan ,tmp_tindakan_medis.id_petugas AS petugas ,daftar_tindakan.harga_tindakan AS total, tmp_tindakan_medis.jmlh_tind AS jmlh FROM tmp_tindakan_medis 
     INNER JOIN daftar_tindakan ON tmp_tindakan_medis.id_tindakan = daftar_tindakan.id_tindakan WHERE tmp_tindakan_medis.id_kunjungan = '" . $_GET['id'] . "'";
     $date = date('Y-m-d');
     $load = mysqli_query($koneksi, $query) or die(mysqli_error($koneksi));
     $total = 0;
 
     while ($hasil = mysqli_fetch_array($load)) {
-        $total = $total + $hasil['total'];
+        $total = $total + ($hasil['total'] * $hasil['jmlh']);
         $poli = $hasil['poli'];
         $diag = $hasil['diag'];
         $id_tin = $hasil['tindakan'];
         $pet = $hasil['petugas'];
+        $jmlh = $hasil['jmlh'];
 
         $id = $_GET['id'];
 
-        $query = "INSERT INTO tindakan_medis (poliklinik, id_diagnosis, id_tindakan, id_petugas,id_kunjungan) VALUES ('$poli', '$diag', '$id_tin', '$pet','$id')";
+        $query = "INSERT INTO tindakan_medis (poliklinik, id_diagnosis, id_tindakan, id_petugas, id_kunjungan, jmlh_tind) VALUES ('$poli', '$diag', '$id_tin', '$pet', '$id', '$jmlh')";
         $input_tindakan = mysqli_query($koneksi, $query) or die(mysqli_error($koneksi));
     }
     $update = mysqli_query($koneksi, "UPDATE kunjungan SET biaya_periksa ='$total' WHERE id_kunjungan = '" . $_GET['id'] . "'") or die(mysql_error());

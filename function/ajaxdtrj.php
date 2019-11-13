@@ -39,7 +39,8 @@ $empRecords = mysqli_fetch_all($empQuery, MYSQLI_ASSOC);
 $data = array();
 foreach($empRecords as $row){
     $tindakan = '<a class="btn btn-warning" data-toggle="modal" data-target="#exampleModal" data-whatever="'.$row["id_kunjungan"].'" onclick="load()">Tindakan</a>';
-    $detail = '<a class="btn btn-info" data-toggle="modal" data-target="#exampleModal" data-whatever="'.$row["id_kunjungan"].'">Detail</a>';
+    $detail = '<a class="btn btn-info" data-toggle="modal" data-target="#ModalDetail" data-whatever="'.$row["id_kunjungan"].'">Detail</a>';
+    // $lihat = '<a class="btn btn-info" href="detail_tindakan.php?i='.$row['id_kunjungan'].'">Lihat</a>';
     $resep = '<a class="btn btn-primary" href="obat/buat_resep.php?id_kunjungan='.$row['id_kunjungan'].'">Resep</a>';
     $kuitansi = '<a class="btn btn-success" href="cetak/cetak_kuitansi.php?i='.$row['id_kunjungan'].'" target="_blank">Kuitansi</a>';
 
@@ -59,6 +60,7 @@ foreach($empRecords as $row){
         "biaya_periksa" => $biaya,
         "tindakan" => $tindakan,
         "detail" => $detail,
+        // "lihat" => $lihat,
         "resep" => $resep,
         "kuitansi" => $kuitansi
     );

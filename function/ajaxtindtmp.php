@@ -36,7 +36,7 @@ foreach($records as $row){
     $totalRecordwithFilter = $row;
 }
 
-$empQuery = mysqli_query($koneksi, "SELECT id_tmp_tm, tmp_tindakan_medis.poliklinik as poli, nama_petugas, nama_indonesia, nama_tindakan, harga_tindakan from tmp_tindakan_medis 
+$empQuery = mysqli_query($koneksi, "SELECT id_tmp_tm, tmp_tindakan_medis.poliklinik as poli, nama_petugas, nama_indonesia, nama_tindakan, harga_tindakan, jmlh_tind from tmp_tindakan_medis 
 INNER JOIN daftar_tindakan ON tmp_tindakan_medis.id_tindakan = daftar_tindakan.id_tindakan
 INNER JOIN petugas_kesehatan ON tmp_tindakan_medis.id_petugas = petugas_kesehatan.id_petugas 
 INNER JOIN diagnosis ON tmp_tindakan_medis.id_diagnosis = diagnosis.id_diagnosis WHERE 1=1 ".$searchQuery." ORDER BY ".$columnName." "
@@ -61,7 +61,8 @@ foreach($empRecords as $row){
         "nama_indonesia" => $row['nama_indonesia'],
         "nama_tindakan" => $row['nama_tindakan'],
         "harga_tindakan" => $row['harga_tindakan'],
-        "delete" => $delete,
+        "jmlh_tind" => $row['jmlh_tind']
+        // "delete" => $delete,
     );
 }
 

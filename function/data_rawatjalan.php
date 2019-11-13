@@ -137,20 +137,21 @@ if (!isset($_SESSION['level'])) {
                             { data: 'biaya_periksa' },
                             { data: 'tindakan' },
                             { data: 'detail' },
+                            // { data: 'lihat' },
                             { data: 'resep' },
                             { data: 'kuitansi'}
                         ]
                         });
                         });
                     </script>
-                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"><!-- Tindakan popup -->
                         <div class="modal-dialog modal-lg" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
                                 <button type="button" onclick="tutup()" class="close" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
-                                <h4 class="modal-title" id="exampleModalLabel">Tambah Tindakan</h4>
+                                <h3 class="modal-title" id="exampleModalLabel">Tambah Tindakan</h3>
                                 </div>
                                 <div class="modal-body">
                                     
@@ -199,7 +200,14 @@ if (!isset($_SESSION['level'])) {
                                     $harga = '';
                                     ?>
 
-                                    <input type="text" name="harga_tindakan" class="form-control" id="inputHarga" placeholder="Harga" value="<?php echo $harga; ?>">
+                                    <input type="text" name="harga_tindakan" class="form-control" id="inputHarga" placeholder="Harga" value="<?php echo $harga; ?>" readonly>
+                                </div>
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                <label for="inputJmltind" class="col-sm-3 control-label">Jumlah</label>
+                                <div class="col-sm-2">
+                                    <input type="text" name="jmlh_tindakan" class="form-control" id="inputJmltind" value="1">
                                 </div>
                                 <div class="col-sm-4">
                                     <!--<a href="#" role="button" id="tambahbtn"class="btn btn-info">Tambah Tindakan</a>-->
@@ -209,10 +217,10 @@ if (!isset($_SESSION['level'])) {
                                     <button type="button" class="btn btn-info" id="tambah" value="tambah">Tambah Tindakan</button>
                                 </div>
                                 </div>
-                                
+                                <br>
                                 <div>
-                                <h2 class="sub-header">Daftar Tindakan</h2>
-                                <div class="table" >
+                                <h3 class="sub-header">Daftar Tindakan</h3>
+                                <div class="table">
                                     <table id="tabeltindakan" class="table table-hover table-bordered" >
                                         <thead >
                                             <tr>
@@ -222,7 +230,8 @@ if (!isset($_SESSION['level'])) {
                                                 <th>Diagnosis</th>
                                                 <th>Tindakan</th>
                                                 <th>Harga</th>
-                                                <th>Hapus</th>
+                                                <th>Jumlah</th>
+                                                <!-- <th>Hapus</th> -->
                                             </tr>
                                         </thead>
                                     </table>
@@ -236,6 +245,8 @@ if (!isset($_SESSION['level'])) {
                                 <script>
                                     function load() {
                                         table = $('#tabeltindakan').DataTable({
+                                            "bLengthChange": false,
+                                            "bFilter": false,
                                             language: {
                                             "sEmptyTable":	 "Tidak ada data yang tersedia pada tabel ini",
                                             "sProcessing":   "Sedang memproses...",
@@ -267,7 +278,8 @@ if (!isset($_SESSION['level'])) {
                                                 { data: 'nama_indonesia' },
                                                 { data: 'nama_tindakan' },
                                                 { data: 'harga_tindakan' },
-                                                { data: 'delete' }
+                                                { data: 'jmlh_tind' }
+                                                // { data: 'delete' }
                                             ]
                                         });
                                     };
@@ -330,10 +342,11 @@ if (!isset($_SESSION['level'])) {
                                             var harg = $('#inputHarga').val();
                                             var idku = $('#inputIdkunj').val();
                                             var pers = $('#inputPetrs').val();
+                                            var jmlh = $('#inputJmltind').val();
                                             var tambah = $('#tambah').val();
 
                                             var dataString = 'poli='+ poli +'&diag='+ diag +'&tind='+tind+'&harg='+harg
-                                            +'&idku='+idku+'&pers='+pers+'&tambah='+tambah;
+                                            +'&idku='+idku+'&pers='+pers+'&jmlh='+jmlh+'&tambah='+tambah;
 
                                             $.ajax({
                                                 type: 'post',
@@ -343,6 +356,7 @@ if (!isset($_SESSION['level'])) {
                                                     $('#tabeltindakan').DataTable().ajax.reload();
                                                     document.getElementById('daftarTindakan').value = "";
                                                     document.getElementById('inputHarga').value = "";
+                                                    document.getElementById('inputJmltind').value ="";
                                                 }
                                             });
                                         })
@@ -376,6 +390,64 @@ if (!isset($_SESSION['level'])) {
                                                 document.getElementById('inputHarga').value = "";
                                             }
                                         })
+                                    }
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="ModalDetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" onclick="ttpdetail()" class="close" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h3 class="modal-title" id="ModalDetailLabel">Detail Tindakan</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="table">
+                                        <table id="tabelDetail" class="table table-hover-bordered">
+<!--                                             
+                                                <tr>
+                                                    <td>Kunjungan</td>
+                                                    <td>Poliklinik</td>
+                                                    <td>Petugas Kesehatan</td>
+                                                    <td>Diagnosis</td>
+                                                    <td>Tindakan</td>
+                                                    <td>Harga</td>
+                                                    <td>Jumlah</td>
+                                                </tr>
+                                             -->
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" onclick="ttpdetail()">Tutup</button>
+                                </div>
+                                <script>
+                                    $('#ModalDetail').on('show.bs.modal', function(event) {
+                                        var button = $(event.relatedTarget)
+                                        var recipient = button.data('whatever')
+                                        var modal = $(this);
+                                        var dataString = 'id='+recipient;
+
+                                        $.ajax({
+                                            type: 'post',
+                                            url: 'ajaxdetailrj.php',
+                                            data: dataString,
+                                            beforeSend: function(e) {
+                                            if(e && e.overrideMimeType) {
+                                                e.overrideMimeType("application/json;charset=UTF-8");
+                                            }
+                                            },
+                                            success: function (response){
+                                                $("#tabelDetail").html(response.detail).show();
+                                            }
+                                        })
+                                    })
+
+                                    function ttpdetail(){
+                                        $('#ModalDetail').modal('hide');
                                     }
                                 </script>
                             </div>

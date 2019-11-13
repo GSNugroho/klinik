@@ -48,9 +48,7 @@ if($_POST['no_rm'] == ''){
     kel_pasien, rt_pasien, rw_pasien, peg_rs, tinggi_pasien, berat_pasien, lp_pasien, imp_pasien, sis_pasien, dia_pasien, rr_pasien, 
     hr_pasien, nm_wali, hub_wali, nm_ortu, pkrj_wali FROM pasien_b WHERE no_rm='".$_POST['no_rm']."'");
     $data = mysqli_fetch_row($cek);
-    if($data){
-        die;
-    }else{
+    if($data == FALSE){
         $koderm = $_POST['no_rm'];
     }
 }
@@ -67,14 +65,14 @@ if($koderm != ''){
             '$neg_pasien','$sts_kwn','$pend_pasien','$pkrj_pasien','$alamat_pasien','$tlp_pasien',
             '$hp_pasien','$prov_pasien','$kot_pasien','$kec_pasien','$kel_pasien','$rt_pasien','$rw_pasien','$peg_rs',
             '$tinggi_pasien','$berat_pasien','$lp_pasien','$imp_pasien','$sis_pasien','$dia_pasien','$rr_pasien','$hr_pasien',
-            '$nm_wali','$hub_wali','$nm_ortu','$pkrj_wali','$tgl_dftr','$id_user')") or die(mysqli_error($koneksi));
+            '$nm_wali','$hub_wali','$nm_ortu','$pkrj_wali','$tgl_dftr','$id_user')");
 }
 
 if($_POST['no_bpjs'] != ''){
     $no_bpjs = $_POST['no_bpjs'];
 
     mysqli_query($koneksi, "INSERT INTO pasien_bpjs (no_bpjs, no_rm_bpjs) 
-    VALUES ('$no_bpjs','$no_rm')") or die(mysqli_error($koneksi));
+    VALUES ('$no_bpjs','$no_rm')");
 }
 
 // if($_POST['poli'] != ' '){
@@ -86,14 +84,22 @@ if($_POST['no_bpjs'] != ''){
     $no_kon = $_POST['no_kon'];
     $poli = $_POST['poli'];
     $pet_rs = $_POST['pet_rs'];
-    $diag = $_POST['diag'];
+    $diagnosis = $_POST['diag'];
+    $query_diagnosis = mysqli_query($koneksi, "SELECT id_diagnosis FROM diagnosis WHERE nama_indonesia = '$diagnosis'");
+    $cari_diagnosis = mysqli_fetch_array($query_diagnosis, MYSQLI_ASSOC);
+    $diag = $cari_diagnosis['id_diagnosis'];
     $cata = $_POST['cata'];
     $id_kunjungan = buatKode('kunjungan', 'RJ');
     $tgl_periksa = date('Y-m-d');
 
     $cek = mysqli_query($koneksi, "INSERT INTO kunjungan (id_kunjungan, no_rm, id_user, tgl_periksa, id_petugas, poliklinik, id_diagnosis)
-    VALUES ('$id_kunjungan','$no_rm','$id_user', '$tgl_periksa', '$pet_rs', '$poli', '$diag')") or die(mysqli_error($koneksi));
+    VALUES ('$id_kunjungan','$no_rm','$id_user', '$tgl_periksa', '$pet_rs', '$poli', '$diag')");
 
+    if($cek){
+        echo "hore";
+    }else{
+        echo "huuu";
+    }
 // }
 // if ($input){
 //     header('location: data_pasien.php');

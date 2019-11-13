@@ -39,7 +39,7 @@
 
     ## Fetch records
     $empQuery = mysqli_query($koneksi, "SELECT * FROM pasien_b JOIN user on pasien_b.id_user = user.id_user WHERE 1=1 ".$searchQuery
-    ."ORDER BY ".$columnName." ".$columnSortOrder." LIMIT ".$rowperpage);
+    ."ORDER BY ".$columnName." ".$columnSortOrder." LIMIT ".$baris.", ".$rowperpage);
     $empRecords = mysqli_fetch_all($empQuery, MYSQLI_ASSOC);
 
     $data = array();
