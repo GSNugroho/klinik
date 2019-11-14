@@ -407,17 +407,7 @@ if (!isset($_SESSION['level'])) {
                                 <div class="modal-body">
                                     <div class="table">
                                         <table id="tabelDetail" class="table table-hover-bordered">
-<!--                                             
-                                                <tr>
-                                                    <td>Kunjungan</td>
-                                                    <td>Poliklinik</td>
-                                                    <td>Petugas Kesehatan</td>
-                                                    <td>Diagnosis</td>
-                                                    <td>Tindakan</td>
-                                                    <td>Harga</td>
-                                                    <td>Jumlah</td>
-                                                </tr>
-                                             -->
+
                                         </table>
                                     </div>
                                 </div>
@@ -452,6 +442,298 @@ if (!isset($_SESSION['level'])) {
                                 </script>
                             </div>
                         </div>
+                    </div>
+                    <div class="modal fade" id="modalResep" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" onclick="ttpresep()" class="close" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h3 class="modal-title" id="ModalResepLabel">Resep Obat</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="form-horizontal" name="addResep" action="need/proses.php" method="post"  >
+                                        <!--bagian kunjungan-->
+                                        <?php
+                                        $noResep = buatKode("resep", "R");
+                                        ?>
+                                        <!--input data dari kunjungan-->
+                                        <div class="form-group">
+                                            <label for="inputNoResep" class="col-sm-3 control-label">No Resep</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" id="inputNoResep" placeholder="No Resep" readonly="" name="id_resep" value="<?php echo $noResep; ?>">
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-horizontal">
+                                            <label for="inputIdKunjungan" class="col-sm-3 control-label">No Kunjungan</label>
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control" id="inputIdKunjungan" placeholder="No Kunjungan" name="id_kunjungan" readonly="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputNama" class="col-sm-3 control-label">Nama Pasien</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" id="inputNama" readonly name="nama_pasien">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputDiagOb" class="col-sm-3 control-label">Diagnosis</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" id="inputDiagOb" readonly>
+                                            </div>
+                                        </div>
+                                        <!--memilih obat untuk resep-->
+                                        <h3 class="sub-header"></h3>
+                                        <!--memilih petugas sesuai dengan saat rawat jalan-->
+                                        <div class="form-group">
+                                            <label for="inputPetugas" class="col-sm-3 control-label">Petugas Kesehatan</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" name="pilihPetugas" class="form-control" id="inputPetrso" readonly>
+                                            </div>
+                                        </div>
+                                        <!--mengambil obat yang ada didatabase-->
+                                        <div class="form-group">
+                                            <label for="inputObat" class="col-sm-3 control-label">Nama Obat</label>
+                                            <div class="col-sm-7">
+                                                <!--memilih obat serta diambil untuk harga dan stok-->
+                                                <select id="daftarObat" name="pilihObat" class="form-control" required="">
+                                                    <option value="KOSONG">......</option>
+                                                    <?php
+                                                    $daftarObat = isset($_POST['daftarObat']) ? $_POST['daftarObat'] : '';
+                                                    $bacaSql = mysqli_query($koneksi, "SELECT * FROM obat ORDER BY nama_obat");
+
+                                                    while ($bacaData = mysqli_fetch_array($bacaSql)) {
+                                                        if ($bacaData['id_obat'] == $daftarObat) {
+                                                            $cek = " selected";
+                                                        } else {
+                                                            $cek = "";
+                                                        }
+
+                                                        echo "<option value='$bacaData[id_obat]' $cek>$bacaData[nama_dagang] [ $bacaData[id_obat] ]</option>";
+                                                    }
+                                                    ?>
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                        <!--harga dan stok-->
+                                        <div class="form-group">
+                                            <label for="inputHargaO" class="col-sm-3 control-label">Harga</label>
+                                            <?php
+                                            include 'obat/need/function.php';
+                                            $stok = '';
+                                            ?>
+                                            <div class="col-sm-3 form-horizontal">
+                                                <input type="text" name="harga_jual" class="form-control" id="inputHargaO" placeholder="Harga" readonly>
+                                            </div>
+                                            <label for="inputStok" class="col-sm-1 control-label">Stok</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" name="stok" class="form-control" id="stok" placeholder="Stok" readonly>
+
+                                            </div>
+                                        </div>
+                                        <!--mengambil obat dari stok (sementara sebelum klik buat resep)-->
+                                        <div class="form-group">
+                                            <label for="inputJumlahObat" class="col-sm-3 control-label">Jumlah Obat</label>
+                                            <div class="col-sm-9">
+                                                <input type="number" class="form-control" name="jumlah_obat" id="inputJumlahObat" placeholder="Jumlah Obat" min="1">
+                                            </div>
+                                        </div>
+                                        <!--drop down aturan pakai-->
+                                        <div class="form-group">
+                                            <label for="inputAturan" class="col-sm-3 control-label" required="">Aturan Pakai</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" name="aturan" id="inputAturan">
+                                                    <option>1 kali sehari sebelum makan</option>
+                                                    <option>2 kali sehari sebelum makan</option>
+                                                    <option>3 kali sehari sebelum makan</option>
+                                                    <option>1 kali sehari sesudah makan</option>
+                                                    <option>2 kali sehari sesudah makan</option>
+                                                    <option>3 kali sehari sesudah makan</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <!--tombol tambahkan dan buat resep-->
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-3 col-sm-9">
+                                                <!-- <input id="btntambaho" name="btntambaho" type="submit" style="cursor:pointer;" class="btn btn-info" value=" Tambahkan Obat " /> -->
+                                                <button type="button" class="btn btn-info" id="btntambaho" name="btntambaho" value="tambaho">Tambah Obat</button>
+                                                <!-- <input id="btnsimpano" name="btnsimpan" type="submit" style="cursor:pointer;" class="btn btn-primary" value=" buat resep " /> -->
+                                                
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <h2 class="sub-header">Detail Resep</h2>
+                                    
+                                        <div class="table" >
+                                            <table id="dataObat" class="table table-hover table-bordered" >
+                                                <thead >
+                                                    <tr>
+                                                        <!-- <th>No.</th> -->
+                                                        <!-- <th>Id Obat</th> -->
+                                                        <th>Nama Obat</th>
+                                                        <th>Jumlah Obat</th>
+                                                        <th>Aturan Pakai</th>
+                                                        <!-- <th>Delete</th> -->
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    
+                                </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" onclick="ttpresep()">Batal</button>
+                                <button type="button" class="btn btn-primary" id="btnsimpano" name="btnsimpano" value="simpano">Simpan Resep</button>
+                            </div>
+                        </div>
+                        <script>
+                            function resep() {
+                                        table = $('#dataObat').DataTable({
+                                            "bLengthChange": false,
+                                            "bFilter": false,
+                                            language: {
+                                            "sEmptyTable":	 "Tidak ada data yang tersedia pada tabel ini",
+                                            "sProcessing":   "Sedang memproses...",
+                                            "sLengthMenu":   "Tampilkan _MENU_ entri",
+                                            "sZeroRecords":  "Tidak ditemukan data yang sesuai",
+                                            "sInfo":         "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+                                            "sInfoEmpty":    "Menampilkan 0 sampai 0 dari 0 entri",
+                                            "sInfoFiltered": "(disaring dari _MAX_ entri keseluruhan)",
+                                            "sInfoPostFix":  "",
+                                            "sSearch":       "Cari:",
+                                            "sUrl":          "",
+                                            "oPaginate": {
+                                                "sFirst":    "Pertama",
+                                                "sPrevious": "Sebelumnya",
+                                                "sNext":     "Selanjutnya",
+                                                "sLast":     "Terakhir"
+                                            }
+                                            },
+                                            // 'order': [[ 0, "asc" ]],
+                                            'processing': true,
+                                            'serverSide': true,
+                                            'serverMethod': 'post',
+                                            'ajax': {
+                                                'url':'ajaxreseptmp.php'
+                                            },
+                                            'columns': [
+                                                // { data: 'poliklinik' },
+                                                // { data: 'id_obat' },
+                                                { data: 'nama_dagang' },
+                                                { data: 'jumlah_obat' },
+                                                { data: 'aturan_pakai' }
+                                                // { data: 'jmlh_tind' }
+                                                // { data: 'delete' }
+                                            ]
+                                        });
+                                    };
+
+                            $('#modalResep').on('show.bs.modal', function (event) {
+                                var button = $(event.relatedTarget)
+                                var recipient = button.data('whatever')
+                                var modal = $(this)
+                                var dataString = 'id='+recipient
+
+                                $.ajax({
+                                    type: 'get',
+                                    url: 'ajaxrsobat.php',
+                                    dataType: 'json',
+                                    data: dataString,
+                                    success: function (data){
+                                        $('#inputIdKunjungan').val(data['id_kunjungan']);
+                                        $('#inputNama').val(data['nm_pasien']);
+                                        $('#inputPetrso').val(data['nama_petugas']);
+                                        $('#inputDiagOb').val(data['nama_indonesia']);
+                                    }
+                                })
+                            });
+
+                            $('#daftarObat').change(function() {
+                                var daftar = document.getElementById('daftarObat');
+                                var harga = document.getElementById('inputHargaO');
+
+                                id = daftar.options[daftar.selectedIndex].value;
+                                $.ajax({
+                                    url: 'obat/need/ajax.php',
+                                    type: 'POST',
+                                    data: {
+                                        id_obat: id,
+                                    },
+                                    success: function(result) {
+                                        harga.value = result;
+                                    }
+                                });
+                            });
+
+                            $('#daftarObat').change(function() {
+                                var daftar = document.getElementById('daftarObat');
+                                var stok = document.getElementById('stok');
+                                var jml = document.getElementById('inputJumlahObat');
+                                
+                                id = daftar.options[daftar.selectedIndex].value;
+                                $.ajax({
+                                    url: 'obat/need/ajax.php',
+                                    type: 'POST',
+                                    data: {
+                                        id_o: id,
+                                    },
+                                    success: function(result){
+                                        stok.value = result;
+                                        jml.max = result;
+                                    }
+                                })
+                            })
+
+                            $('#btntambaho').click(function() {
+                                var idku = $('#inputIdKunjungan').val();
+                                var idrp = $('#inputNoResep').val();
+                                var idob = $('#daftarObat option:selected').val();
+                                var jmob = $('#inputJumlahObat').val();
+                                var atpi = $('#inputAturan').val();
+                                var ptob = $('#inputPetrso').val();
+                                var btnt = $('#btntambaho').val();
+
+                                var dataString = 'idku='+idku+'&idrp='+idrp+'&idob='+idob+'&jmob='+jmob+'&atpi='+atpi+'&ptob='+ptob+'&btnt='+btnt;
+
+                                $.ajax({
+                                    type: 'post',
+                                    url: 'obat/need/proses.php',
+                                    data: dataString,
+                                    success: function() {
+                                        $('#dataObat').DataTable().ajax.reload();
+                                        document.getElementById('daftarObat').value = "";
+                                        document.getElementById('inputHargaO').value = "";
+                                        document.getElementById('stok').value = "";
+                                        document.getElementById('inputJumlahObat').value = "";
+                                    }
+                                });
+                            });
+
+                            $('#btnsimpano').click(function() {
+                                var idrp = $('#inputNoResep').val();
+                                var idku = $('#inputIdKunjungan').val();
+                                var btns = $('#btnsimpano').val();
+
+                                var dataString = 'idku='+idku+'&idrp='+idrp+'&btns='+btns;
+
+                                $.ajax({
+                                    type: 'post',
+                                    url: 'obat/need/proses.php',
+                                    data: dataString,
+                                    success: function(){
+                                        $('#tabelku').DataTable().ajax.reload();
+                                        $('#modalResep').modal('hide');
+                                        table.destroy();
+                                    }
+                                })
+                            });
+
+                            function ttpresep(){
+                                table.destroy();
+                                $('#modalResep').modal('hide');
+                            }
+                        </script>
                     </div>
                 </div>
             </div>

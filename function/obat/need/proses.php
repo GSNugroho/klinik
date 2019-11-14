@@ -32,28 +32,31 @@ if (isset($_GET['aksi'])) {
 }
 
 //proses dalam membuat resep
-if (isset($_POST['btntambah'])) {
+if ($_POST['btnt'] == 'tambaho') {
     //masukkan ke temp_detail_resep /keranjang
-    $id_resep = $_POST['id_resep'];
-    $id_obat = $_POST['pilihObat'];
-    $id_petugas = $_POST['pilihPetugas'];
-    $id_kunjungan = $_POST['id_kunjungan'];
-    $jumlah = $_POST['jumlah_obat'];
-    $aturan_pakai = $_POST['aturan'];
+    $id_resep = $_POST['idrp'];
+    $id_obat = $_POST['idob'];
+    $petugas = $_POST['ptob'];
+    $query_petugas = mysqli_query($koneksi, "SELECT id_petugas FROM petugas_kesehatan WHERE nama_petugas = '$petugas'");
+    $cari_petugas = mysqli_fetch_array($query_petugas);
+    $id_petugas = $cari_petugas['id_petugas'];
+    $id_kunjungan = $_POST['idku'];
+    $jumlah = $_POST['jmob'];
+    $aturan_pakai = $_POST['atpi'];
     $date = date('Y-m-d');
 
     //masukkan nilai dalam form ke dalam temp_detail_resep
     $query = "INSERT INTO tmp_detail_resep (id_resep, id_obat, jumlah_obat, aturan_pakai, id_petugas) VALUES ('" . $id_resep . "', '" . $id_obat . "', '" . $jumlah . "', '" . $aturan_pakai . "','" . $id_petugas . "')";
     $input_detail = mysqli_query($koneksi, $query) or die(mysqli_error($koneksi));
     header('location: ../buat_resep.php?id_kunjungan=' . $id_kunjungan);
-} elseif (isset($_POST['btnsimpan'])) {
+} elseif ($_POST['btns'] == 'simpano') {
     //insert resep
-    $id_resep = $_POST['id_resep'];
-    $id_obat = $_POST['pilihObat'];
-    $id_petugas = $_POST['pilihPetugas'];
-    $id_kunjungan = $_POST['id_kunjungan'];
-    $jumlah = $_POST['jumlah_obat'];
-    $aturan_pakai = $_POST['aturan'];
+    $id_resep = $_POST['idrp'];
+    // $id_obat = $_POST['pilihObat'];
+    // $id_petugas = $_POST['pilihPetugas'];
+    $id_kunjungan = $_POST['idku'];
+    // $jumlah = $_POST['jumlah_obat'];
+    // $aturan_pakai = $_POST['aturan'];
 
     //masukkan nilai statis dari kedalam resep
     $query = mysqli_query($koneksi, "INSERT INTO resep (id_resep, id_kunjungan, id_user) VALUES ('$id_resep', '$id_kunjungan', '" . $_SESSION['id_user'] . "' )");

@@ -14,7 +14,7 @@ function buatKode($tabel, $inisial){
 		require "../koneksi.php";
 		$struktur = mysqli_query($koneksi, "SELECT id_kunjungan FROM $tabel");
 	}else if($inisial =="R"){
-		require "../../koneksi.php";
+		require "../koneksi.php";
 		$struktur = mysqli_query($koneksi, "SELECT id_resep FROM $tabel");
 	}else if($inisial == "O"){
 		require "../../koneksi.php";

@@ -18,7 +18,7 @@ $query = mysqli_query($koneksi, "SELECT kuitansi.*, kunjungan.*, user.* FROM kui
                     WHERE kunjungan.id_kunjungan = '".$id_kunjungan."'") or die(mysqli_error($koneksi));
 $kolomData = mysqli_fetch_array($query);
 $no_rm = $kolomData['no_rm'];
-$query_pasien = mysqli_query($koneksi, "SELECT nama_pasien FROM pasien where no_rm='$no_rm'");
+$query_pasien = mysqli_query($koneksi, "SELECT nm_pasien FROM pasien_b where no_rm='$no_rm'");
 $data = mysqli_fetch_array($query_pasien);
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -65,7 +65,7 @@ $data = mysqli_fetch_array($query_pasien);
            <tr>
                 <td>Pasien </td>
                 <td>:</td>
-                <td colspan="3"><?php echo $data['nama_pasien']; ?></td>
+                <td colspan="3"><?php echo $data['nm_pasien']; ?></td>
             </tr>
             <tr>
                 <td>User </td>
