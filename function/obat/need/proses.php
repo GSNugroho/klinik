@@ -45,6 +45,13 @@ if ($_POST['btnt'] == 'tambaho') {
     $aturan_pakai = $_POST['atpi'];
     $date = date('Y-m-d');
 
+    $qsobat = mysqli_query($koneksi, "SELECT * FROM obat WHERE id_obat='".$id_obat."'");
+    while($row = mysqli_fetch_array($qsobat)){
+        $stok = $row['stok'];
+        $sisa = $stok-($jumlah);
+
+        $stok_obat = mysqli_query($koneksi, "UPDATE obat SET stok='".$sisa."' WHERE id_obat='".$id_obat."'");
+    }
     //masukkan nilai dalam form ke dalam temp_detail_resep
     $query = "INSERT INTO tmp_detail_resep (id_resep, id_obat, jumlah_obat, aturan_pakai, id_petugas) VALUES ('" . $id_resep . "', '" . $id_obat . "', '" . $jumlah . "', '" . $aturan_pakai . "','" . $id_petugas . "')";
     $input_detail = mysqli_query($koneksi, $query) or die(mysqli_error($koneksi));
@@ -80,7 +87,7 @@ if ($_POST['btnt'] == 'tambaho') {
                 . "VALUES ('".$id_resep."', '".$id_obat."', '".$jumlah_obat."', '".$aturan_pakai."', '".$id_petugas."')") or die(mysql_error());
 
         //update nilai stok dari tabel obat
-        $update_stok = mysqli_query($koneksi, "UPDATE obat SET stok = '$sisa' WHERE id_obat = '$id_obat'");
+        // $update_stok = mysqli_query($koneksi, "UPDATE obat SET stok = '$sisa' WHERE id_obat = '$id_obat'");
     }
     //masukkan nilai biaya resep yang dihitung dari detail resep
     $update_resep = mysqli_query($koneksi, "UPDATE resep SET biaya_resep = '$biaya_resep' WHERE id_resep ='" . $id_resep . "'");

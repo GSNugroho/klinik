@@ -25,6 +25,7 @@ if (!isset($_SESSION['level'])) {
         <script type="text/javascript" src="../js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../js/jquery.dataTables.js"></script>
         <script type="text/javascript" src="../js/dataTables.bootstrap.js"></script>
+        <script type="text/javascript" src="../js/sweetalert.min.js"></script>
         <!-- <script type="text/javascript" src="../js/dataTables.tableTools.js"></script>
         <script type="text/javascript" src="../js/dataTables.colVis.js"></script> -->
 
@@ -356,7 +357,7 @@ if (!isset($_SESSION['level'])) {
                                                     $('#tabeltindakan').DataTable().ajax.reload();
                                                     document.getElementById('daftarTindakan').value = "";
                                                     document.getElementById('inputHarga').value = "";
-                                                    document.getElementById('inputJmltind').value ="";
+                                                    document.getElementById('inputJmltind').value ="1";
                                                 }
                                             });
                                         })
@@ -372,6 +373,7 @@ if (!isset($_SESSION['level'])) {
                                                 success: function() {
                                                     $('#tabelku').DataTable().ajax.reload();
                                                     $('#exampleModal').modal('hide');
+                                                    table.destroy();
                                                 }
                                             })
                                         })
@@ -537,7 +539,7 @@ if (!isset($_SESSION['level'])) {
                                         <div class="form-group">
                                             <label for="inputJumlahObat" class="col-sm-3 control-label">Jumlah Obat</label>
                                             <div class="col-sm-9">
-                                                <input type="number" class="form-control" name="jumlah_obat" id="inputJumlahObat" placeholder="Jumlah Obat" min="1">
+                                                <input type="number" class="form-control" name="jumlah_obat" id="inputJumlahObat" placeholder="Jumlah Obat">
                                             </div>
                                         </div>
                                         <!--drop down aturan pakai-->
@@ -690,6 +692,12 @@ if (!isset($_SESSION['level'])) {
                                 var idrp = $('#inputNoResep').val();
                                 var idob = $('#daftarObat option:selected').val();
                                 var jmob = $('#inputJumlahObat').val();
+                                var maxs = document.getElementById('inputJumlahObat').max;
+                                if(jmob > maxs){
+                                    $('#inputJumlahObat').focus();
+                                    swal("", "Jumlah Obat Tidak Sesuai Stok!", "warning");
+                                    return false;
+                                }
                                 var atpi = $('#inputAturan').val();
                                 var ptob = $('#inputPetrso').val();
                                 var btnt = $('#btntambaho').val();
@@ -722,6 +730,7 @@ if (!isset($_SESSION['level'])) {
                                     url: 'obat/need/proses.php',
                                     data: dataString,
                                     success: function(){
+                                        swal("", "Simpan Resep Obat Berhasil", "success");
                                         $('#tabelku').DataTable().ajax.reload();
                                         $('#modalResep').modal('hide');
                                         table.destroy();

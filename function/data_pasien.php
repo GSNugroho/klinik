@@ -25,6 +25,7 @@ if (!isset($_SESSION['level'])) {
         <script type="text/javascript" src="../js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../js/jquery.dataTables.js"></script>
         <script type="text/javascript" src="../js/dataTables.bootstrap.js"></script>
+        <script type="text/javascript" src="../js/sweetalert.min.js"></script>
         <!-- <script type="text/javascript" src="../js/dataTables.tableTools.js"></script> -->
         <!-- <script type="text/javascript" src="../js/dataTables.colVis.js"></script> -->
 
@@ -760,6 +761,7 @@ if (!isset($_SESSION['level'])) {
                     url: 'edit_save_pasien.php',
                     data: dataString,
                     success: function() {
+                        swal("", "Edit Data Pasien Berhasil", "success");
                         $('#tabelku').DataTable().ajax.reload();
                         $('#exampleModal').modal('hide');
                         }

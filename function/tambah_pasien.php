@@ -95,18 +95,9 @@ if($_POST['no_bpjs'] != ''){
     $cek = mysqli_query($koneksi, "INSERT INTO kunjungan (id_kunjungan, no_rm, id_user, tgl_periksa, id_petugas, poliklinik, id_diagnosis)
     VALUES ('$id_kunjungan','$no_rm','$id_user', '$tgl_periksa', '$pet_rs', '$poli', '$diag')");
 
-    if($cek){
-        echo "hore";
-    }else{
-        echo "huuu";
-    }
 // }
-// if ($input){
-//     header('location: data_pasien.php');
-    
-// }
-// else{
-//     echo '<h1>Input gagal</h1>';
-//  header('location: penambahan_pasien.php?Message=' . urlencode("Gagal Input"));
-// }
+if ($cek){
+    header('location: penambahan_pasien.php');
+
+}
 ?>

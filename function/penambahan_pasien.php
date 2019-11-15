@@ -24,6 +24,7 @@ if (!isset($_SESSION['level'])) {
         <script src="../datepicker/js/moment-with-locales.js"></script>
         <script src="../datepicker/js/bootstrap-datetimepicker.js"></script>
         <script type="text/javascript" src="../js/jquery-ui-1.11.4/jquery-ui-1.11.4/jquery-ui.js"></script>
+        <script type="text/javascript" src="../js/sweetalert.min.js"></script>
     </head>
     <body>
 
@@ -897,7 +898,6 @@ if (!isset($_SESSION['level'])) {
                     return false;
                 }
                 var nobpjs = $('#inputNokartu').val();
-
                 var jnswrt = $('#inputKlsrwt').val();
                 var klsrwt = $('#inputKlsrwt').val();
                 var fksrwt = $('#inputFksrwt').val();
@@ -924,13 +924,7 @@ if (!isset($_SESSION['level'])) {
                     url: 'tambah_pasien.php',
                     data: dataString,
                     success: function() {
-                        $('#pendaftaran').html("<div id='message'></div>");
-                        $('#message').html("<h2>Data Berhasil Disimpan</h2>")
-                        .append("<p>We will be in touch soon.</p>")
-                        .hide()
-                        .fadeIn(1500, function() {
-                            $('#message').append("<img id='checkmark' src='images/check.png' />");
-                        });
+                        swal("", "Pendaftaran Pasien Berhasil", "success");
                         }
                 });
             });
