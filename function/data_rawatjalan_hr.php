@@ -1,5 +1,5 @@
 <?php
-$arrActive['dataRawatJalan'] = 'active';
+$arrActive['rawatJalan'] = 'active';
 session_start();
 include '../koneksi.php';
 include '../library/library.php';
@@ -78,7 +78,7 @@ if (!isset($_SESSION['level'])) {
                 ?>
 
                 <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main" style="margin-left: 20%">
-                    <h1 class="page-header">Data Rawat Jalan</h1>
+                    <h1 class="page-header">Rawat Jalan</h1>
 
                     <div class="row">
                         <div class="table" >
@@ -127,7 +127,7 @@ if (!isset($_SESSION['level'])) {
                         'serverSide': true,
                         'serverMethod': 'post',
                         'ajax': {
-                            'url':'ajaxdtrj.php'
+                            'url':'ajaxdtrjhr.php'
                         },
                         'columns': [
                             { data: 'id_kunjungan' },
@@ -266,7 +266,7 @@ if (!isset($_SESSION['level'])) {
                                                 "sLast":     "Terakhir"
                                             }
                                             },
-                                            // 'order': [[ 2, "desc" ]],
+                                            'order': [[ 0, "asc" ]],
                                             'processing': true,
                                             'serverSide': true,
                                             'serverMethod': 'post',

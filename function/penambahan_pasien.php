@@ -86,7 +86,7 @@ if (!isset($_SESSION['level'])) {
                 <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main" style="margin-left: 20%;">
                     <h1 class="page-header">Pendaftaran Pasien</h1>
                     <h2 class="sub-header">Data Pasien</h2>
-                    <form class="form-horizontal" name="addPasien" action="" method="post" id="pendaftaran">
+                    <form class="form-horizontal" name="addPasien" action="" method="post" id="pendaftaran" autocomplete="off">
                         <!-- <div class="form-group">
                             <label for="inputTgl_dftr" class="col-sm-2 control-label">Tgl. Daftar</label>
                             <div class="col-sm-2">
@@ -423,6 +423,27 @@ if (!isset($_SESSION['level'])) {
                             <div class="col-sm-2">
                                 <input type="text" name="psr_bpjs" class="form-control" id="inputPsrbpjs" readonly>
                             </div>
+                        </div>
+                        <h2 class="sub-header">Riwayat</h2>
+                        <div class="form-group">
+                            <div class="col-sm-5">
+                                <table border="1" id="inputRiwrs">
+                                    <th>Kunjungan</th>
+                                    <th>No. RM</th>
+                                    <th>Tgl. Periksa</th>
+                                    <th>Diagnosis</th>
+                                </table>
+                            </div>
+                        <div class="form-group">
+                            <div class="col-sm-4">
+                                <table border="1" id="inputRiwbpjs">
+                                    <th>Kunjungan</th>
+                                    <th>No. BPJS</th>
+                                    <th>Tgl. Periksa</th>
+                                    <th>Diagnosis</th>
+                                </table>
+                            </div>
+                        </div>
                         </div>
 
                         <h2 class="sub-header">Poliklinik</h2>

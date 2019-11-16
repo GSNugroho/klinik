@@ -96,8 +96,8 @@ if($_POST['no_bpjs'] != ''){
     VALUES ('$id_kunjungan','$no_rm','$id_user', '$tgl_periksa', '$pet_rs', '$poli', '$diag')");
 
 // }
-if ($cek){
-    header('location: penambahan_pasien.php');
+// if ($cek){
+//     header('location: penambahan_pasien.php');
 
-}
+// }
 ?>

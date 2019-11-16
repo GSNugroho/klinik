@@ -48,7 +48,7 @@ if (isset($_SESSION['level']))
 {
 	
    { ?>  
-            <a href="function/data_pasien.php"><button type="button" class="btn btn-primary btn-lg btn-block">Rawat Jalan</button></a>
+            <a href="function/data_rawatjalan_hr.php"><button type="button" class="btn btn-primary btn-lg btn-block">Rawat Jalan</button></a>
             <a href="function/obat/data_resep.php"><button type="button" class="btn btn-default btn-lg btn-block">Penjualan Obat</button></a>
   
    <?php }
@@ -64,8 +64,6 @@ if (!isset($_SESSION['level']))
                     </div>
                 </div>
             </div>
-
-
         </div>
     </body>
 </html>
