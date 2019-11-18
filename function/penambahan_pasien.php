@@ -427,20 +427,28 @@ if (!isset($_SESSION['level'])) {
                         <h2 class="sub-header">Riwayat</h2>
                         <div class="form-group">
                             <div class="col-sm-5">
-                                <table border="1" id="inputRiwrs">
+                                <table border="1" id="inputRiwrs" class="table table-bordered">
+                                <thead>
                                     <th>Kunjungan</th>
-                                    <th>No. RM</th>
                                     <th>Tgl. Periksa</th>
+                                    <th>Poliklinik</th>
                                     <th>Diagnosis</th>
+                                </thead>
+                                <tbody style="max-height:100px; overflow-y:auto;">
+                                </tbody>
                                 </table>
                             </div>
                         <div class="form-group">
-                            <div class="col-sm-4">
-                                <table border="1" id="inputRiwbpjs">
+                            <div class="col-sm-5">
+                                <table border="1" id="inputRiwbpjs" class="table table-bordered" style="overflow-y:auto;">
+                                <thead>
                                     <th>Kunjungan</th>
-                                    <th>No. BPJS</th>
                                     <th>Tgl. Periksa</th>
+                                    <th>No. BPJS</th>
                                     <th>Diagnosis</th>
+                                </thead>
+                                <tbody>
+                                </tbody>
                                 </table>
                             </div>
                         </div>
@@ -507,7 +515,7 @@ if (!isset($_SESSION['level'])) {
                                     <option value=''></option>
                                     <?php
                                         // $dataPetugas = isset($_POST['pilihPetugas']) ? $_POST['pilihPetugas'] :"";
-                                        $sql = mysqli_query($koneksi, "SELECT id_petugas, nama_petugas FROM petugas_kesehatan ORDER BY id_petugas");
+                                        $sql = mysqli_query($koneksi, "SELECT id_petugas, nama_petugas FROM petugas_kesehatan WHERE status != 'tidak aktif' ORDER BY id_petugas");
                                         
                                         while($row = mysqli_fetch_array($sql))
                                         {
@@ -653,6 +661,7 @@ if (!isset($_SESSION['level'])) {
             document.getElementById('inputPstbpjs').value = "";
             document.getElementById('inputKlsbpjs').value = "";
             document.getElementById('inputPsrbpjs').value = "";
+            $('#inputRiwrs tbody').remove();
         }
 
 
@@ -674,45 +683,56 @@ if (!isset($_SESSION['level'])) {
         $(function() {
 			$("#inputNoRM").on('keyup', function(){
             var dtrm = $('#inputNoRM').val();
+            var trHTML = '';
             $.ajax({
                 type: "POST",      
                 url: "ajaxrm.php",    
                 dataType: "json",
                 data: { 'dtrm': dtrm},
                 success: function(data){
-                    $('#inputNama').val(data['nm_pasien']);
-                    $('#inputKln').val(data['jk_pasien']);
-                    $('#inputTlahir').val(data['tmpt_lahir']);
-                    $('#inputNik').val(data['nik']);
-                    $('#inputTanggalLahir').val(data['tgl_lahir']);
-                    $('#inputAgama').val(data['agm_pasien']);
-                    $('#inputNegara').val(data['neg_pasien']);
-                    $('#inputStkw').val(data['sts_kwn']);
-                    $('#inputPndd').val(data['pend_pasien']);
-                    $('#inputPkrj').val(data['pkrj_pasien']);
-                    $('#inputAlamat').val(data['alamat_pasien']);
-                    $('#inputTelp').val(data['tlp_pasien']);
-                    $('#inputHP').val(data['hp_pasien']);
-                    $('#inputProv').val(data['prov_pasien']);
-                    $('#inputKt').val(data['kot_pasien']);
-                    $('#inputKec').val(data['kec_pasien']);
-                    $('#inputKel').val(data['kel_pasien']);
-                    $('#inputRt').val(data['rt_pasien']);
-                    $('#inputRw').val(data['rw_pasien']);
-                    $('#inputPrs').val(data['peg_rs']);
-                    $('#inputTb').val(data['tinggi_pasien']);
-                    $('#inputBb').val(data['berat_pasien']);
-                    $('#inputLp').val(data['lp_pasien']);
-                    $('#inputImt').val(data['imp_pasien']);
-                    $('#inputSt').val(data['sis_pasien']);
-                    $('#inputDt').val(data['dia_pasien']);
-                    $('#inputRr').val(data['rr_pasien']);
-                    $('#inputHr').val(data['hr_pasien']);
-                    $('#inputWal').val(data['nm_wali']);
-                    $('#inputHub').val(data['hub_wali']);
-                    $('#inputOrtu').val(data['nm_ortu']);
-                    $('#inputPkrWal').val(data['pkrj_wali']);
-                    $('#inputNokartu').val(data['no_bpjs']);
+                    $.each(data, function (a, b) {
+                    $('#inputNama').val(b.nm_pasien);
+                    $('#inputKln').val(b.jk_pasien);
+                    $('#inputTlahir').val(b.tmpt_lahir);
+                    $('#inputNik').val(b.nik);
+                    $('#inputTanggalLahir').val(b.tgl_lahir);
+                    $('#inputAgama').val(b.agm_pasien);
+                    $('#inputNegara').val(b.neg_pasien);
+                    $('#inputStkw').val(b.sts_kwn);
+                    $('#inputPndd').val(b.pend_pasien);
+                    $('#inputPkrj').val(b.pkrj_pasien);
+                    $('#inputAlamat').val(b.alamat_pasien);
+                    $('#inputTelp').val(b.tlp_pasien);
+                    $('#inputHP').val(b.hp_pasien);
+                    $('#inputProv').val(b.prov_pasien);
+                    $('#inputKt').val(b.kot_pasien);
+                    $('#inputKec').val(b.kec_pasien);
+                    $('#inputKel').val(b.kel_pasien);
+                    $('#inputRt').val(b.rt_pasien);
+                    $('#inputRw').val(b.rw_pasien);
+                    $('#inputPrs').val(b.peg_rs);
+                    $('#inputTb').val(b.tinggi_pasien);
+                    $('#inputBb').val(b.berat_pasien);
+                    $('#inputLp').val(b.lp_pasien);
+                    $('#inputImt').val(b.imp_pasien);
+                    $('#inputSt').val(b.sis_pasien);
+                    $('#inputDt').val(b.dia_pasien);
+                    $('#inputRr').val(b.rr_pasien);
+                    $('#inputHr').val(b.hr_pasien);
+                    $('#inputWal').val(b.nm_wali);
+                    $('#inputHub').val(b.hub_wali);
+                    $('#inputOrtu').val(b.nm_ortu);
+                    $('#inputPkrWal').val(b.pkrj_wali);
+                    $('#inputNokartu').val(b.no_bpjs);
+
+                    
+                    trHTML += '<tr><td>' + b.id_kunjungan +
+                            '</td><td>' + b.tgl_periksa +
+                            '</td><td>' + b.poliklinik +
+                            '</td><td>' + b.nama_indonesia +
+                            '</td></tr>';
+                    });
+                    $('#inputRiwrs').append(trHTML);
                 }
                 });
             });
@@ -946,6 +966,7 @@ if (!isset($_SESSION['level'])) {
                     data: dataString,
                     success: function() {
                         swal("", "Pendaftaran Pasien Berhasil", "success");
+                        $('#inputRiwrs tbody').remove();
                         }
                 });
             });

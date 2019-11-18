@@ -22,8 +22,8 @@ if (!isset($_SESSION['level'])) {
 
         <!--<script type="text/javascript" src="../../js/jquery.min.js"></script>-->
         <script type="text/javascript" src="../js/jquery.js"></script>
-        <script type="text/javascript" src="../js/dataTables.bootstrap.js"></script>
         <script type="text/javascript" src="../js/jquery.dataTables.js"></script>
+        <script type="text/javascript" src="../js/dataTables.bootstrap.js"></script>
         <script type="text/javascript" src="../js/dataTables.tableTools.js"></script>
         <script type="text/javascript" src="../js/dataTables.colVis.js"></script>
 

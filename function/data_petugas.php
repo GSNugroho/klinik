@@ -23,8 +23,8 @@ $level = $_SESSION['level'];
 
         <!--<script type="text/javascript" src="../../js/jquery.min.js"></script>-->
         <script type="text/javascript" src="../js/jquery.js"></script>
-        <script type="text/javascript" src="../js/dataTables.bootstrap.js"></script>
         <script type="text/javascript" src="../js/jquery.dataTables.js"></script>
+        <script type="text/javascript" src="../js/dataTables.bootstrap.js"></script>
         <script type="text/javascript" src="../js/dataTables.tableTools.js"></script>
         <script type="text/javascript" src="../js/dataTables.colVis.js"></script>
 
@@ -94,9 +94,9 @@ $level = $_SESSION['level'];
                                         <th>Tanggal Lahir</th>
                                         <th>No. Telp / HP</th>
                                         <th>Poliklinik</th>
-                                        <th>Diinputkan oleh</th>
-                                        <th>Status</th>
-                                        <th>Update</th>
+                                        <th style="width:5%">User</th>
+                                        <!-- <th>Status</th> -->
+                                        <th style="width:7%">Update</th>
                                     </tr>
                                 </thead>
 
@@ -106,7 +106,8 @@ $level = $_SESSION['level'];
                                     <?php
                                     include_once '../koneksi.php';
 //                                    $query = mysql_query("select * from pasien");
-                                    $query = mysqli_query($koneksi, "select p.*, u.username from petugas_kesehatan p LEFT JOIN user u ON p.id_user = u.id_user ORDER BY id_petugas DESC");
+                                    // $query = mysqli_query($koneksi, "select p.*, u.username from petugas_kesehatan p LEFT JOIN user u ON p.id_user = u.id_user ORDER BY id_petugas DESC");
+                                    $query = mysqli_query($koneksi, "select id_petugas, nama_petugas, alamat_petugas, tempat_lahir, DATE_FORMAT(tgl_lahir_petugas, '%d-%m-%Y') as tgl_lahir_petugas, no_telp, poliklinik, username from petugas_kesehatan LEFT JOIN user ON petugas_kesehatan.id_user = user.id_user ORDER BY id_petugas DESC");
                                     $no = 0;
                                     while ($hasil = mysqli_fetch_array($query)) {
                                         $no++;
@@ -121,7 +122,7 @@ $level = $_SESSION['level'];
                                         <td>" . $hasil['no_telp'] . "</td>
                                         <td>" . $hasil['poliklinik'] . "</td>
                                         <td>" . $hasil['username'] . "</td>
-                                        <td>" . $hasil['status'] . "</td>
+                                        
                                         <td><a href='edit_petugas.php?i=" . $hasil['id_petugas'] . "'>Edit</a></td>
                                     </tr>";
                                     }
