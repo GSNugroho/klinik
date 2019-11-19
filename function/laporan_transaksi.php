@@ -17,12 +17,19 @@ if (!isset($_SESSION['level'])) {
         <link rel="stylesheet" type="text/css" href="../css/jquery.dataTables.css">
         <link rel="stylesheet" type="text/css" href="../css/dataTables.tableTools.css">
         <link rel="stylesheet" type="text/css" href="../css/dataTables.colVis.css">
+        <link rel="stylesheet" type="text/css" href="../css/buttons.dataTables.min.css">
 
         <script type="text/javascript" src="../js/jquery.js"></script>
         <script type="text/javascript" src="../js/jquery.dataTables.js"></script>
         <script type="text/javascript" src="../js/dataTables.bootstrap.js"></script>
-        <script type="text/javascript" src="../js/dataTables.tableTools.js"></script>
-        <script type="text/javascript" src="../js/dataTables.colVis.js"></script>
+        <!-- <script type="text/javascript" src="../js/dataTables.tableTools.js"></script>
+        <script type="text/javascript" src="../js/dataTables.colVis.js"></script> -->
+        <script type="text/javascript" src="../js/dataTables.buttons.min.js"></script>
+        <script type="text/javascript" src="../js/jszip.min.js"></script>
+        <script type="text/javascript" src="../js/pdfmake.min.js"></script>
+        <script type="text/javascript" src="../js/vfs_fonts.js"></script>
+        <script type="text/javascript" src="../js/buttons.flash.min.js"></script>
+        <script type="text/javascript" src="../js/buttons.html5.min.js"></script>
 
         <style>
             td.details-control {
@@ -103,122 +110,16 @@ if (!isset($_SESSION['level'])) {
 
 
                                 <tbody id="myTable">
-                                    <?php
-//                                     include_once '../koneksi.php';
-// //                                    $query = mysql_query("select * from pasien");
-// //                                    $query = mysql_query("select * from kunjungan p INNER JOIN user u ON p.id_user = u.id_user");
-//                                     $query = mysqli_query($koneksi, "select * from kunjungan p INNER JOIN user u ON p. id_user = u.id_user INNER JOIN pasien_b s ON p.no_rm = s.no_rm");
-//                                     $no = 0;
 
-//                                     while ($hasil = mysqli_fetch_array($query)) {
-//                                         $no++;
-//                                         echo "<tr>
-//                                         <td>" . $no . "</td>
-//                                         <td>" . $hasil['id_kunjungan'] . "</td>
-//                                         <td>" . $hasil['cabang'] . "</td>
-//                                         <td>" . $hasil['tgl_periksa'] . "</td>
-//                                         <td>" . $hasil['no_rm'] . "</td>
-//                                         <td>" . $hasil['nm_pasien'] . "</td>
-//                                         <td>" . $hasil['biaya_periksa'] . "</td> 
-//                                         <td>
-//                                         ";
-//                                         $query_detail = mysqli_query($koneksi, "select * from tindakan_medis p INNER JOIN petugas_kesehatan u ON p.id_petugas = u.id_petugas 
-//                                                         INNER JOIN diagnosis t ON p.id_diagnosis = t.id_diagnosis
-//                                                         inner JOIN daftar_tindakan s ON p.id_tindakan = s.id_tindakan WHERE p.id_kunjungan = '" . $hasil['id_kunjungan'] . "'");
-// //                                        $id_tm;
-// //                                        print_r($id_tm);
-//                                         $itung = 0;
-//                                         while ($detail = mysqli_fetch_array($query_detail)) {
-//                                             $itung++;
-
-// //                                            $rincian = $detail['nama_tindakan'];
-
-// //                                            print_r($id_tm);
-//                                             // echo $itung . '. id tindakan : ' . $detail['id_tm'];
-//                                             // echo "<br>";
-//                                             echo $itung . ' poliklinik : ' . $detail['poliklinik'];
-//                                             echo "<br>";
-//                                             echo  ' petugas kesehatan : ' . $detail['nama_petugas'];
-//                                             echo "<br>";
-//                                             echo  ' diagnosis : ' . $detail['nama_indonesia'];
-//                                             echo "<br>";
-//                                             echo  ' tindakan : ' . $detail['nama_tindakan'];
-//                                             echo "<br>";
-//                                             echo  ' harga : ' . $detail['harga_tindakan'];
-//                                             echo "<br>";
-//                                             echo  ' jumlah : ' . $detail['jmlh_tind'];
-//                                             echo "<br>";
-//                                         }
-// //                                        echo "
-// //                                             " . $id_tm . "</td>   
-// //                                            </tr>";
-//                                     }
-                                    ?>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                     <script type="text/javascript" >
-//                        $(document).ready(function() {
-//                            $('#kepet').dataTable();
-//                        });
-//                        
-//                        $(document).ready(function() {
-//                            $('#kepet').DataTable({
-//                                "dom": 'T<"clear">lfrtip',
-//                                "tableTools": {
-//                                    "aButtons": [
-//                                        {
-//                                            "sExtends": "print",
-//                                            "sButtonText": "Print"
-//                                        }
-//                                    ]
-//                                }
-//                            });
-//                        });
-//                        
-                        // $(document).ready(function() {
-                        //     var table = $('#tabelku').dataTable();
-                        //     var tt = new $.fn.dataTable.TableTools(table, {
-                        //         ajax: 'ajaxlaprj.php',
-                        //         sRowSelect: 'double',
-                        //         responsive: true,
-                        //         aButtons: [{
-                        //                 "sExtends": "print",
-                        //                 "sButtonText": "Print"
-                        //             }]
-                        //     });
-
-                        //     $(tt.fnContainer()).insertBefore('div.table');
-                        //     var colvis = new $.fn.dataTable.ColVis(table, {
-                        //         buttonText: 'Select columns'
-                        //     });
-
-                        //     $(colvis.button()).insertBefore('div.table');
-                        // });
-
-                        // function format ( d ) {
-                        //     // `d` is the original data object for the row
-                        //     return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
-                        //         '<tr>'+
-                        //             '<td>Poliklinik:</td>'+
-                        //             '<td>'+d.poliklinik+'</td>'+
-                        //         '</tr>'+
-                        //         '<tr>'+
-                        //             '<td>Nama Petugas:</td>'+
-                        //             '<td>'+d.nama_petugas+'</td>'+
-                        //         '</tr>'+
-                        //         '<tr>'+
-                        //             '<td>Diagnosis:</td>'+
-                        //             '<td>'+d.nama_indonesia+'</td>'+
-                        //         '</tr>'+
-                        //     '</table>';
-                        // }
-
                         function format (rowData) {
-                            var div = $('<div/>')
-                                .addClass( 'loading' )
-                                .text( 'Loading...' );
+                            var div = $('<table id="detailrj" class="table table-bordered">')
+                                // .addClass( 'loading' )
+                                // .text( 'Loading...' );
                         
                             $.ajax( {
                                 url: 'ajaxlaprjdt.php',
@@ -226,11 +127,14 @@ if (!isset($_SESSION['level'])) {
                                     id: rowData.id_kunjungan
                                 },
                                 type: "GET",
-                                dataType: 'json',
-                                success: function ( json ) {
-                                    div
-                                        .html( json.html )
-                                        .removeClass( 'loading' );
+                                beforeSend: function(e) {
+                                            if(e && e.overrideMimeType) {
+                                                e.overrideMimeType("application/json;charset=UTF-8");
+                                            }
+                                            },
+                                success: function ( response ) {
+                                    $("#detailrj").html(response.detail).show();
+                                        // .removeClass( 'loading' );
                                 }
                             } );
                         
@@ -239,6 +143,38 @@ if (!isset($_SESSION['level'])) {
                         
                         $(document).ready(function() {
                             var table = $('#tabelku').DataTable( {
+                                dom: 'lBfrtip',
+                                buttons: [
+                                    {
+                                        extend : 'excelHtml5',
+                                        text : 'Export Excel',
+                                        title : 'Laporan Rawat Jalan',
+                                        exportOptions : {
+                                            columns: [0, 1, 2, 3, 4, 5]
+                                        },
+                                        // action : function( e, dt, button, config ) {
+                                        //     dt_print( e, dt, button, config, true )
+                                        // }
+                                        },
+                                    ],
+                                language: {
+                                    "sEmptyTable":	 "Tidak ada data yang tersedia pada tabel ini",
+                                    "sProcessing":   "Sedang memproses...",
+                                    "sLengthMenu":   "Tampilkan _MENU_ entri",
+                                    "sZeroRecords":  "Tidak ditemukan data yang sesuai",
+                                    "sInfo":         "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+                                    "sInfoEmpty":    "Menampilkan 0 sampai 0 dari 0 entri",
+                                    "sInfoFiltered": "(disaring dari _MAX_ entri keseluruhan)",
+                                    "sInfoPostFix":  "",
+                                    "sSearch":       "Cari:",
+                                    "sUrl":          "",
+                                    "oPaginate": {
+                                        "sFirst":    "Pertama",
+                                        "sPrevious": "Sebelumnya",
+                                        "sNext":     "Selanjutnya",
+                                        "sLast":     "Terakhir"
+                                }
+                                },
                                 "ajax": {"url":"ajaxlaprj.php"},
                                 "processing" : true,
                                 "serverSide" : true,

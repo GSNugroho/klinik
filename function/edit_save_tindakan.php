@@ -1,14 +1,13 @@
 <?php
 
-if (isset($_POST['submit'])){
-        
+// if (isset($_POST['submit'])){
         session_start();
         include '../koneksi.php';
         include '../library/library.php';
         
         
-        $idTindakan = $_POST['idTindakan'];
-        $namaTindakan = $_POST['namaTindakan'];
+        $idTindakan = $_POST['id'];
+        $namaTindakan = $_POST['nmti'];
         $harga = $_POST['harga'];
         
         
@@ -25,5 +24,5 @@ if (isset($_POST['submit'])){
             echo '<h1>Input gagal</h1>';
          header('location: data_tindakan.php?Message=' . urlencode("Gagal Edit"));
         }
-    }
+    // }
         ?>

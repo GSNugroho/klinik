@@ -23,6 +23,7 @@ $level = $_SESSION['level'];
 
         <!--<script type="text/javascript" src="../../js/jquery.min.js"></script>-->
         <script type="text/javascript" src="../js/jquery.js"></script>
+        <script type="text/javascript" src="../js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../js/jquery.dataTables.js"></script>
         <script type="text/javascript" src="../js/dataTables.bootstrap.js"></script>
         <script type="text/javascript" src="../js/dataTables.tableTools.js"></script>
@@ -98,8 +99,8 @@ $level = $_SESSION['level'];
                                 <tbody id="myTable">
                                     <?php
                                     include_once '../koneksi.php';
-//                                    $query = mysql_query("select * from pasien");
-                                    $query = mysqli_query($koneksi, "select * from daftar_tindakan ORDER BY id_tindakan DESC");
+
+                                    $query = mysqli_query($koneksi, "SELECT * FROM daftar_tindakan ORDER BY id_tindakan DESC");
                                     $no = 0;
                                     while ($hasil = mysqli_fetch_array($query)) {
                                         $no++;
@@ -110,7 +111,7 @@ $level = $_SESSION['level'];
                                         <td>" . $hasil['harga_tindakan'] . "</td>
                                        
                                         
-                                        <td><a href='edit_tindakan.php?i=" . $hasil['id_tindakan'] . "'>Edit</a></td>
+                                        <td><a href='#' data-toggle='modal' data-target='#editTindakan' data-whatever='".$hasil['id_tindakan']."'>Edit</a></td>
                                     </tr>";
                                     }
                                     ?>
@@ -120,24 +121,7 @@ $level = $_SESSION['level'];
                         </div>
                     </div>
                     <script type="text/javascript" >
-//                        $(document).ready(function() {
-//                            $('#kepet').dataTable();
-//                        });
-//                        
-//                        $(document).ready(function() {
-//                            $('#kepet').DataTable({
-//                                "dom": 'T<"clear">lfrtip',
-//                                "tableTools": {
-//                                    "aButtons": [
-//                                        {
-//                                            "sExtends": "print",
-//                                            "sButtonText": "Print"
-//                                        }
-//                                    ]
-//                                }
-//                            });
-//                        });
-//                        
+
                         $(document).ready(function() {
                             var table = $('#tabelku').dataTable();
                             var tt = new $.fn.dataTable.TableTools(table, {
@@ -160,6 +144,83 @@ $level = $_SESSION['level'];
                     </script>
                 </div>
             </div>
+                    <div class="modal fade" id="editTindakan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" onclick="tutup()" class="close" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h3 class="modal-title" id="exampleModalLabel">Edit Tindakan</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="inputIdTindakan">Id Tindakan</label>
+                                        <div>
+                                            <input type="text" name="idTindakan" class="form-control" readonly id="inputIdTindakan" placeholder="Id Tindakan">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputNamaTindakan">Nama Tindakan</label>
+                                        <div>
+                                            <input type="text" name="namaTindakan" class="form-control" id="inputNamaTindakan" required="" placeholder="Nama Tindakan">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputHarga">Harga</label>
+                                        <div>
+                                            <input type="text" name="harga" class="form-control" id="inputHarga" required="" placeholder="Harga">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" onclick="tutup()">Batal</button>
+                                    <button type="button" class="btn btn-primary" id="submit">Simpan</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        $('#editTindakan').on('show.bs.modal', function(event) {
+                            var button = $(event.relatedTarget) // Button that triggered the modal
+                            var recipient = button.data('whatever') // Extract info from data-* attributes
+                            var modal = $(this);
+                            var dataString = 'id=' + recipient;
+
+                            $.ajax({
+                                type: 'post',
+                                url: 'ajaxetin.php',
+                                dataType: 'json',
+                                data: dataString,
+                                success: function (data){
+                                    $("#inputIdTindakan").val(data['id_tindakan']);
+                                    $("#inputNamaTindakan").val(data['nama_tindakan']);
+                                    $("#inputHarga").val(data['harga_tindakan']);
+                                }
+                            })
+                        })
+
+                        function tutup(){
+                            $('#editTindakan').modal('hide');
+                        }
+
+                        $('#submit').click(function() {
+                            var nmti = $('#inputNamaTindakan').val();
+                            var harga = $('#inputHarga').val();
+                            var id = $('#inputIdTindakan').val();
+                            var dataString = 'id='+id+'&harga='+harga+'&nmti='+nmti;
+
+                            $.ajax({
+                                type: 'post',
+                                url: 'edit_save_tindakan.php',
+                                data: dataString,
+                                success: function(data){
+                                    $('#editTindakan').modal('hide');
+                                    // $('#tabelku').DataTable().ajax.reload();
+                                }
+                            })
+                        })
+                    </script>
         </div>
     </body>
 </html>

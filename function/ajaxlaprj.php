@@ -20,11 +20,7 @@ if($searchValue != ''){
 
 $sel = mysqli_query($koneksi, "SELECT count(*) as allcount FROM kunjungan p 
 INNER JOIN user u ON p. id_user = u.id_user 
-INNER JOIN pasien_b s ON p.no_rm = s.no_rm
-INNER JOIN tindakan_medis t ON p.id_kunjungan = t.id_kunjungan
-INNER JOIN diagnosis d ON t.id_diagnosis = d.id_diagnosis
-INNER JOIN daftar_tindakan f ON t.id_tindakan = f.id_tindakan
-INNER JOIN petugas_kesehatan g ON t.id_petugas = g.id_petugas");
+INNER JOIN pasien_b s ON p.no_rm = s.no_rm");
 $records = mysqli_fetch_all($sel);
 foreach($records as $row){
     $totalRecords = $row;
@@ -32,11 +28,7 @@ foreach($records as $row){
 
 $sel = mysqli_query($koneksi, "SELECT count(*) as allcount FROM kunjungan p 
 INNER JOIN user u ON p. id_user = u.id_user 
-INNER JOIN pasien_b s ON p.no_rm = s.no_rm
-INNER JOIN tindakan_medis t ON p.id_kunjungan = t.id_kunjungan
-INNER JOIN diagnosis d ON t.id_diagnosis = d.id_diagnosis
-INNER JOIN daftar_tindakan f ON t.id_tindakan = f.id_tindakan
-INNER JOIN petugas_kesehatan g ON t.id_petugas = g.id_petugas ".$searchQuery);
+INNER JOIN pasien_b s ON p.no_rm = s.no_rm ".$searchQuery);
 $records = mysqli_fetch_all($sel);
 foreach($records as $row){
     $totalRecordwithFilter = $row;
@@ -44,11 +36,7 @@ foreach($records as $row){
 
 $empQuery = mysqli_query($koneksi, "SELECT p.id_kunjungan, cabang, DATE_FORMAT(tgl_periksa, '%d%-%m%-%Y') as tgl_periksa, s.no_rm as no_rm, nm_pasien FROM kunjungan p 
 INNER JOIN user u ON p. id_user = u.id_user 
-INNER JOIN pasien_b s ON p.no_rm = s.no_rm
-INNER JOIN tindakan_medis t ON p.id_kunjungan = t.id_kunjungan
-INNER JOIN diagnosis d ON t.id_diagnosis = d.id_diagnosis
-INNER JOIN daftar_tindakan f ON t.id_tindakan = f.id_tindakan
-INNER JOIN petugas_kesehatan g ON t.id_petugas = g.id_petugas ".$searchQuery." ORDER BY ".$columnName." "
+INNER JOIN pasien_b s ON p.no_rm = s.no_rm ".$searchQuery." ORDER BY ".$columnName." "
 .$columnSortOrder." LIMIT ".$baris.", ".$rowperpage);
 $empRecords = mysqli_fetch_all($empQuery, MYSQLI_ASSOC);
 
