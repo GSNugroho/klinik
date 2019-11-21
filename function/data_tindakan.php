@@ -86,35 +86,18 @@ $level = $_SESSION['level'];
                             <table id="tabelku" class="table table-hover display responsive compact"  cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
-                                        <th style="width : 5%">No.</th>
+                                        <!-- <th style="width : 5%">No.</th> -->
                                         <th style="width : 15%">Id Tindakan</th>
                                         <th style="width : 50%">Nama Tindakan</th>
                                         <th>Harga</th>
-                                        <th>Update</th>
+                                        <th>Edit</th>
                                     </tr>
                                 </thead>
 
 
 
                                 <tbody id="myTable">
-                                    <?php
-                                    include_once '../koneksi.php';
-
-                                    $query = mysqli_query($koneksi, "SELECT * FROM daftar_tindakan ORDER BY id_tindakan DESC");
-                                    $no = 0;
-                                    while ($hasil = mysqli_fetch_array($query)) {
-                                        $no++;
-                                        echo "<tr>
-                                        <td>" . $no . "</td>
-                                        <td>" . $hasil['id_tindakan'] . "</td>
-                                        <td>" . $hasil['nama_tindakan'] . "</td>
-                                        <td>" . $hasil['harga_tindakan'] . "</td>
-                                       
-                                        
-                                        <td><a href='#' data-toggle='modal' data-target='#editTindakan' data-whatever='".$hasil['id_tindakan']."'>Edit</a></td>
-                                    </tr>";
-                                    }
-                                    ?>
+                                    
                                 </tbody>
 
                             </table>
@@ -122,23 +105,40 @@ $level = $_SESSION['level'];
                     </div>
                     <script type="text/javascript" >
 
-                        $(document).ready(function() {
-                            var table = $('#tabelku').dataTable();
-                            var tt = new $.fn.dataTable.TableTools(table, {
-                                sRowSelect: 'double',
-                                responsive: true,
-                                aButtons: [{
-                                        "sExtends": "print",
-                                        "sButtonText": "Print"
-                                    }]
-                            });
-
-                            $(tt.fnContainer()).insertBefore('div.table');
-                            var colvis = new $.fn.dataTable.ColVis(table, {
-                                buttonText: 'Select columns'
-                            });
-
-                            $(colvis.button()).insertBefore('div.table');
+                        $(document).ready(function(){
+                        $('#tabelku').DataTable({
+                            language: {
+                        "sEmptyTable":	 "Tidak ada data yang tersedia pada tabel ini",
+                        "sProcessing":   "Sedang memproses...",
+                        "sLengthMenu":   "Tampilkan _MENU_ entri",
+                        "sZeroRecords":  "Tidak ditemukan data yang sesuai",
+                        "sInfo":         "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+                        "sInfoEmpty":    "Menampilkan 0 sampai 0 dari 0 entri",
+                        "sInfoFiltered": "(disaring dari _MAX_ entri keseluruhan)",
+                        "sInfoPostFix":  "",
+                        "sSearch":       "Cari:",
+                        "sUrl":          "",
+                        "oPaginate": {
+                            "sFirst":    "Pertama",
+                            "sPrevious": "Sebelumnya",
+                            "sNext":     "Selanjutnya",
+                            "sLast":     "Terakhir"
+                        }
+                        },
+                        'order': [[ 0, "asc" ]],
+                        'processing': true,
+                        'serverSide': true,
+                        'serverMethod': 'post',
+                        'ajax': {
+                            'url':'ajaxdttind.php'
+                        },
+                        'columns': [
+                            { data: 'id_tindakan' },
+                            { data: 'nama_tindakan' },
+                            { data: 'harga_tindakan' },
+                            { data: 'aksi' }
+                        ]
+                        });
                         });
 
                     </script>
@@ -216,7 +216,7 @@ $level = $_SESSION['level'];
                                 data: dataString,
                                 success: function(data){
                                     $('#editTindakan').modal('hide');
-                                    // $('#tabelku').DataTable().ajax.reload();
+                                    $('#tabelku').DataTable().ajax.reload();
                                 }
                             })
                         })

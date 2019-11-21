@@ -17,8 +17,8 @@ if (!isset($_SESSION['level'])) {
         <link rel="stylesheet" type="text/css" href="../../css/dataTables.tableTools.css">
         <link rel="stylesheet" type="text/css" href="../../css/dataTables.colVis.css">
         <script type="text/javascript" src="../../js/jquery.js"></script>
-        <script type="text/javascript" src="../../js/dataTables.bootstrap.js"></script>
         <script type="text/javascript" src="../../js/jquery.dataTables.js"></script>
+        <script type="text/javascript" src="../../js/dataTables.bootstrap.js"></script>
         <script type="text/javascript" src="../../js/dataTables.tableTools.js"></script>
         <script type="text/javascript" src="../../js/dataTables.colVis.js"></script>
     </head>

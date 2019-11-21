@@ -429,7 +429,7 @@ if (!isset($_SESSION['level'])) {
                             <div class="col-sm-5">
                                 <table border="1" id="inputRiwrs" class="table table-bordered">
                                 <thead>
-                                    <th>Kunjungan</th>
+                                    <th style="width:26%">Kunjungan</th>
                                     <th>Tgl. Periksa</th>
                                     <th>Poliklinik</th>
                                     <th>Diagnosis</th>
@@ -725,12 +725,14 @@ if (!isset($_SESSION['level'])) {
                     $('#inputPkrWal').val(b.pkrj_wali);
                     $('#inputNokartu').val(b.no_bpjs);
 
-                    
-                    trHTML += '<tr><td>' + b.id_kunjungan +
+                    if(b.id_kunjungan != null) {
+                        trHTML += '<tr><td>' + b.id_kunjungan +
                             '</td><td>' + b.tgl_periksa +
                             '</td><td>' + b.poliklinik +
                             '</td><td>' + b.nama_indonesia +
                             '</td></tr>';
+                    }
+
                     });
                     $('#inputRiwrs').append(trHTML);
                 }
@@ -960,6 +962,7 @@ if (!isset($_SESSION['level'])) {
                 + '&no_bpjs=' + nobpjs + '&jns_rwt=' + jnswrt + '&kls_rwt=' + klsrwt + '&fks_rwt=' + fksrwt + '&tgl_ruj=' + tglruj
                 + '&no_ruj=' + noruj + '&no_kon=' + nokon + '&poli=' + poli7a + '&pet_rs=' + petrs + '&diag=' + diag + '&cata=' + cata;
 
+                var dataForm = $('#pendaftaran').serialize();
                 $.ajax({
                     type: 'post',
                     url: 'tambah_pasien.php',

@@ -152,9 +152,6 @@ if (!isset($_SESSION['level'])) {
                                         exportOptions : {
                                             columns: [0, 1, 2, 3, 4, 5]
                                         },
-                                        // action : function( e, dt, button, config ) {
-                                        //     dt_print( e, dt, button, config, true )
-                                        // }
                                         },
                                     ],
                                 language: {

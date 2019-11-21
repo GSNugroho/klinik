@@ -37,16 +37,11 @@ INNER JOIN obat o ON tmp.id_obat = o.id_obat WHERE 1=1 ".$searchQuery." ORDER BY
 $empRecords = mysqli_fetch_all($empQuery, MYSQLI_ASSOC);
 
 $data = array();
-foreach($empRecords as $row){
-
-    $data[] = array( 
-        // "poliklinik" => $row['tmp_tindakan_medis.poliklinik'],
-        // "id_obat" => $row['obatid'],
+foreach ($empRecords as $row) {
+    $data[] = array(
         "nama_dagang" => $row['nama_dagang'],
         "jumlah_obat" => $row['jumlah_obat'],
         "aturan_pakai" => $row['aturan_pakai']
-        // "jmlh_tind" => $row['jmlh_tind']
-        // "delete" => $delete,
     );
 }
 

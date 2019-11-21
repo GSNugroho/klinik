@@ -15,12 +15,7 @@ if (!isset($_SESSION['level'])) {
         <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="../css/dashboard.css">
         <link rel="stylesheet" type="text/css" href="../css/jquery.dataTables.css">
-        <!-- <link rel="stylesheet" type="text/css" href="../css/dataTables.tableTools.css">
-        <link rel="stylesheet" type="text/css" href="../css/dataTables.colVis.css"> -->
-        <!--<link rel="stylesheet" type="text/css" href="../../css/dataTables.responsive.css">-->
-<!--        <script type="text/javascript" src="../../js/bootstrap.min.js"></script>-->
 
-        <!--<script type="text/javascript" src="../../js/jquery.min.js"></script>-->
         <script type="text/javascript" src="../js/jquery.js"></script>
         <script type="text/javascript" src="../js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../js/jquery.dataTables.js"></script>
@@ -304,8 +299,8 @@ if (!isset($_SESSION['level'])) {
                                     });
 
                                     $('#exampleModal').on('show.bs.modal', function (event) {
-                                    var button = $(event.relatedTarget) // Button that triggered the modal
-                                    var recipient = button.data('whatever') // Extract info from data-* attributes
+                                    var button = $(event.relatedTarget) 
+                                    var recipient = button.data('whatever') 
                                     var modal = $(this);
                                     var dataString = 'id=' + recipient;
                             
@@ -455,7 +450,7 @@ if (!isset($_SESSION['level'])) {
                                     <h3 class="modal-title" id="ModalResepLabel">Resep Obat</h3>
                                 </div>
                                 <div class="modal-body">
-                                    <form class="form-horizontal" name="addResep" action="need/proses.php" method="post"  >
+                                    <form class="form-horizontal" name="addResep" action="need/proses.php" method="post"  id="buatResep">
                                         <!--bagian kunjungan-->
                                         <?php
                                         $noResep = buatKode("resep", "R");

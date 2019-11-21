@@ -55,22 +55,6 @@ if (!isset($_SESSION['level'])) {
         <div class="container-fluid">
             <div class="row">
 
-<!--                <div class="col-sm-3 sidebar">
-                    <ul class="nav nav-sidebar ">               
-                        <li><a href="../home.php">Home</a></li>
-                        <li><a href="penambahan_pasien.php">Penambahan Pasien</a></li>
-                        <li class="active"><a href="data_pasien.php">Data Pasien<span class="sr-only">(current)</span></a></li>
-                        <li><a href="add_rawatjalan.php">Rawat Jalan</a></li>
-                        <li><a href="data_rawatjalan.php">Data Rawat Jalan</a></li>
-                        <li><a href="penambahan_petugas.php">Penambahan Petugas Kesehatan</a></li>
-                        <li><a href="data_petugas.php">Data Petugas Kesehatan</a></li>
-                        <li><a href="penambahan_user.php">Penambahan User</a></li>
-                        <li><a href="data_user.php">Data User</a></li>
-                        <li><a href="laporan_transaksi.php">Laporan Rawat Jalan</a></li>
-                        <li><a href="laporan_kuitansi.php">Laporan Kuitansi</a></li>
-
-                    </ul> 
-                </div>-->
                 <?php
                 if($_SESSION['level'] == 'admin'){
                     include './sidebar.php';
@@ -93,7 +77,7 @@ if (!isset($_SESSION['level'])) {
                                         <th>No. RM</th>
                                         <th>Nama</th>
                                         <th>Alamat</th>
-                                        <th>Umur</th>
+                                        <!-- <th>Umur</th> -->
                                         <th>Tmpt. Lahir</th>
                                         <th>Tgl. Lahir</th>
                                         <th style="width : 5%">JK</th>
@@ -139,7 +123,7 @@ if (!isset($_SESSION['level'])) {
                             { data: 'no_rm' },
                             { data: 'nm_pasien' },
                             { data: 'alamat_pasien' },
-                            { data: 'umur_pasien' },
+                            // { data: 'umur_pasien' },
                             { data: 'tmpt_lahir' },
                             { data: 'tgl_lahir'},
                             { data: 'jk_pasien' },
@@ -426,11 +410,11 @@ if (!isset($_SESSION['level'])) {
                                         </div>
                                 </div>
                                 <div class="form-group">
-                                                <label for="inputKba" class="col-sm-2 control-label">Kartu Baru</label>
-                                                <div class="col-sm-1">
-                                                    <input type="text" name="kr_b" class="form-control" id="inputKba">
-                                                </div>
-                                                <label for="inputNurd" class="col-sm-5 control-label">No. Urut Dokter</label>
+                                    <label for="inputKba" class="col-sm-2 control-label">Kartu Baru</label>
+                                        <div class="col-sm-1">
+                                            <input type="text" name="kr_b" class="form-control" id="inputKba">
+                                        </div>
+                                    <label for="inputNurd" class="col-sm-5 control-label">No. Urut Dokter</label>
                                                 <div class="col-sm-1">
                                                     <input type="text" name="no_urd" class="form-control" id="inputNurd" readonly>
                                                 </div>
@@ -755,6 +739,8 @@ if (!isset($_SESSION['level'])) {
                 + '&rt_pasien=' + rt + '&rw_pasien=' + rw + '&peg_rs=' + prs + '&tinggi_pasien=' + tb + '&berat_pasien=' + bb 
                 + '&lp_pasien=' + lp + '&imp_pasien=' + imt + '&sis_pasien=' + st + '&dia_pasien=' + ds + '&rr_pasien=' + rr 
                 + '&hr_pasien=' + hr + '&nm_wali=' + nmwl + '&hub_wali=' + hbwl + '&nm_ortu=' + orwl + '&pkrj_wali=' + prwl;
+
+                var dataForm = $('#pendaftaran').serialize();
 
                 $.ajax({
                     type: 'post',

@@ -13,6 +13,16 @@ if (!isset($_SESSION['level'])) {
         <title><?=namaKlinik()?></title>
         <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="../css/dashboard.css">
+        <link rel="stylesheet" type="text/css" href="../datepicker/css/ilmudetil.css">
+        <link rel="stylesheet" type="text/css" href="../datepicker/css/bootstrap-datetimepicker.css">
+        <link rel="stylesheet" type="text/css" href="../js/jquery-ui-1.11.4/jquery-ui-1.11.4/jquery-ui.min.css"> 
+        
+        <script src="../datepicker/js/jquery-1.11.3.min.js"></script>
+        <script src="../datepicker/js/bootstrap.min.js"></script>
+        <script src="../datepicker/js/moment-with-locales.js"></script>
+        <script src="../datepicker/js/bootstrap-datetimepicker.js"></script>
+        <script type="text/javascript" src="../js/jquery-ui-1.11.4/jquery-ui-1.11.4/jquery-ui.js"></script>
+        <script type="text/javascript" src="../js/sweetalert.min.js"></script>
     </head>
     <body>
 
@@ -94,7 +104,7 @@ if (!isset($_SESSION['level'])) {
                         <div class="form-group">
                             <label for="inputTanggalLahir" class="col-sm-3 control-label">Tanggal Lahir</label>
                             <div class="col-sm-9">
-                                <input type="date" name="tgl_lahir" class="form-control" id="inputTanggalLahir" required="" placeholder="Tahun-Bulan-tanggal">
+                                <input type="text" name="tgl_lahir" class="form-control" id="inputTanggalLahir" required="" placeholder="dd-mm-yyyy">
                             </div>
                         </div>
                         <div class="form-group">
@@ -131,5 +141,10 @@ if (!isset($_SESSION['level'])) {
                 </div>
             </div>
         </div>
+        <script>
+            $(function() {
+                $('#inputTanggalLahir').datetimepicker({locale: 'id', format: "DD-MM-YYYY"});
+            });
+        </script>
     </body>
 </html>

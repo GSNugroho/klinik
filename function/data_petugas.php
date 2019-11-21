@@ -23,10 +23,12 @@ $level = $_SESSION['level'];
 
         <!--<script type="text/javascript" src="../../js/jquery.min.js"></script>-->
         <script type="text/javascript" src="../js/jquery.js"></script>
+        <script type="text/javascript" src="../js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../js/jquery.dataTables.js"></script>
         <script type="text/javascript" src="../js/dataTables.bootstrap.js"></script>
         <script type="text/javascript" src="../js/dataTables.tableTools.js"></script>
         <script type="text/javascript" src="../js/dataTables.colVis.js"></script>
+        <script type="text/javascript" src="../js/sweetalert.min.js"></script>
 
 <!--        <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>-->
 
@@ -123,7 +125,7 @@ $level = $_SESSION['level'];
                                         <td>" . $hasil['poliklinik'] . "</td>
                                         <td>" . $hasil['username'] . "</td>
                                         
-                                        <td><a href='edit_petugas.php?i=" . $hasil['id_petugas'] . "'>Edit</a></td>
+                                        <td><a class='btn btn-warning' data-toggle='modal' data-target='#exampleModal' data-whatever='".$hasil['id_petugas']."'>Edit</a></td>
                                     </tr>";
                                     }
                                     ?>
@@ -170,7 +172,135 @@ $level = $_SESSION['level'];
                             $(colvis.button()).insertBefore('div.table');
                         });
 
+
                     </script>
+                </div>
+            </div>
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" onclick="tutup()" class="close" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h3 class="modal-title" id="exampleModalLabel">Edit Petugas</h3>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="inputIdPetugas" class="col-sm-3 control-label">Id Petugas</label>
+                                
+                                    <input type="text" name="idPetugas" class="form-control" readonly id="inputIdPetugas">
+                                
+                            </div>
+                            <div class="form-group">
+                                <label for="inputNama" class="col-sm-3 control-label">Nama</label>
+                                
+                                    <input type="text" name="nama" class="form-control" id="inputNama" placeholder="Nama Petugas">
+                                
+                            </div>
+                            <div class="form-group">
+                                <label for="inputAlamat" class="col-sm-3 control-label">Alamat</label>
+                                
+                                    <input type="text" name="alamat" class="form-control" id="inputAlamat" placeholder="Alamat Petugas">
+                                
+                            </div>
+                            <div class="form-group">
+                                <label for="inputTempatLahir" class="col-sm-3 control-label">Tempat Lahir</label>
+                                
+                                    <input type="text" name="tempat_lahir" class="form-control" id="inputTempatLahir" placeholder="Tempat Lahir Petugas">
+                                
+                            </div>
+                            <div class="form-group">
+                                <label for="inputTanggalLahir" class="col-sm-3 control-label">Tanggal Lahir</label> 
+                                
+                                    <input type="date" name="tgl_lahir" class="form-control" id="inputTanggalLahir"  placeholder="Tahun-Bulan-tanggal">
+                                
+                            </div>
+                            <div class="form-group">
+                                <label for="inputNoTelp" class="col-sm-3 control-label">No. Telp / HP</label>
+                                
+                                    <input type="text" name="no_telp" class="form-control" id="inputNoTelp" placeholder="No. Telp / HP">
+                                
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPoliklinik" class="col-sm-3 control-label">Poliklinik</label>
+                                
+                                    <select id="inputPoliklinik" name="poliklinik" class="form-control">
+                                        <option>umum</option>
+                                        <option>gigi</option>
+                                    </select>
+                                
+                            </div>
+                            <div class="form-group">
+                                <label for="inpuStatus" class="col-sm-3 control-label">Status</label>                                
+                                    <select id="inputStatus" name="status" class="form-control" >
+                                        <option>aktif</option>
+                                        <option>tidak aktif</option>
+                                    </select>
+                                
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" onclick="tutup()">Batal</button>
+                            <button type="button" class="btn btn-primary" id="submit">Simpan</button>
+                        </div>
+                        <script>
+                                $('#exampleModal').on('show.bs.modal', function (event) {
+                                    var button = $(event.relatedTarget) 
+                                    var recipient = button.data('whatever') 
+                                    var modal = $(this);
+                                    var dataString = 'id=' + recipient;
+                            
+                                        $.ajax({
+                                            type: "GET",
+                                            url: "ajaxedpet.php",
+                                            dataType: "json",
+                                            data: dataString,
+                                            success: function (data) {
+                                                $('#inputIdPetugas').val(data['id_petugas']);
+                                                $('#inputNama').val(data['nama_petugas']);
+                                                $('#inputAlamat').val(data['alamat_petugas']);
+                                                $('#inputTempatLahir').val(data['tempat_lahir']);
+                                                $('#inputTanggalLahir').val(data['tgl_lahir_petugas']);
+                                                $('#inputNoTelp').val(data['no_telp']);
+                                                $('#inputPoliklinik').val(data['poliklinik']);
+                                                $('#inputStatus').val(data['status']);
+                                            },
+                                            error: function(err) {
+                                                console.log(err);
+                                            }
+                                        });  
+                                    });
+
+                                function tutup(){
+                                    $('#exampleModal').modal('hide');
+                                }
+
+                                $('#submit').click(function() {
+                                    var nmpe = $('#inputNama').val();
+                                    var alpe = $('#inputAlamat').val();
+                                    var tmlh = $('#inputTempatLahir').val();
+                                    var tllh = $('#inputTanggalLahir').val();
+                                    var notl = $('#inputNoTelp').val();
+                                    var poli = $('#inputPoliklinik option:selected').val();
+                                    var stpe = $('#inputStatus option:selected').val();
+                                    var id = $('#inputIdPetugas').val();
+
+                                    var dataString = 'nmpe='+nmpe+'&alpe='+alpe+'&tmlh='+tmlh+'&tllh='+tllh+'&notl='+notl+
+                                        '&poli='+poli+'&stpe='+stpe+'&id='+id;
+
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "edit_save_petugas.php",
+                                        data: dataString,
+                                        success: function() {
+                                            swal("", "Edit Data Petugas Berhasil", "success");
+                                            $('#exampleModal').modal('hide');
+                                        }
+                                    })
+                                })
+                        </script>
+                    </div>
                 </div>
             </div>
         </div>

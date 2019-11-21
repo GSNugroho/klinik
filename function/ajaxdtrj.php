@@ -46,14 +46,9 @@ foreach($empRecords as $row){
     }
     
     $detail = '<a class="btn btn-info" data-toggle="modal" data-target="#ModalDetail" data-whatever="'.$row["id_kunjungan"].'">Detail</a>';
-    // $lihat = '<a class="btn btn-info" href="detail_tindakan.php?i='.$row['id_kunjungan'].'">Lihat</a>';
-    // if($row['biaya_resep'] == NULL){
-        $resep = '<a class="btn btn-primary" data-toggle="modal" data-target="#modalResep" data-whatever="'.$row["id_kunjungan"].'" onclick="resep()">Resep</a>';
-    // }else{
-    //     $resep = '<a class="btn btn-primary" data-toggle="modal" data-whatever="'.$row["id_kunjungan"].'" disabled>Resep</a>';
-    // }
     
-    // $resep = '<a class="btn btn-primary" href="obat/buat_resep.php?id_kunjungan='.$row['id_kunjungan'].'">Resep</a>';
+    $resep = '<a class="btn btn-primary" data-toggle="modal" data-target="#modalResep" data-whatever="'.$row["id_kunjungan"].'" onclick="resep()">Resep</a>';
+
     $kuitansi = '<a class="btn btn-success" href="cetak/cetak_kuitansi.php?i='.$row['id_kunjungan'].'" target="_blank">Kuitansi</a>';
 
 
@@ -72,7 +67,6 @@ foreach($empRecords as $row){
         "biaya_periksa" => $biaya,
         "tindakan" => $tindakan,
         "detail" => $detail,
-        // "lihat" => $lihat,
         "resep" => $resep,
         "kuitansi" => $kuitansi
     );

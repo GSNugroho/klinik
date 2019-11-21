@@ -11,7 +11,7 @@ $alamat = $_POST['alamat'];
 
 $tempat_lahir = $_POST['tempat_lahir'];
 
-$tgl_lahir = $_POST['tgl_lahir'];
+$tgl_lahir = date('Y-m-d', strtotime($_POST['tgl_lahir']));
 $no_telp = $_POST['no_telp'];
 $poliklinik = $_POST['poliklinik'];
 $status = $_POST['status'];

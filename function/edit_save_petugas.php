@@ -1,21 +1,21 @@
 <?php
 
-if (isset($_POST['submit'])){
+
         
         session_start();
         include '../koneksi.php';
         include '../library/library.php';
         
         
-        $idPetugas = $_POST['idPetugas'];
-        $nama = $_POST['nama'];
-        $alamat = $_POST['alamat'];
-        $tempat_lahir = $_POST['tempat_lahir'];
-        $tgl_lahir = $_POST['tgl_lahir'];
-        $no_telp = $_POST['no_telp'];
-        $poliklinik = $_POST['poliklinik'];
-        $status = $_POST['status'];
-         print_r($_POST);
+        $idPetugas = $_POST['id'];
+        $nama = $_POST['nmpe'];
+        $alamat = $_POST['alpe'];
+        $tempat_lahir = $_POST['tmlh'];
+        $tgl_lahir = date('Y-m-d', strtotime($_POST['tllh']));
+        $no_telp = $_POST['notl'];
+        $poliklinik = $_POST['poli'];
+        $status = $_POST['stpe'];
+        //  print_r($_POST);
          
          $edit = mysqli_query($koneksi, "UPDATE petugas_kesehatan SET nama_petugas='".$nama."',alamat_petugas='".$alamat."', tempat_lahir='".$tempat_lahir."', tgl_lahir_petugas='".$tgl_lahir."', no_telp='".$no_telp."', poliklinik='".$poliklinik."', status='".$status."' WHERE id_petugas = '".$idPetugas."'");
         
@@ -28,5 +28,5 @@ if (isset($_POST['submit'])){
             echo '<h1>Input gagal</h1>';
          header('location: data_petugas.php?Message=' . urlencode("Gagal Edit"));
         }
-    }
+
         ?>

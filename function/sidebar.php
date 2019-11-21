@@ -1,6 +1,6 @@
 
 <div class="col-sm-2 sidebar">
-    <ul class="nav nav-sidebar ">               
+    <ul class="nav nav-sidebar ">
         <li><a href="../home.php">Home</a></li>
         <li class="<?= $arrActive['tambahPasien'] ?>"><a href="penambahan_pasien.php">Penambahan Pasien</a></li>
         <!-- <li class="= //$arrActive['tambahPasienb'] "><a href="penambahan_pasien_b.php">Penambahan Pasien Umum</a></li> -->
