@@ -366,6 +366,15 @@ if (!isset($_SESSION['level'])) {
                                                 url: 'tambah_rawatjalan.php',
                                                 data: dataString,
                                                 success: function() {
+                                                    $.ajax({
+                                                        type: 'post',
+                                                        url: 'http://api.bpjs-kesehatan.go.id/pcare-rest-v3.0/tindakan',
+                                                        dataType: 'json',
+                                                        data: dataString,
+                                                        success: function() {
+                                                            console.log('sukses');
+                                                        }
+                                                    })
                                                     $('#tabelku').DataTable().ajax.reload();
                                                     $('#exampleModal').modal('hide');
                                                     table.destroy();

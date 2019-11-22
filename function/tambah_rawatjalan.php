@@ -64,27 +64,4 @@ if (isset($_GET['delete'])) {
     header('location: add_rawatjalan.php?rm=' . $_SESSION['rm']);
 }
 
-
-//$input = mysql_query("INSERT INTO kunjungan (id_kunjungan, no_rm, id_user, tgl_periksa, biaya_periksa)
-//                    VALUES ('$id_kunjungan', '$no_rm', '$id_user', '$tgl_periksa', '$biaya_periksa')") or die(mysql_error());
-//}
-//if ($input){
-//    header('location: data_rawatjalan.php');
-//    
-//}
-//else{
-//    echo '<h1>Input gagal</h1>';
-// header('location: data_rawatjalan.php?Message=' . urlencode("Gagal Input"));
-//}
-//
-//$input_tindakan = mysql_query("INSERT INTO tindakan_medis (id_tm, id_kunjungan, id_petugas, poliklinik, diagosis, id_tindakan)
-//                            VALUES ('$id_tm', '$id_kunjungan', '$pilihPetugas', '$poliklinik', '$diagnosis', '$daftarTindakan')") or die(mysql_error());
-//if ($input_tindakan){
-//    header('location: add_rawatjalan.php');
-//    
-//}
-//else{
-//    echo '<h1>Input gagal</h1>';
-// header('location: add_rawatjalan.php?Message=' . urlencode("Gagal Input"));
-//}
 ?>

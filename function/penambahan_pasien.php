@@ -87,12 +87,12 @@ if (!isset($_SESSION['level'])) {
                     <h1 class="page-header">Pendaftaran Pasien</h1>
                     <h2 class="sub-header">Data Pasien</h2>
                     <form class="form-horizontal" name="addPasien" action="" method="post" id="pendaftaran" autocomplete="off">
-                        <!-- <div class="form-group">
+                        <div class="form-group">
                             <label for="inputTgl_dftr" class="col-sm-2 control-label">Tgl. Daftar</label>
                             <div class="col-sm-2">
-                                <input type="text" name="tgl_dftr" class="form-control" id="inputTgl_dftr" value="<?php //echo date('d/m/Y')?>" readonly> 
+                                <input type="text" name="tglDaftar" class="form-control" id="tglDaftar" value="<?php echo date('d/m/Y')?>" readonly> 
                             </div>
-                        </div> -->
+                        </div>
                         
                         <div class="form-group">
                             <?php
@@ -269,11 +269,11 @@ if (!isset($_SESSION['level'])) {
                         <div class="form-group">
                             <label for="inputTb" class="col-sm-2 control-label">Tinggi Badan</label>
                             <div class="col-sm-1">
-                                <input type="text" name="tinggi" class="form-control" id="inputTb" required="">
+                                <input type="text" name="tinggiBadan" class="form-control" id="inputTb" required="">
                             </div>
                             <label for="inputBb" class="col-sm-2 control-label">Berat Badan</label>
                             <div class="col-sm-1">
-                                <input type="text" name="berat" class="form-control" id="inputBb" required="">
+                                <input type="text" name="beratBadan" class="form-control" id="inputBb" required="">
                             </div>
                             <label for="inputLp" class="col-sm-2 control-label">Lingkar Perut</label>
                             <div class="col-sm-1">
@@ -295,11 +295,11 @@ if (!isset($_SESSION['level'])) {
                             </div>
                             <label for="inputRr" class="col-sm-2 control-label">Respiratory Rate</label>
                             <div class="col-sm-1">
-                                <input type="text" name="r_rate" class="form-control" id="inputRr">
+                                <input type="text" name="respRate" class="form-control" id="inputRr">
                             </div>
                             <label for="inputHr" class="col-sm-1 control-label">Heart Rate</label>
                             <div class="col-sm-1">
-                                <input type="text" name="h_rate" class="form-control" id="inputHr">
+                                <input type="text" name="heartRate" class="form-control" id="inputHr">
                             </div>
                         </div>
                         
@@ -393,7 +393,7 @@ if (!isset($_SESSION['level'])) {
                         <div class="form-group">
                             <label for="inputNokartu" class="col-sm-1 control-label">No. Kartu</label>
                             <div class="col-sm-2">
-                                <input type="text" name="no_bpjs" class="form-control" id="inputNokartu">
+                                <input type="text" name="noKartu" class="form-control" id="inputNokartu">
                             </div>
                         </div>
                         <div class="form-group">
@@ -498,7 +498,7 @@ if (!isset($_SESSION['level'])) {
                         <div class="form-group">
                             <label for="inputPoli" class="col-sm-2 control-label">Poli Tujuan</label>
                             <div class="col-sm-2">
-                                <select name="poli7an_bpjs" class="form-control" id="inputPoli">
+                                <select name="kdPoli" class="form-control" id="inputPoli">
                                     <option></option>
                                     <option>Umum</option>
                                     <option>Gigi</option>
@@ -588,7 +588,7 @@ if (!isset($_SESSION['level'])) {
                             </div>
                             <div class="col-sm-2">
                                 <!-- <button class="form-control" style="background-color:#05deff; color:white; border-radius: 5px 5px;">Simpan</button> -->
-                                <input type="submit" name="submit" class="form-control" id="submit" value="Simpan" style="background-color:#05deff; color:white; border-radius: 5px 5px;">
+                                <input type="button" name="submit" class="form-control" id="submit" value="Simpan" style="background-color:#05deff; color:white; border-radius: 5px 5px;">
                             </div>
                         </div>
                     </form>
@@ -597,28 +597,7 @@ if (!isset($_SESSION['level'])) {
             </div>
         </div>
         <script>
-            function getAge() {
-	var date = document.getElementById('birthday').value;
- 
-	if(date === ""){
-		alert("Please complete the required field!");
-    }else{
-		var today = new Date();
-		var birthday = new Date(date);
-		var year = 0;
-		if (today.getMonth() < birthday.getMonth()) {
-			year = 1;
-		} else if ((today.getMonth() == birthday.getMonth()) && today.getDate() < birthday.getDate()) {
-			year = 1;
-		}
-		var age = today.getFullYear() - birthday.getFullYear() - year;
- 
-		if(age < 0){
-			age = 0;
-		}
-		document.getElementById('result').innerHTML = age;
-	}
-}
+
         function tambah()
         {
             document.getElementById('inputNoRM').value = "";
@@ -735,6 +714,32 @@ if (!isset($_SESSION['level'])) {
 
                     });
                     $('#inputRiwrs').append(trHTML);
+
+                    if($('#inputNokartu').val() != ''){
+                    var bpjs = $('#inputNokartu').val();
+                    var nokartu = "nokartu="+bpjs;
+
+                    $.ajax({
+                        type: "get",
+                        url: "http://api.bpjs-kesehatan.go.id/pcare-rest-v3.0/kunjungan/peserta/"+bpjs,
+                        dataType: "json",
+                        // data: nokartu,
+                        success: function(response){
+                                console.log('sukses');
+                                // $.each(data, function(a, b)){
+                                //     bpHtml = '<tr><td>'+b.+'</td></tr>'
+                                // }
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            // alert('Error: '+e);
+                            swal({
+                                title: "Error",
+                                text: "Koneksi Gagal",
+                                icon: "error"
+                            });
+                        }  
+                    })
+                }
                 }
                 });
             });
@@ -970,7 +975,24 @@ if (!isset($_SESSION['level'])) {
                     success: function() {
                         swal("", "Pendaftaran Pasien Berhasil", "success");
                         $('#inputRiwrs tbody').remove();
-                        }
+
+                        $.ajax({
+                            type: 'post',
+                            url: 'http://api.bpjs-kesehatan.go.id/pcare-rest-v3.0/kunjungan',
+                            dataType: 'json',
+                            data : $('#pendaftaran').serialize(),
+                            success: function() {
+                                console.log('sukses');
+                            }
+                        })
+                        },
+                    error: function(e){
+                        swal({
+                            title: "Error",
+                            text: e,
+                            icon: "error"
+                        })
+                    }
                 });
             });
         });
