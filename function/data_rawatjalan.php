@@ -72,8 +72,8 @@ if (!isset($_SESSION['level'])) {
                 }
                 ?>
 
-                <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main" style="margin-left: 20%">
-                    <h1 class="page-header">Data Rawat Jalan</h1>
+                <div class="main">
+                    <h4 class="page-header">Data Rawat Jalan</h4>
 
                     <div class="row">
                         <div class="table" >
@@ -150,7 +150,7 @@ if (!isset($_SESSION['level'])) {
                                 <h3 class="modal-title" id="exampleModalLabel">Tambah Tindakan</h3>
                                 </div>
                                 <div class="modal-body">
-                                    
+                                    <form id="tindakanPasien" class="form-horisontal">
                                     <div class="form-group">
                                     <label for="inputPoliklinik" class="col-sm-3 control-label">Poliklinik</label>
                                         <div class="col-sm-9">
@@ -168,7 +168,7 @@ if (!isset($_SESSION['level'])) {
                                     <div class="form-group">
                                     <label for="inputTindakan" class="col-sm-3 control-label">Tindakan</label>
                                     <div class="col-sm-9">
-                                        <select id="daftarTindakan" name="daftarTindakan" class="form-control">
+                                        <select id="daftarTindakan" name="kdTindakan" class="form-control">
                                             <option value="">......</option>
                                             <?php
                                             $daftarTindakan = isset($_POST['daftarTindakan']) ? $_POST['daftarTindakan'] : '';
@@ -196,9 +196,10 @@ if (!isset($_SESSION['level'])) {
                                     $harga = '';
                                     ?>
 
-                                    <input type="text" name="harga_tindakan" class="form-control" id="inputHarga" placeholder="Harga" value="<?php echo $harga; ?>" readonly>
+                                    <input type="text" name="biaya" class="form-control" id="inputHarga" placeholder="Harga" value="<?php echo $harga; ?>" readonly>
                                 </div>
                                 </div>
+                                <br>
                                 <br>
                                 <div class="form-group">
                                 <label for="inputJmltind" class="col-sm-3 control-label">Jumlah</label>
@@ -233,6 +234,7 @@ if (!isset($_SESSION['level'])) {
                                     </table>
                                 </div>
                                 </div>
+                                </form>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" onclick="tutup()">Batal</button>
@@ -340,6 +342,7 @@ if (!isset($_SESSION['level'])) {
                                             var pers = $('#inputPetrs').val();
                                             var jmlh = $('#inputJmltind').val();
                                             var tambah = $('#tambah').val();
+                                            var dataBpjs = $('#tindakanPasien').serialize();
 
                                             var dataString = 'poli='+ poli +'&diag='+ diag +'&tind='+tind+'&harg='+harg
                                             +'&idku='+idku+'&pers='+pers+'&jmlh='+jmlh+'&tambah='+tambah;
@@ -353,6 +356,27 @@ if (!isset($_SESSION['level'])) {
                                                     document.getElementById('daftarTindakan').value = "";
                                                     document.getElementById('inputHarga').value = "";
                                                     document.getElementById('inputJmltind').value ="1";
+                                                    if(jmlh > 0) {
+                                                        $.ajax({
+                                                            type: "post",
+                                                            dataType: "json",
+                                                            url: "http://api.bpjs-kesehatan.go.id/pcare-rest-v3.0/tindakan",
+                                                            data: dataBpjs,
+                                                            success: function(response){
+                                                                console.log('sukses');
+                                                            }
+                                                        });
+                                                    } else {
+                                                        $.ajax({
+                                                            type: "delete",
+                                                            dataType: "json",
+                                                            url: "http://api.bpjs-kesehatan.go.id/tindakan/199/kunjungan/1301U0070815Y000005",
+                                                            success: function(response){
+                                                                console.log('ok');
+                                                            }
+                                                        });
+                                                    }
+
                                                 }
                                             });
                                         })
@@ -361,6 +385,7 @@ if (!isset($_SESSION['level'])) {
                                         $('#submit').click(function() {
                                             var idku = $('#inputIdkunj').val();
                                             var dataString = 'id='+idku;
+                                            var databpjs = $('#tindakanPasien').serialize();
                                             $.ajax({
                                                 type: 'get',
                                                 url: 'tambah_rawatjalan.php',
@@ -368,10 +393,10 @@ if (!isset($_SESSION['level'])) {
                                                 success: function() {
                                                     $.ajax({
                                                         type: 'post',
-                                                        url: 'http://api.bpjs-kesehatan.go.id/pcare-rest-v3.0/tindakan',
                                                         dataType: 'json',
+                                                        url: 'http://api.bpjs-kesehatan.go.id/pcare-rest-v3.0/tindakan',
                                                         data: dataString,
-                                                        success: function() {
+                                                        success: function(response) {
                                                             console.log('sukses');
                                                         }
                                                     })

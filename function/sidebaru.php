@@ -3,7 +3,7 @@
 <div class="col-sm-2 sidebar">
     <ul class="nav nav-sidebar ">               
         <li><a href="../home.php">Home</a></li>
-        <li class="<?= $arrActive['tambahPasien'] ?>"><a href="penambahan_pasien.php">Penambahan Pasien</a></li>
+        <li class="<?= $arrActive['tambahPasien'] ?>"><a href="penambahan_pasien.php">Pendaftaran Pasien</a></li>
         <li class="<?= $arrActive['dataPasien'] ?>"><a href="data_pasien.php">Data Pasien</a></li>
         <li class="<?= $arrActive['rawatJalan'] ?>"><a href="data_rawatjalan_hr.php">Rawat Jalan</a></li>
         <li class="<?= $arrActive['dataRawatJalan'] ?>"><a href="data_rawatjalan.php">Data Rawat Jalan</a></li>
