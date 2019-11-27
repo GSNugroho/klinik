@@ -34,7 +34,7 @@ $data = mysqli_fetch_array($query_pasien);
             </script>
     </head>
     <body onLoad="window.print()">
-        <table class="table-list" width="714" border="0" cellspacing="0" cellpadding="2">
+        <table class="table-list" width="216px" border="0" cellspacing="0" cellpadding="2">
             <tr>
                 <td height="87" colspan="5" align="center"><p><strong><?=namaKlinik2()?> </strong><br />
                         <br />

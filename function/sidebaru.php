@@ -1,14 +1,19 @@
-
-<!-- <div class="sidebar" style="padding-right: 40px;"> -->
-<div class="col-sm-2 sidebar">
-    <ul class="nav nav-sidebar ">               
-        <li><a href="../home.php">Home</a></li>
-        <li class="<?= $arrActive['tambahPasien'] ?>"><a href="penambahan_pasien.php">Pendaftaran Pasien</a></li>
-        <li class="<?= $arrActive['dataPasien'] ?>"><a href="data_pasien.php">Data Pasien</a></li>
-        <li class="<?= $arrActive['rawatJalan'] ?>"><a href="data_rawatjalan_hr.php">Rawat Jalan</a></li>
-        <li class="<?= $arrActive['dataRawatJalan'] ?>"><a href="data_rawatjalan.php">Data Rawat Jalan</a></li>
-        <li class="<?= $arrActive['laporanRawatJalan'] ?>"><a href="laporan_transaksi.php">Laporan Rawat Jalan</a></li>
-        <li  class="<?= $arrActive['laporanKuitansi'] ?>"><a href="laporan_kuitansi.php">Laporan Kuitansi</a></li>
-
+<nav>
+    <ul id="menu">
+        <li class="home"><a href="../home.php">Beranda</a></li>
+        <li><a href="penambahan_pasien.php">Pendaftaran Pasien</a></li>
+        <li><a href="data_pasien.php">Data Pasien</a></li>
+        <li><a>Rawat Jalan
+            <ul class="menus">
+                <li class='has-submenu'><a href="data_rawatjalan_hr.php">Rawat Jalan</a></li>
+                <li class='has-submenu'><a href="data_rawatjalan.php">Data Rawat Jalan</a></li>    
+            </ul>
+        </a></li>
+        <li class="prem"><a>Laporan
+            <ul class="menus">
+                <li class="<?= $arrActive['laporanRawatJalan'] ?>"><a href="laporan_transaksi.php">Laporan Rawat Jalan</a></li>
+                <li class="<?= $arrActive['laporanKuitansi'] ?>"><a href="laporan_kuitansi.php">Laporan Kuitansi</a></li>
+            </ul>
+        </a></li>
     </ul> 
-</div>
+</nav>

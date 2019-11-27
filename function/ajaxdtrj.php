@@ -18,20 +18,27 @@ if($searchValue != ''){
     tgl_periksa like'%".$searchValue."%' ) ";
 }
 
-$sel = mysqli_query($koneksi, "SELECT count(*) as allcount FROM kunjungan INNER JOIN user on kunjungan.id_user = user.id_user LEFT JOIN pasien_b on kunjungan.no_rm = pasien_b.no_rm");
+$sel = mysqli_query($koneksi, "SELECT count(*) as allcount FROM kunjungan 
+INNER JOIN user on kunjungan.id_user = user.id_user 
+LEFT JOIN resep on kunjungan.id_kunjungan = resep.id_kunjungan
+LEFT JOIN pasien_b on kunjungan.no_rm = pasien_b.no_rm");
 $records = mysqli_fetch_all($sel);
 foreach($records as $row){
     $totalRecords = $row;
 }
 
-$sel = mysqli_query($koneksi, "SELECT count(*) as allcount FROM kunjungan INNER JOIN user on kunjungan.id_user = user.id_user LEFT JOIN pasien_b on kunjungan.no_rm = pasien_b.no_rm WHERE 1=1 ".$searchQuery);
+$sel = mysqli_query($koneksi, "SELECT count(*) as allcount FROM kunjungan 
+INNER JOIN user on kunjungan.id_user = user.id_user 
+LEFT JOIN resep on kunjungan.id_kunjungan = resep.id_kunjungan
+LEFT JOIN pasien_b on kunjungan.no_rm = pasien_b.no_rm WHERE 1=1 ".$searchQuery);
 $records = mysqli_fetch_all($sel);
 foreach($records as $row){
     $totalRecordwithFilter = $row;
 }
 
-$empQuery = mysqli_query($koneksi, "SELECT id_kunjungan, kunjungan.no_rm as rm, nm_pasien, cabang, tgl_periksa, biaya_periksa FROM kunjungan 
+$empQuery = mysqli_query($koneksi, "SELECT kunjungan.id_kunjungan as id_kunjungan, kunjungan.no_rm as rm, nm_pasien, cabang, tgl_periksa, biaya_periksa, biaya_resep, (biaya_periksa+biaya_resep) as biaya_total FROM kunjungan 
 INNER JOIN user on kunjungan.id_user = user.id_user 
+LEFT JOIN resep on kunjungan.id_kunjungan = resep.id_kunjungan
 LEFT JOIN pasien_b on kunjungan.no_rm = pasien_b.no_rm
  WHERE 1=1 ".$searchQuery." ORDER BY ".$columnName." "
 .$columnSortOrder." LIMIT ".$baris.", ".$rowperpage);
@@ -46,8 +53,12 @@ foreach($empRecords as $row){
     }
     
     $detail = '<a class="btn btn-info" data-toggle="modal" data-target="#ModalDetail" data-whatever="'.$row["id_kunjungan"].'">Detail</a>';
+    if (($row['biaya_resep'] == '') || ($row['biaya_resep'] == NULL)){
+        $bresep = '<a class="btn btn-primary" data-toggle="modal" data-target="#modalResep" data-whatever="'.$row["id_kunjungan"].'" onclick="resep()">Resep</a>';
+    }else{
+        $bresep = '<a class="btn btn-primary" data-toggle="modal" data-whatever="'.$row["id_kunjungan"].'" disabled>Resep</a>';
+    }
     
-    $resep = '<a class="btn btn-primary" data-toggle="modal" data-target="#modalResep" data-whatever="'.$row["id_kunjungan"].'" onclick="resep()">Resep</a>';
 
     $kuitansi = '<a class="btn btn-success" href="cetak/cetak_kuitansi.php?i='.$row['id_kunjungan'].'" target="_blank">Kuitansi</a>';
 
@@ -57,7 +68,15 @@ foreach($empRecords as $row){
     }else{
         $biaya = 'Rp '.$row['biaya_periksa'];
     }
-
+    if(($row['biaya_resep'] == '') || ($row['biaya_resep'] == NULL)){
+        $resep = 'Rp 0';
+    }else{
+        $resep = 'Rp '.$row['biaya_resep'];
+    }
+    $bp = (int)$row['biaya_periksa'];
+    $br = (int)$row['biaya_resep'];
+    $jmlh_total = $bp+$br;
+    $total = 'Rp '.$jmlh_total;
     $data[] = array( 
         "id_kunjungan" => $row['id_kunjungan'],
         "rm" => $row['rm'],
@@ -65,9 +84,11 @@ foreach($empRecords as $row){
         "nm_pasien" => $row['nm_pasien'],
         "cabang" => $row['cabang'],
         "biaya_periksa" => $biaya,
+        "biaya_resep" => $resep,
+        "biaya_total" => $total,
         "tindakan" => $tindakan,
         "detail" => $detail,
-        "resep" => $resep,
+        "resep" => $bresep,
         "kuitansi" => $kuitansi
     );
 }

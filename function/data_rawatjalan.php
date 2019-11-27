@@ -87,6 +87,8 @@ if (!isset($_SESSION['level'])) {
                                         <th>Nama Pasien</th>
                                         <th>Cabang</th>
                                         <th>Biaya Periksa</th>
+                                        <th>Biaya Resep</th>
+                                        <th>Biaya Total</th>
                                         <th>Tambah Tindakan</th>
                                         <th>Detail Tindakan</th>
                                         <th>Buat Resep</th>
@@ -99,6 +101,10 @@ if (!isset($_SESSION['level'])) {
                     <script type="text/javascript" >
                         $(document).ready(function(){
                         $('#tabelku').DataTable({
+                            columnDefs: [{
+                                orderable: false,
+                                targets: [7, 8, 9, 10, 11]
+                            }],
                             language: {
                         "sEmptyTable":	 "Tidak ada data yang tersedia pada tabel ini",
                         "sProcessing":   "Sedang memproses...",
@@ -131,6 +137,8 @@ if (!isset($_SESSION['level'])) {
                             { data: 'nm_pasien' },
                             { data: 'cabang' },
                             { data: 'biaya_periksa' },
+                            { data: 'biaya_resep' },
+                            { data: 'biaya_total' },
                             { data: 'tindakan' },
                             { data: 'detail' },
                             // { data: 'lihat' },
@@ -151,21 +159,19 @@ if (!isset($_SESSION['level'])) {
                                 </div>
                                 <div class="modal-body">
                                     <form id="tindakanPasien" class="form-horisontal">
-                                    <div class="form-group">
+                                    <div class="form-group" style="height:26px;">
                                     <label for="inputPoliklinik" class="col-sm-3 control-label">Poliklinik</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control" id="inputPoliklinik" readonly>
                                         </div>
                                     </div>
-                                    <br>
-                                    <div class="form-group">
+                                    <div class="form-group" style="height:26px;">
                                     <label for="inputDiagnosis" class="col-sm-3 control-label">Diagnosis</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control" id="inputDiagnosis" readonly>
                                         </div>
                                     </div>
-                                    <br>
-                                    <div class="form-group">
+                                    <div class="form-group" style="height:26px;">
                                     <label for="inputTindakan" class="col-sm-3 control-label">Tindakan</label>
                                     <div class="col-sm-9">
                                         <select id="daftarTindakan" name="kdTindakan" class="form-control">
@@ -186,8 +192,7 @@ if (!isset($_SESSION['level'])) {
                                         </select>
                                     </div>
                                 </div>
-                                <br>
-                                <div class="form-group">
+                                <div class="form-group" style="height:26px;">
                                 <label for="inputHarga" class="col-sm-3 control-label">Harga</label>
                                 <div class="col-sm-5">
                                     <?php
@@ -199,9 +204,7 @@ if (!isset($_SESSION['level'])) {
                                     <input type="text" name="biaya" class="form-control" id="inputHarga" placeholder="Harga" value="<?php echo $harga; ?>" readonly>
                                 </div>
                                 </div>
-                                <br>
-                                <br>
-                                <div class="form-group">
+                                <div class="form-group" style="height:26px;">
                                 <label for="inputJmltind" class="col-sm-3 control-label">Jumlah</label>
                                 <div class="col-sm-2">
                                     <input type="text" name="jmlh_tindakan" class="form-control" id="inputJmltind" value="1">
@@ -214,9 +217,8 @@ if (!isset($_SESSION['level'])) {
                                     <button type="button" class="btn btn-info" id="tambah" value="tambah">Tambah Tindakan</button>
                                 </div>
                                 </div>
-                                <br>
                                 <div>
-                                <h3 class="sub-header">Daftar Tindakan</h3>
+                                <h4 class="sub-header">Daftar Tindakan</h4>
                                 <div class="table">
                                     <table id="tabeltindakan" class="table table-hover table-bordered" >
                                         <thead >
@@ -490,25 +492,25 @@ if (!isset($_SESSION['level'])) {
                                         $noResep = buatKode("resep", "R");
                                         ?>
                                         <!--input data dari kunjungan-->
-                                        <div class="form-group">
+                                        <div class="form-group" style="height:26px;">
                                             <label for="inputNoResep" class="col-sm-3 control-label">No Resep</label>
                                             <div class="col-sm-7">
                                                 <input type="text" class="form-control" id="inputNoResep" placeholder="No Resep" readonly="" name="id_resep" value="<?php echo $noResep; ?>">
                                             </div>
                                         </div>
-                                        <div class="form-group form-horizontal">
+                                        <div class="form-group form-horizontal" style="height:26px;">
                                             <label for="inputIdKunjungan" class="col-sm-3 control-label">No Kunjungan</label>
                                             <div class="col-sm-5">
                                                 <input type="text" class="form-control" id="inputIdKunjungan" placeholder="No Kunjungan" name="id_kunjungan" readonly="">
                                             </div>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group" style="height:26px;">
                                             <label for="inputNama" class="col-sm-3 control-label">Nama Pasien</label>
                                             <div class="col-sm-7">
                                                 <input type="text" class="form-control" id="inputNama" readonly name="nama_pasien">
                                             </div>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group" style="height:26px;">
                                             <label for="inputDiagOb" class="col-sm-3 control-label">Diagnosis</label>
                                             <div class="col-sm-7">
                                                 <input type="text" class="form-control" id="inputDiagOb" readonly>
@@ -517,14 +519,14 @@ if (!isset($_SESSION['level'])) {
                                         <!--memilih obat untuk resep-->
                                         <h3 class="sub-header"></h3>
                                         <!--memilih petugas sesuai dengan saat rawat jalan-->
-                                        <div class="form-group">
+                                        <div class="form-group" style="height:26px;">
                                             <label for="inputPetugas" class="col-sm-3 control-label">Petugas Kesehatan</label>
                                             <div class="col-sm-7">
                                                 <input type="text" name="pilihPetugas" class="form-control" id="inputPetrso" readonly>
                                             </div>
                                         </div>
                                         <!--mengambil obat yang ada didatabase-->
-                                        <div class="form-group">
+                                        <div class="form-group" style="height:26px;">
                                             <label for="inputObat" class="col-sm-3 control-label">Nama Obat</label>
                                             <div class="col-sm-7">
                                                 <!--memilih obat serta diambil untuk harga dan stok-->
@@ -549,7 +551,7 @@ if (!isset($_SESSION['level'])) {
                                             </div>
                                         </div>
                                         <!--harga dan stok-->
-                                        <div class="form-group">
+                                        <div class="form-group" style="height:26px;">
                                             <label for="inputHargaO" class="col-sm-3 control-label">Harga</label>
                                             <?php
                                             include 'obat/need/function.php';
@@ -565,14 +567,14 @@ if (!isset($_SESSION['level'])) {
                                             </div>
                                         </div>
                                         <!--mengambil obat dari stok (sementara sebelum klik buat resep)-->
-                                        <div class="form-group">
+                                        <div class="form-group" style="height:26px;">
                                             <label for="inputJumlahObat" class="col-sm-3 control-label">Jumlah Obat</label>
                                             <div class="col-sm-9">
                                                 <input type="number" class="form-control" name="jumlah_obat" id="inputJumlahObat" placeholder="Jumlah Obat">
                                             </div>
                                         </div>
                                         <!--drop down aturan pakai-->
-                                        <div class="form-group">
+                                        <div class="form-group" style="height:26px;">
                                             <label for="inputAturan" class="col-sm-3 control-label" required="">Aturan Pakai</label>
                                             <div class="col-sm-9">
                                                 <select class="form-control" name="aturan" id="inputAturan">
@@ -586,7 +588,7 @@ if (!isset($_SESSION['level'])) {
                                             </div>
                                         </div>
                                         <!--tombol tambahkan dan buat resep-->
-                                        <div class="form-group">
+                                        <div class="form-group" style="height:26px;">
                                             <div class="col-sm-offset-3 col-sm-9">
                                                 <!-- <input id="btntambaho" name="btntambaho" type="submit" style="cursor:pointer;" class="btn btn-info" value=" Tambahkan Obat " /> -->
                                                 <button type="button" class="btn btn-info" id="btntambaho" name="btntambaho" value="tambaho">Tambah Obat</button>
@@ -595,7 +597,7 @@ if (!isset($_SESSION['level'])) {
                                             </div>
                                         </div>
                                     </form>
-                                    <h2 class="sub-header">Detail Resep</h2>
+                                    <h5 class="sub-header">Detail Resep</h5>
                                     
                                         <div class="table" >
                                             <table id="dataObat" class="table table-hover table-bordered" >

@@ -35,9 +35,9 @@ if (isset($_GET['Message'])) {
 
         <div class="container">
 
-            <div class="col-md-6 col-md-offset-3 main">
+            <div class="main">
 
-                <h2 class="sub-header">Login</h2>
+                <h4 class="sub-header">Login</h4>
                 <div class="center">
                     <form action="login.php" method="POST">
                         <label class="sr-only" for="inputUserName">
@@ -48,7 +48,7 @@ if (isset($_GET['Message'])) {
                             Password
                         </label>
                         <input id="inputPassword" name="password" class="form-control" placeholder="Password" required="" type="password" style="margin-bottom:10px;">
-                        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                        <button class="btn btn-lg btn-primary" type="submit">Sign in</button>
                     </form>
                 </div>
             </div>
