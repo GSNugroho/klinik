@@ -47,14 +47,15 @@ $empRecords = mysqli_fetch_all($empQuery, MYSQLI_ASSOC);
 $data = array();
 foreach($empRecords as $row){
     if ($row['biaya_periksa'] == '') {
-        $tindakan = '<a class="btn btn-warning" data-toggle="modal" data-target="#exampleModal" data-whatever="'.$row["id_kunjungan"].'" onclick="load()">Tindakan</a>';
+        $tindakan = '<button value="'.$row["id_kunjungan"].'" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal" data-backdrop="static" data-keyboard="false" data-whatever="'.$row["id_kunjungan"].'" onclick="load(this.value)">Tindakan</button>';
     }else{
         $tindakan = '<a class="btn btn-warning" data-toggle="modal" data-whatever="'.$row["id_kunjungan"].'" disabled>Tindakan</a>';
     }
     
     $detail = '<a class="btn btn-info" data-toggle="modal" data-target="#ModalDetail" data-whatever="'.$row["id_kunjungan"].'">Detail</a>';
+
     if (($row['biaya_resep'] == '') || ($row['biaya_resep'] == NULL)){
-        $bresep = '<a class="btn btn-primary" data-toggle="modal" data-target="#modalResep" data-whatever="'.$row["id_kunjungan"].'" onclick="resep()">Resep</a>';
+        $bresep = '<a class="btn btn-primary" data-toggle="modal" data-target="#modalResep" data-backdrop="static" data-keyboard="false" data-whatever="'.$row["id_kunjungan"].'" onclick="resep()">Resep</a>';
     }else{
         $bresep = '<a class="btn btn-primary" data-toggle="modal" data-whatever="'.$row["id_kunjungan"].'" disabled>Resep</a>';
     }
@@ -73,6 +74,7 @@ foreach($empRecords as $row){
     }else{
         $resep = 'Rp '.$row['biaya_resep'];
     }
+    
     $bp = (int)$row['biaya_periksa'];
     $br = (int)$row['biaya_resep'];
     $jmlh_total = $bp+$br;

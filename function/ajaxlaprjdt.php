@@ -8,6 +8,7 @@
     INNER JOIN daftar_tindakan s ON p.id_tindakan = s.id_tindakan WHERE p.id_kunjungan = '".$id."'");
 
     $data = '<table class="table table-bordered">
+                <thead>
                     <tr>
                         <th>Poliklinik</th>
                         <th>Petugas Kesehatan</th>
@@ -15,17 +16,30 @@
                         <th>Tindakan</th>
                         <th>Jumlah</th>
                         <th>Harga</th>
-                    </tr>';
+                    </tr>
+                </thead>
+                ';
+    // $total = 0;
     while ($row = mysqli_fetch_array($query)){
+        $total = $row['harga_tindakan']*$row['jmlh_tind'];
         $data .= '<tr>
                         <td>'.$row['poliklinik'].'</td>
                         <td>'.$row['nama_petugas'].'</td>
                         <td>'.$row['nama_indonesia'].'</td>
                         <td>'.$row['nama_tindakan'].'</td>
                         <td>'.$row['jmlh_tind'].'</td>
-                        <td>'.$row['harga_tindakan'].'</td>
+                        <td>'.$total.'</td>
                     </tr>';
+        // $total += $total;
     }
+
+    // $data .= '</tbody>
+    //             <tfoot>
+    //                 <tr>
+    //                     <th colspan="5" style="text-align:right">Total:</th>
+    //                     <th>Rp '.$total.'</th>
+    //                 </tr>
+    //             </tfoot>';
 
     $callback = array('detail'=>$data); 
                 echo json_encode($callback)

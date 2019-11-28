@@ -153,21 +153,21 @@ if (!isset($_SESSION['level'])) {
                             </div>
                             <div class="form-group">
                                 <label for="inputNama" class="col-sm-2 control-label">Nama</label>
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-2" style="margin-right:10%;">
                                         <input type="text" name="nama" class="form-control" id="inputNama" required="">
                                     </div>
-                                <label for="inputKln" class="col-sm-3 control-label">Kelamin</label>
-                                    <div class="col-sm-1">
+                                <label for="inputKln" class="col-sm-2 control-label">Kelamin</label>
+                                    <div class="col-sm-2">
                                         <input type="text" name="kelamin" class="form-control" id="inputKln" required="" placeholder="L/ P">
                                     </div>
                             </div>
                             <div class="form-group">
                                 <label for="inputTlahir" class="col-sm-2 control-label">Tempat Lahir</label>
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-2" style="margin-right:10%;">
                                         <input type="text" name="t_lahir" class="form-control" id="inputTlahir" required="">
                                     </div>
-                                <label for="inputNik" class="col-sm-3 control-label">NIK</label>
-                                    <div class="col-sm-3">
+                                <label for="inputNik" class="col-sm-2 control-label">NIK</label>
+                                    <div class="col-sm-2">
                                         <input type="text" name="nik" class="form-control" id="inputNik" required="" placeholder="NIK">
                                     </div>
                             </div>
@@ -179,7 +179,7 @@ if (!isset($_SESSION['level'])) {
                             </div>
                             <div class="form-group">
                                 <label for="inputAgama" class="col-sm-2 control-label">Agama</label>
-                                    <div class="col-sm-2">
+                                    <div class="col-sm-2" style="margin-right:10%;">
                                         <select name="agama" id="inputAgama" class="form-control">
                                             <option></option>
                                             <option>Islam</option>
@@ -190,7 +190,7 @@ if (!isset($_SESSION['level'])) {
                                             <option>Konghucu</option>
                                         </select>
                                     </div>
-                                <label for="inputNegara" class="col-sm-4 control-label">Negara</label>
+                                <label for="inputNegara" class="col-sm-2 control-label">Negara</label>
                                     <div class="col-sm-2">
                                         <select name="negara" id="inputNegara" class="form-control">
                                             <option></option>
@@ -200,7 +200,7 @@ if (!isset($_SESSION['level'])) {
                             </div>
                             <div class="form-group">
                                 <label for="inputStkw" class="col-sm-2 control-label">St. Kawin</label>
-                                    <div class="col-sm-2">
+                                    <div class="col-sm-2" style="margin-right:10%;">
                                         <select name="st_kawin" id="inputStkw" class="form-control">
                                             <option></option>
                                             <option>Sudah Kawin</option>
@@ -208,7 +208,7 @@ if (!isset($_SESSION['level'])) {
                                             <option>Tidak Kawin</option>
                                         </select>
                                     </div>
-                                <label for="inputPndd" class="col-sm-4 control-label">Pendidikan</label>
+                                <label for="inputPndd" class="col-sm-2 control-label">Pendidikan</label>
                                     <div class="col-sm-2">
                                         <select name="pndd" id="inputPndd" class="form-control">
                                             <option></option>
@@ -237,10 +237,10 @@ if (!isset($_SESSION['level'])) {
                             </div>
                             <div class="form-group">
                                 <label for="inputTelp" class="col-sm-2 control-label">Telepon</label>
-                                    <div class="col-sm-2">
+                                    <div class="col-sm-2" style="margin-right:10%;">
                                         <input type="text" name="telpon" class="form-control" id="inputTelp" required="">
                                     </div>
-                                <label for="inputHP" class="col-sm-4 control-label">HP</label>
+                                <label for="inputHP" class="col-sm-2 control-label">HP</label>
                                     <div class="col-sm-2">
                                         <input type="text" name="hp" class="form-control" id="inputHP" required="">
                                     </div>
@@ -287,55 +287,55 @@ if (!isset($_SESSION['level'])) {
                                             <option>Mojosongo</option>
                                         </select>
                                     </div>
-                                <label for="inputRt" class="col-sm-4 control-label">RT</label>
-                                    <div class="col-sm-1">
-                                        <input type="text" name="rt" id="inputRt" class="form-control">
+                                <label for="inputRt" class="col-sm-2 control-label" style="width:5%;">RT</label>
+                                    <div class="col-sm-1" style="width:10%;">
+                                        <input type="text" name="rt" id="inputRt" class="form-control" style="width:100%;">
                                     </div>
-                                <label for="inputRw" class="col-sm-1 control-label">RW</label>
-                                    <div class="col-sm-1">
-                                        <input type="text" name="rw" id="inputRw" class="form-control">
+                                <label for="inputRw" class="col-sm-2 control-label" style="width:5%;">RW</label>
+                                    <div class="col-sm-1" style="width:10%;">
+                                        <input type="text" name="rw" id="inputRw" class="form-control" style="width:100%;">
                                     </div>
                             </div>
                             <div class="form-group">
                                 <label for="inputPrs" class="col-sm-2 control-label">Pegawai RS</label>
-                                    <div class="col-sm-1">
-                                        <input type="text" name="pegrs" id="inputPrs" class="form-control" placeholder="Y/T">
+                                    <div class="col-sm-1" style="width:10%;">
+                                        <input type="text" name="pegrs" id="inputPrs" class="form-control" placeholder="Y/T" style="width:100%;">
                                     </div>
                             </div>
                             <div class="form-group">
                                 <label for="inputTb" class="col-sm-2 control-label">Tinggi Badan</label>
-                                    <div class="col-sm-1">
-                                        <input type="text" name="tinggi" class="form-control" id="inputTb" required="">
+                                    <div class="col-sm-1" style="width:10%;">
+                                        <input type="text" name="tinggi" class="form-control" id="inputTb" required="" style="width:100%;">
                                     </div>
-                                <label for="inputBb" class="col-sm-2 control-label">Berat Badan</label>
-                                    <div class="col-sm-1">
-                                        <input type="text" name="berat" class="form-control" id="inputBb" required="">
+                                <label for="inputBb" class="col-sm-1 control-label">Berat Badan</label>
+                                    <div class="col-sm-1" style="width:10%;">
+                                        <input type="text" name="berat" class="form-control" id="inputBb" required="" style="width:100%;">
                                     </div>
                                 <label for="inputLp" class="col-sm-2 control-label">Lingkar Perut</label>
-                                    <div class="col-sm-1">
-                                        <input type="text" name="lingkarp" class="form-control" id="inputLp">
+                                    <div class="col-sm-1" style="width:10%;">
+                                        <input type="text" name="lingkarp" class="form-control" id="inputLp" style="width:100%;">
                                     </div>
                                 <label for="inputImt" class="col-sm-1 control-label">IMT</label>
-                                    <div class="col-sm-1">
-                                        <input type="text" name="imt" class="form-control" id="inputImt">
+                                    <div class="col-sm-1" style="width:10%;">
+                                        <input type="text" name="imt" class="form-control" id="inputImt" style="width:100%;">
                                     </div>
                             </div>
                             <div class="form-group">
                                 <label for="inputSt" class="col-sm-2 control-label">Sistole</label>
-                                    <div class="col-sm-1">
-                                        <input type="text" name="sistole" class="form-control" id="inputSt" required="">
+                                    <div class="col-sm-1" style="width:10%;">
+                                        <input type="text" name="sistole" class="form-control" id="inputSt" required="" style="width:100%;">
                                     </div>
-                                <label for="inputDt" class="col-sm-2 control-label">Diastole</label>
-                                    <div class="col-sm-1">
-                                        <input type="text" name="diastole" class="form-control" id="inputDt" required="">
+                                <label for="inputDt" class="col-sm-1 control-label">Diastole</label>
+                                    <div class="col-sm-1" style="width:10%;">
+                                        <input type="text" name="diastole" class="form-control" id="inputDt" required="" style="width:100%;">
                                     </div>
                                 <label for="inputRr" class="col-sm-2 control-label">Respiratory Rate</label>
-                                    <div class="col-sm-1">
-                                        <input type="text" name="r_rate" class="form-control" id="inputRr">
+                                    <div class="col-sm-1" style="width:10%;">
+                                        <input type="text" name="r_rate" class="form-control" id="inputRr" style="width:100%;">
                                     </div>
                                 <label for="inputHr" class="col-sm-1 control-label">Heart Rate</label>
-                                    <div class="col-sm-1">
-                                        <input type="text" name="h_rate" class="form-control" id="inputHr">
+                                    <div class="col-sm-1" style="width:10%;">
+                                        <input type="text" name="h_rate" class="form-control" id="inputHr" style="width:100%;">
                                     </div>
                             </div>
                                             

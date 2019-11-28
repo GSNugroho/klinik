@@ -80,8 +80,10 @@ $level = $_SESSION['level'];
                 ?>
                 <div class="main">
                     <h4 class="page-header">Data Tindakan</h4>
-
                     <div class="row">
+                        <a class="btn btn-info" data-toggle="modal" data-target="#tambahTindakan">Tambah</a>
+                        <br>
+                        <br>
                         <div class="table" >
                             <table id="tabelku" class="table table-hover display responsive compact"  cellspacing="0" width="100%">
                                 <thead>
@@ -216,6 +218,69 @@ $level = $_SESSION['level'];
                                 data: dataString,
                                 success: function(data){
                                     $('#editTindakan').modal('hide');
+                                    $('#tabelku').DataTable().ajax.reload();
+                                }
+                            })
+                        })
+                    </script>
+
+                    <div class="modal fade" id="tambahTindakan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" onclick="tttp()" class="close" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h3 class="modal-title" id="exampleModalLabel">Tambah Tindakan</h3>
+                                </div>
+                                <div class="modal-body">
+                                <form class="form-horizontal" name="addTindakan" id="addTindakan" method="post" >
+                                    <div class="form-group">
+                                        <?php
+            //                            include '../koneksi.php';
+            //                            include '../library/library.php';
+                                        $dataKode	= buatKode("daftar_tindakan", "T");
+                                        ?>
+                                        <label for="inputIdTindakan" class="col-sm-3 control-label">Id Tindakan</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" name="idTindakan" class="form-control" readonly id="inputIdTindakan" value="<?php echo $dataKode;?>" placeholder="Id Tindakan">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputNamaTindakan" class="col-sm-3 control-label">Nama Tindakan</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" name="namaTindakan" class="form-control" id="inputNamaTindakan" required="" placeholder="Nama Tindakan">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputHarga" class="col-sm-3 control-label">Harga</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" name="harga" class="form-control" id="inputHarga" required="" placeholder="Harga">
+                                        </div>
+                                    </div>
+                                </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" onclick="tttp()">Batal</button>
+                                    <button type="button" class="btn btn-primary" id="simpantind">Simpan</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                         function tttp(){
+                            $('#tambahTindakan').modal('hide');
+                        }
+
+                        $('#simpantind').click(function() {
+                            var dataString = $('#addTindakan').serialize();
+
+                            $.ajax({
+                                type: 'post',
+                                url: 'tambah_tindakan.php',
+                                data: dataString,
+                                success: function(data){
+                                    $('#tambahTindakan').modal('hide');
                                     $('#tabelku').DataTable().ajax.reload();
                                 }
                             })

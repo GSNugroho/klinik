@@ -15,7 +15,7 @@
             <ul class="menus">
                 <li class='has-submenu'><a class='prem' href='Dropdown 1' title='Dropdown 1'>Tindakan</a>
                     <ul class='submenu'>
-                        <li class="<?= $arrActive['tambahTindakan'] ?>"><a href="penambahan_tindakan.php">Penambahan Tindakan</a></li>
+                        <!-- <li class="<?php //$arrActive['tambahTindakan'] ?>"><a href="penambahan_tindakan.php">Penambahan Tindakan</a></li> -->
                         <li class="<?= $arrActive['dataTindakan'] ?>"><a href="data_tindakan.php">Data Tindakan</a></li>
                     </ul>
                 </li>

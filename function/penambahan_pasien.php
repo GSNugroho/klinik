@@ -599,46 +599,7 @@ if (!isset($_SESSION['level'])) {
 
         function tambah()
         {
-            document.getElementById('inputNoRM').value = "";
-            document.getElementById('inputNama').value = "";
-            document.getElementById('inputKln').value = "";
-            document.getElementById('inputTlahir').value = "";
-            document.getElementById('inputNik').value = "";
-            document.getElementById('inputTanggalLahir').value = "";
-            document.getElementById('inputAgama').value = "";
-            document.getElementById('inputNegara').value = "";
-            document.getElementById('inputStkw').value = "";
-            document.getElementById('inputPndd').value = "";
-            document.getElementById('inputPkrj').value = "";
-            document.getElementById('inputAlamat').value = "";
-            document.getElementById('inputTelp').value = "";
-            document.getElementById('inputHP').value = "";
-            document.getElementById('inputProv').value = "";
-            document.getElementById('inputKt').value = "";
-            document.getElementById('inputKec').value = "";
-            document.getElementById('inputKel').value = "";
-            document.getElementById('inputRt').value = "";
-            document.getElementById('inputRw').value = "";
-            document.getElementById('inputPrs').value = "";
-            document.getElementById('inputTb').value = "";
-            document.getElementById('inputBb').value = "";
-            document.getElementById('inputLp').value = "";
-            document.getElementById('inputImt').value = "";
-            document.getElementById('inputSt').value = "";
-            document.getElementById('inputDt').value = "";
-            document.getElementById('inputRr').value = "";
-            document.getElementById('inputHr').value = "";
-            document.getElementById('inputWal').value = "";
-            document.getElementById('inputHub').value = "";
-            document.getElementById('inputOrtu').value = "";
-            document.getElementById('inputPkrWal').value = "";
-            document.getElementById('inputNokartu').value = "";
-            document.getElementById('inputNmbpjs').value = "";
-            document.getElementById('inputJkbpjs').value = "";
-            document.getElementById('inputTglbpjs').value = "";
-            document.getElementById('inputPstbpjs').value = "";
-            document.getElementById('inputKlsbpjs').value = "";
-            document.getElementById('inputPsrbpjs').value = "";
+            $('#pendaftaran').trigger("reset");
             $('#inputRiwrs tbody').remove();
             var trHtml = '';
         }
