@@ -114,7 +114,7 @@ if (!isset($_SESSION['level'])) {
                                         <td>" . $hasil['cabang'] . "</td>
                                         <td>" . $hasil['status'] . "</td>
                                         
-                                        <td><a href='edit_user.php?i=".$hasil['id_user']."'>Edit</a></td>
+                                        <td><a class='btn btn-warning' href='edit_user.php?i=".$hasil['id_user']."'>Edit</a></td>
                                     </tr>";
                                     }
                                     ?>

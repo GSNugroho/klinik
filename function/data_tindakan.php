@@ -280,6 +280,7 @@ $level = $_SESSION['level'];
                                 url: 'tambah_tindakan.php',
                                 data: dataString,
                                 success: function(data){
+                                    $('#addTindakan').trigger("reset");
                                     $('#tambahTindakan').modal('hide');
                                     $('#tabelku').DataTable().ajax.reload();
                                 }

@@ -34,21 +34,11 @@
 
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-3 sidebar">
-                    <ul class="nav nav-sidebar ">
-                        <li><a href="../../home.php">Home</a></li>
-                        <li><a href="buat_resep.php">Buat Resep</a></li>
-                        <li><a href="data_obat.php">Data Obat</a></li>
-                        <li><a href="tambah_obat_baru.php">Tambah Obat Baru</a></li>
-                        <li><a href="data_resep.php">Data Resep</a></li>
-                        <li class="active"><a href="kuitansi.php">kuitansi<span class="sr-only">(current)</span></a></li>
-                        <li><a href="#">Laporan</a></li>
-                    </ul>
-                </div>
+                <?php include './need/sidebar.php';?>
 
 
-                <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main">
-                    <h1 class="page-header">Data Obat & Stok</h1>
+                <div class="main">
+                    <h4 class="page-header">Data Obat & Stok</h4>
 
                     <div class="row">
                         <div class="table" >

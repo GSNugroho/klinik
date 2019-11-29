@@ -21,7 +21,7 @@
                 </li>
                 <li class='has-submenu'><a class='prem' href='Dropdown 2' title='Dropdown 1'>Petugas</a>
                     <ul class='submenu'>
-                        <li class="<?= $arrActive['tambahPetugas'] ?>"><a href="penambahan_petugas.php">Penambahan Petugas Kesehatan</a></li>
+                        <!-- <li class="<?php //$arrActive['tambahPetugas'] ?>"><a href="penambahan_petugas.php">Penambahan Petugas Kesehatan</a></li> -->
                         <li class="<?= $arrActive['dataPetugas'] ?>"><a href="data_petugas.php">Data Petugas Kesehatan</a></li>
                     </ul>
                 </li>

@@ -452,7 +452,7 @@ if (!isset($_SESSION['level'])) {
                     </div>
                 </div>
                 <div class="row col-md-14" style="border:grey;border-style:double;">
-                        <h5 class="sub-header">Poliklinik</h5>
+                    <h5 class="sub-header" style="margin-left:1%">Poliklinik</h5>
                         <div class="form-group" style="height:26px;">
                             <label for="inputJnsrawat" class="col-sm-2 control-label">Jenis Rawat</label>
                             <div class="col-sm-2" style="margin-right:5%;">

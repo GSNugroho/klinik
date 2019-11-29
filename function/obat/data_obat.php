@@ -44,14 +44,11 @@ if (!isset($_SESSION['level'])) {
         </nav>
 
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-3 sidebar">
+            <div class="row">                
                     <?php include './need/sidebar.php'; ?>
-                </div>
 
-
-                <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main">
-                    <h1 class="page-header">Data Obat & Stok</h1>
+                <div class="main">
+                    <h4 class="page-header">Data Obat & Stok</h4>
 
                     <div class="row">
                         <div class="table" >

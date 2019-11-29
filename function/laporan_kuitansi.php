@@ -75,8 +75,8 @@ if (!isset($_SESSION['level'])) {
                 }
                 ?>
 
-                <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main" style="margin-left: 20%">
-                    <h1 class="page-header">Laporan Kuitansi</h1>
+                <div class="main">
+                    <h4 class="page-header">Laporan Kuitansi</h4>
 
                     <div class="row">
                         <div class="table" >
