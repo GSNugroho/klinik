@@ -173,6 +173,18 @@ if (!isset($_SESSION['level'])) {
                                         </div>
                                     </div>
                                     <div class="form-group" style="height:26px;">
+                                    <label for="inputHarga" class="col-sm-3 control-label">Harga</label>
+                                    <div class="col-sm-2">
+                                        <?php
+                                        include_once './function.php';
+    
+                                        $harga = '';
+                                        ?>
+    
+                                        <input type="text" name="harga_tindakan" class="form-control" id="inputHarga" placeholder="Harga" value="<?php echo $harga; ?>" readonly style="width:100%">
+                                    </div>
+                                    </div>
+                                    <div class="form-group" style="height:26px;">
                                     <label for="inputTindakan" class="col-sm-3 control-label">Tindakan</label>
                                     <div class="col-sm-9">
                                         <select id="daftarTindakan" name="daftarTindakan" class="form-control">
@@ -194,18 +206,6 @@ if (!isset($_SESSION['level'])) {
                                     </div>
                                 </div>
                                 <div class="form-group" style="height:26px;">
-                                <label for="inputHarga" class="col-sm-3 control-label">Harga</label>
-                                <div class="col-sm-2">
-                                    <?php
-                                    include_once './function.php';
-
-                                    $harga = '';
-                                    ?>
-
-                                    <input type="text" name="harga_tindakan" class="form-control" id="inputHarga" placeholder="Harga" value="<?php echo $harga; ?>" readonly style="width:100%">
-                                </div>
-                                </div>
-                                <div class="form-group" style="height:26px;">
                                 <label for="inputJmltind" class="col-sm-3 control-label">Jumlah</label>
                                 <div class="col-sm-2">
                                     <input type="text" name="jmlh_tindakan" class="form-control" id="inputJmltind" value="1" style="width:100%">
@@ -215,6 +215,7 @@ if (!isset($_SESSION['level'])) {
                                     <!-- <input name="btntambah" type="submit" style="cursor:pointer;" class="btn btn-info" value=" Tambah Tindakan " /> -->
                                     <input type="hidden" class="form-control" id="inputIdkunj" name="id_kunjungan">
                                     <input type="hidden" class="form-control" id="inputPetrs" name="petugas_rs">
+                                    <input type="hidden" class="form-control" id="inputUser" name="userin" value="<?php echo $_SESSION['id_user'];?>">
                                     <button type="button" class="btn btn-info" id="tambah" value="tambah">Tambah Tindakan</button>
                                 </div>
                                 </div>
@@ -226,11 +227,13 @@ if (!isset($_SESSION['level'])) {
                                             <tr>
                                                 <!-- <th>No.</th> -->
                                                 <!-- <th>Poliklinik</th> -->
-                                                <th>Petugas Kesehatan</th>
-                                                <th>Diagnosis</th>
+                                                <!-- <th>Petugas Kesehatan</th>
+                                                <th>Diagnosis</th> -->
+                                                <th>Nama Petugas</th>
                                                 <th>Tindakan</th>
+                                                <th>Harga Tindakan</th>
                                                 <th>Jumlah</th>
-                                                <th>Harga</th>
+                                                <th>Sub Total</th>
                                                 <!-- <th>Hapus</th> -->
                                             </tr>
                                         </thead>
@@ -251,10 +254,10 @@ if (!isset($_SESSION['level'])) {
                                 <script>
                                     function load(val) {
                                         table = $('#tabeltindakan').DataTable({
-                                            columnDefs: [{
-                                                    orderable: false,
-                                                    targets: [0, 1, 2, 3, 4]
-                                                }],
+                                            // columnDefs: [{
+                                            //         orderable: false,
+                                            //         targets: [0, 1, 2, 3, 4]
+                                            //     }],
                                             "footerCallback": function ( row, data, start, end, display ) {
                                                 var api = this.api(), data;
                                     
@@ -283,8 +286,9 @@ if (!isset($_SESSION['level'])) {
                                                     }, 0 );
                                     
                                                 // Update footer
+                                                var numformat = $.fn.dataTable.render.number( '.', ',', 2, 'Rp ' ).display;
                                                 $( api.column( 4 ).footer() ).html(
-                                                    'Rp '+pageTotal
+                                                    numformat(pageTotal)
                                                 );
                                             },
                                             "bLengthChange": false,
@@ -319,11 +323,13 @@ if (!isset($_SESSION['level'])) {
                                             },
                                             'columns': [
                                                 // { data: 'poliklinik' },
-                                                { data: 'nama_petugas' },
-                                                { data: 'nama_indonesia' },
+                                                // { data: 'nama_petugas' },
+                                                // { data: 'nama_indonesia' },
+                                                { data: 'nama_user' },
                                                 { data: 'nama_tindakan' },
+                                                { data: 'harga_tindakan', render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp ' ) },
                                                 { data: 'jmlh_tind' },
-                                                { data: 'harga_tindakan' }
+                                                { data: 'harga_total', render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp ' ) }
                                                 // { data: 'delete' }
                                             ]
                                         });
@@ -388,10 +394,11 @@ if (!isset($_SESSION['level'])) {
                                             var idku = $('#inputIdkunj').val();
                                             var pers = $('#inputPetrs').val();
                                             var jmlh = $('#inputJmltind').val();
+                                            var usin = $('#inputUser').val();
                                             var tambah = $('#tambah').val();
 
                                             var dataString = 'poli='+ poli +'&diag='+ diag +'&tind='+tind+'&harg='+harg
-                                            +'&idku='+idku+'&pers='+pers+'&jmlh='+jmlh+'&tambah='+tambah;
+                                            +'&idku='+idku+'&pers='+pers+'&jmlh='+jmlh+'&tambah='+tambah+'&usin='+usin;
 
                                             $.ajax({
                                                 type: 'post',
@@ -538,6 +545,22 @@ if (!isset($_SESSION['level'])) {
                                                 <input type="text" name="pilihPetugas" class="form-control" id="inputPetrso" readonly>
                                             </div>
                                         </div>
+                                        <!--harga dan stok-->
+                                        <div class="form-group" style="height:26px;">
+                                            <label for="inputHargaO" class="col-sm-3 control-label">Harga</label>
+                                            <?php
+                                            include 'obat/need/function.php';
+                                            $stok = '';
+                                            ?>
+                                            <div class="col-sm-3 form-horizontal">
+                                                <input type="text" name="harga_jual" class="form-control" id="inputHargaO" placeholder="Harga" readonly>
+                                            </div>
+                                            <label for="inputStok" class="col-sm-1 control-label">Stok</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" name="stok" class="form-control" id="stok" placeholder="Stok" readonly>
+
+                                            </div>
+                                        </div>
                                         <!--mengambil obat yang ada didatabase-->
                                         <div class="form-group" style="height:26px;">
                                             <label for="inputObat" class="col-sm-3 control-label">Nama Obat</label>
@@ -560,22 +583,6 @@ if (!isset($_SESSION['level'])) {
                                                     }
                                                     ?>
                                                 </select>
-
-                                            </div>
-                                        </div>
-                                        <!--harga dan stok-->
-                                        <div class="form-group" style="height:26px;">
-                                            <label for="inputHargaO" class="col-sm-3 control-label">Harga</label>
-                                            <?php
-                                            include 'obat/need/function.php';
-                                            $stok = '';
-                                            ?>
-                                            <div class="col-sm-3 form-horizontal">
-                                                <input type="text" name="harga_jual" class="form-control" id="inputHargaO" placeholder="Harga" readonly>
-                                            </div>
-                                            <label for="inputStok" class="col-sm-1 control-label">Stok</label>
-                                            <div class="col-sm-3">
-                                                <input type="text" name="stok" class="form-control" id="stok" placeholder="Stok" readonly>
 
                                             </div>
                                         </div>
@@ -619,11 +626,19 @@ if (!isset($_SESSION['level'])) {
                                                         <!-- <th>No.</th> -->
                                                         <!-- <th>Id Obat</th> -->
                                                         <th>Nama Obat</th>
-                                                        <th>Jumlah Obat</th>
                                                         <th>Aturan Pakai</th>
+                                                        <th>Jumlah Obat</th>
+                                                        <th>Harga Obat</th>
+                                                        <th>Subtotal</th>
                                                         <!-- <th>Delete</th> -->
                                                     </tr>
                                                 </thead>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th colspan="4" style="text-align:right">Total:</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </tfoot>
                                             </table>
                                         </div>
                                     
@@ -634,8 +649,41 @@ if (!isset($_SESSION['level'])) {
                             </div>
                         </div>
                         <script>
-                            function resep() {
+                            function resep(val) {
                                         table = $('#dataObat').DataTable({
+                                            "footerCallback": function ( row, data, start, end, display ) {
+                                                var api = this.api(), data;
+                                    
+                                                // Remove the formatting to get integer data for summation
+                                                var intVal = function ( i ) {
+                                                    return typeof i === 'string' ?
+                                                        i.replace(/[\$,]/g, '')*1 :
+                                                        typeof i === 'number' ?
+                                                            i : 0;
+                                                };
+                                    
+                                                // Total over all pages
+                                                total = api
+                                                    .column( 4 )
+                                                    .data()
+                                                    .reduce( function (a, b) {
+                                                        return intVal(a) + intVal(b);
+                                                    }, 0 );
+                                    
+                                                // Total over this page
+                                                pageTotal = api
+                                                    .column( 4, { page: 'current'} )
+                                                    .data()
+                                                    .reduce( function (a, b) {
+                                                        return intVal(a) + intVal(b);
+                                                    }, 0 );
+                                    
+                                                // Update footer
+                                                var numformat = $.fn.dataTable.render.number( '.', ',', 2, 'Rp ' ).display;
+                                                $( api.column( 4 ).footer() ).html(
+                                                    numformat(pageTotal)
+                                                );
+                                            },
                                             "bLengthChange": false,
                                             "bFilter": false,
                                             language: {
@@ -661,14 +709,19 @@ if (!isset($_SESSION['level'])) {
                                             'serverSide': true,
                                             'serverMethod': 'post',
                                             'ajax': {
-                                                'url':'ajaxreseptmp.php'
+                                                'url':'ajaxreseptmp.php',
+                                                'data': function(d){
+                                                    d.Idkunj = val
+                                                }
                                             },
                                             'columns': [
                                                 // { data: 'poliklinik' },
                                                 // { data: 'id_obat' },
                                                 { data: 'nama_dagang' },
+                                                { data: 'aturan_pakai' },
                                                 { data: 'jumlah_obat' },
-                                                { data: 'aturan_pakai' }
+                                                { data: 'harga_jual', render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp ' ) },
+                                                { data: 'total_bayar', render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp ' ) }
                                                 // { data: 'jmlh_tind' }
                                                 // { data: 'delete' }
                                             ]

@@ -53,7 +53,7 @@ if ($_POST['btnt'] == 'tambaho') {
         $stok_obat = mysqli_query($koneksi, "UPDATE obat SET stok='".$sisa."' WHERE id_obat='".$id_obat."'");
     }
     //masukkan nilai dalam form ke dalam temp_detail_resep
-    $query = "INSERT INTO tmp_detail_resep (id_resep, id_obat, jumlah_obat, aturan_pakai, id_petugas) VALUES ('" . $id_resep . "', '" . $id_obat . "', '" . $jumlah . "', '" . $aturan_pakai . "','" . $id_petugas . "')";
+    $query = "INSERT INTO tmp_detail_resep (id_resep, id_obat, jumlah_obat, aturan_pakai, id_petugas, id_rajal) VALUES ('" . $id_resep . "', '" . $id_obat . "', '" . $jumlah . "', '" . $aturan_pakai . "','" . $id_petugas . "','" . $id_kunjungan . "')";
     $input_detail = mysqli_query($koneksi, $query) or die(mysqli_error($koneksi));
     header('location: ../buat_resep.php?id_kunjungan=' . $id_kunjungan);
 } elseif ($_POST['btns'] == 'simpano') {

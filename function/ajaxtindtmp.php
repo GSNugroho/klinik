@@ -23,6 +23,7 @@ $sel = mysqli_query($koneksi, "SELECT count(*) as allcount from tmp_tindakan_med
         INNER JOIN daftar_tindakan ON tmp_tindakan_medis.id_tindakan = daftar_tindakan.id_tindakan
         INNER JOIN petugas_kesehatan ON tmp_tindakan_medis.id_petugas = petugas_kesehatan.id_petugas
         INNER JOIN diagnosis ON tmp_tindakan_medis.id_diagnosis = diagnosis.id_diagnosis 
+        INNER JOIN user ON tmp_tindakan_medis.id_user = user.id_user
         WHERE tmp_tindakan_medis.id_kunjungan = '".$kunj."' ");
 $records = mysqli_fetch_all($sel);
 foreach($records as $row){
@@ -32,16 +33,18 @@ foreach($records as $row){
 $sel = mysqli_query($koneksi, "SELECT count(*) as allcount from tmp_tindakan_medis 
         INNER JOIN daftar_tindakan ON tmp_tindakan_medis.id_tindakan = daftar_tindakan.id_tindakan
         INNER JOIN petugas_kesehatan ON tmp_tindakan_medis.id_petugas = petugas_kesehatan.id_petugas 
-        INNER JOIN diagnosis ON tmp_tindakan_medis.id_diagnosis = diagnosis.id_diagnosis WHERE 1=1 AND tmp_tindakan_medis.id_kunjungan = '".$kunj."' ".$searchQuery);
+        INNER JOIN diagnosis ON tmp_tindakan_medis.id_diagnosis = diagnosis.id_diagnosis 
+        INNER JOIN user ON tmp_tindakan_medis.id_user = user.id_user WHERE 1=1 AND tmp_tindakan_medis.id_kunjungan = '".$kunj."' ".$searchQuery);
 $records = mysqli_fetch_all($sel);
 foreach($records as $row){
     $totalRecordwithFilter = $row;
 }
 
-$empQuery = mysqli_query($koneksi, "SELECT id_tmp_tm, tmp_tindakan_medis.poliklinik as poli, nama_petugas, nama_indonesia, nama_tindakan, harga_tindakan, jmlh_tind from tmp_tindakan_medis 
+$empQuery = mysqli_query($koneksi, "SELECT id_tmp_tm, tmp_tindakan_medis.poliklinik as poli, nama_petugas, nama_indonesia, nama_tindakan, harga_tindakan, jmlh_tind, nama_user from tmp_tindakan_medis 
 INNER JOIN daftar_tindakan ON tmp_tindakan_medis.id_tindakan = daftar_tindakan.id_tindakan
 INNER JOIN petugas_kesehatan ON tmp_tindakan_medis.id_petugas = petugas_kesehatan.id_petugas 
-INNER JOIN diagnosis ON tmp_tindakan_medis.id_diagnosis = diagnosis.id_diagnosis WHERE 1=1 AND tmp_tindakan_medis.id_kunjungan = '".$kunj."' ".$searchQuery." ORDER BY ".$columnName." "
+INNER JOIN diagnosis ON tmp_tindakan_medis.id_diagnosis = diagnosis.id_diagnosis 
+INNER JOIN user ON tmp_tindakan_medis.id_user = user.id_user WHERE 1=1 AND tmp_tindakan_medis.id_kunjungan = '".$kunj."' ".$searchQuery." ORDER BY ".$columnName." "
 .$columnSortOrder." LIMIT ".$rowperpage);
 $empRecords = mysqli_fetch_all($empQuery, MYSQLI_ASSOC);
 
@@ -59,11 +62,13 @@ foreach($empRecords as $row){
 
     $data[] = array( 
         // "poliklinik" => $row['tmp_tindakan_medis.poliklinik'],
-        "nama_petugas" => $row['nama_petugas'],
-        "nama_indonesia" => $row['nama_indonesia'],
+        // "nama_petugas" => $row['nama_petugas'],
+        // "nama_indonesia" => $row['nama_indonesia'],
+        "nama_user" => $row['nama_user'],
         "nama_tindakan" => $row['nama_tindakan'],
-        "harga_tindakan" => $harga,
-        "jmlh_tind" => $row['jmlh_tind']
+        "harga_tindakan" => $row['harga_tindakan'],
+        "jmlh_tind" => $row['jmlh_tind'],
+        "harga_total" => $harga
         // "delete" => $delete,
     );
 }

@@ -463,7 +463,7 @@ if (!isset($_SESSION['level'])) {
                             </div>
                             <div class="col-sm-1" style="margin-right:5%;">
                                 <select name="klsrwt_bpjs" class="form-control" id="inputKlsrwt" readonly>
-                                    <option>Kelas I</option>
+                                    <option>Kelas II</option>
                                 </select>
                             </div>
                             <div class="col-sm-1" style="margin-right:5%;">
@@ -477,7 +477,7 @@ if (!isset($_SESSION['level'])) {
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group" style="height:26px;">
+                        <!-- <div class="form-group" style="height:26px;">
                             <label for="inputTglruj" class="col-sm-2 control-label">Tgl. Rujukan</label>
                             <div class="col-sm-2">
                                 <input type="text" name="tglruj_bpjs" class="form-control" id="inputTglruj">
@@ -491,6 +491,12 @@ if (!isset($_SESSION['level'])) {
                             <label for="inputNokon" class="col-sm-2 control-label">No. Kontrol</label>
                             <div class="col-sm-2">
                                 <input type="text" name="nokon_bpjs" class="form-control" id="inputNokon">
+                            </div>
+                        </div> -->
+                        <div class="form-group" style="height:26px">
+                            <label for="inputAsuransi" class="col-sm-2 control-label">Asuransi</label>
+                            <div class="col-sm-4">
+                                <input type="text" id="inputAsuransi" name="asuransi" class="form-control">
                             </div>
                         </div>
                         <div class="form-group" style="height:26px;">
@@ -590,6 +596,7 @@ if (!isset($_SESSION['level'])) {
                                 <input type="button" name="submit" class="btn btn-info" id="submit" value="Simpan" style="background-color:#05deff; color: white;">
                             </div>
                         </div>
+                        <h6 class="sub-header"></h6>
                     </form>
                 </div>
                 </div>
@@ -619,6 +626,13 @@ if (!isset($_SESSION['level'])) {
                 minLength: 1,
             });
         });
+
+        $(function() {
+            $('#inputAsuransi').autocomplete({
+                source: "asuransi.php",
+                minLength: 2,
+            })
+        })
 
         $(function() {
 			$("#inputNoRM").on('keyup', function(){

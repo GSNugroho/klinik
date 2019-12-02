@@ -12,11 +12,12 @@ if (isset($_POST['tambah'])) {
     $diagnosis = $_POST['diag'];
     $id_tindakan = $_POST['tind'];
     $jmlh_tind = $_POST['jmlh'];
+    $user = $_POST['usin'];
     $query_diagnosis = mysqli_query($koneksi, "SELECT id_diagnosis FROM diagnosis WHERE nama_indonesia = '$diagnosis'");
     $cari_diagnosis = mysqli_fetch_array($query_diagnosis);
     $id_diagnosis = $cari_diagnosis['id_diagnosis'];
-    $query = "INSERT INTO tmp_tindakan_medis (id_kunjungan, poliklinik, id_diagnosis, id_tindakan, id_petugas, jmlh_tind) 
-    VALUES ('$id_kunjungan','$poliklinik', '$id_diagnosis', '$id_tindakan', '$id_petugas', '$jmlh_tind')";
+    $query = "INSERT INTO tmp_tindakan_medis (id_kunjungan, poliklinik, id_diagnosis, id_tindakan, id_petugas, jmlh_tind, id_user) 
+    VALUES ('$id_kunjungan','$poliklinik', '$id_diagnosis', '$id_tindakan', '$id_petugas', '$jmlh_tind', '$user')";
 
     $input_tindakan = mysqli_query($koneksi, $query) or die(mysqli_error($koneksi));
     // header('location: add_rawatjalan.php?rm=' . $_SESSION['rm']);
