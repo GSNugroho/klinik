@@ -15,17 +15,299 @@ if (!isset($_SESSION['level'])) {
         <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="../css/dashboard.css">
         <link rel="stylesheet" type="text/css" href="../css/jquery.dataTables.css">
+        <link rel="stylesheet" type="text/css" href="../js/jquery-ui-1.11.4/jquery-ui-1.11.4/jquery-ui.min.css">
+        <!-- <link rel="stylesheet" type="text/css" href="../js/jquery-ui-1.11.4/jquery-ui-1.11.4/jquery-ui.theme.css"> -->
 
         <script type="text/javascript" src="../js/jquery.js"></script>
         <script type="text/javascript" src="../js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../js/jquery.dataTables.js"></script>
         <script type="text/javascript" src="../js/dataTables.bootstrap.js"></script>
         <script type="text/javascript" src="../js/sweetalert.min.js"></script>
+        <script type="text/javascript" src="../js/jquery-ui-1.11.4/jquery-ui-1.11.4/jquery-ui.min.js"></script>
         <!-- <script type="text/javascript" src="../js/dataTables.tableTools.js"></script>
         <script type="text/javascript" src="../js/dataTables.colVis.js"></script> -->
 
 <!--        <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>-->
+    <style>
+        .ui-autocomplete {
+        z-index: 9999;
+        }
+    </style>
+    <script>
+        $( function() {
+            $.widget( "custom.combobox", {
+            _create: function() {
+                this.wrapper = $( "<span>" )
+                .addClass( "custom-combobox" )
+                .insertAfter( this.element );
+        
+                this.element.hide();
+                this._createAutocomplete();
+                this._createShowAllButton();
+            },
+        
+            _createAutocomplete: function() {
+                var selected = this.element.children( ":selected" ),
+                value = selected.val() ? selected.text() : "";
+        
+                this.input = $( "<input>" )
+                .appendTo( this.wrapper )
+                .val( value )
+                .attr( "title", "" )
+                .addClass( "custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left form-control" )
+                .autocomplete({
+                    delay: 0,
+                    minLength: 0,
+                    source: $.proxy( this, "_source" )
+                })
+                .tooltip({
+                    classes: {
+                    "ui-tooltip": "ui-state-highlight"
+                    }
+                });
+        
+                this._on( this.input, {
+                autocompleteselect: function( event, ui ) {
+                    ui.item.option.selected = true;
+                    this._trigger( "select", event, {
+                    item: ui.item.option
+                    });
+                },
+        
+                autocompletechange: "_removeIfInvalid"
+                });
+            },
+        
+            _createShowAllButton: function() {
+                var input = this.input,
+                wasOpen = false;
+        
+                $( "<a>" )
+                .attr( "tabIndex", -1 )
+                .attr( "title", "Tampilkan Semua" )
+                .tooltip()
+                .appendTo( this.wrapper )
+                .button({
+                    icons: {
+                    primary: "ui-icon-triangle-1-s"
+                    },
+                    text: false
+                })
+                .removeClass( "ui-corner-all" )
+                .addClass( "custom-combobox-toggle ui-corner-right" )
+                .on( "mousedown", function() {
+                    wasOpen = input.autocomplete( "widget" ).is( ":visible" );
+                })
+                .on( "click", function() {
+                    input.trigger( "focus" );
+        
+                    // Close if already visible
+                    if ( wasOpen ) {
+                    return;
+                    }
+        
+                    // Pass empty string as value to search for, displaying all results
+                    input.autocomplete( "search", "" );
+                });
+            },
+        
+            _source: function( request, response ) {
+                var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
+                response( this.element.children( "option" ).map(function() {
+                var text = $( this ).text();
+                if ( this.value && ( !request.term || matcher.test(text) ) )
+                    return {
+                    label: text,
+                    value: text,
+                    option: this
+                    };
+                }) );
+            },
+        
+            _removeIfInvalid: function( event, ui ) {
+        
+                // Selected an item, nothing to do
+                if ( ui.item ) {
+                return;
+                }
+        
+                // Search for a match (case-insensitive)
+                var value = this.input.val(),
+                valueLowerCase = value.toLowerCase(),
+                valid = false;
+                this.element.children( "option" ).each(function() {
+                if ( $( this ).text().toLowerCase() === valueLowerCase ) {
+                    this.selected = valid = true;
+                    return false;
+                }
+                });
+        
+                // Found a match, nothing to do
+                if ( valid ) {
+                return;
+                }
+        
+                // Remove invalid value
+                this.input
+                .val( "" )
+                .attr( "title", value + " tidak ada yang cocok" )
+                .tooltip( "open" );
+                this.element.val( "" );
+                this._delay(function() {
+                this.input.tooltip( "close" ).attr( "title", "" );
+                }, 2500 );
+                this.input.autocomplete( "instance" ).term = "";
+            },
+        
+            _destroy: function() {
+                this.wrapper.remove();
+                this.element.show();
+            }
+            });
+        
+            $( "#daftarObat" ).combobox();
+            $( "#toggle" ).on( "click", function() {
+            $( "#daftarObat" ).toggle();
+            });
+        } );
 
+        $( function() {
+            $.widget( "custom.combobox", {
+            _create: function() {
+                this.wrapper = $( "<span>" )
+                .addClass( "custom-combobox" )
+                .insertAfter( this.element );
+        
+                this.element.hide();
+                this._createAutocomplete();
+                this._createShowAllButton();
+            },
+        
+            _createAutocomplete: function() {
+                var selected = this.element.children( ":selected" ),
+                value = selected.val() ? selected.text() : "";
+        
+                this.input = $( "<input>" )
+                .appendTo( this.wrapper )
+                .val( value )
+                .attr( "title", "" )
+                .addClass( "custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left form-control" )
+                .autocomplete({
+                    delay: 0,
+                    minLength: 0,
+                    source: $.proxy( this, "_source" )
+                })
+                .tooltip({
+                    classes: {
+                    "ui-tooltip": "ui-state-highlight"
+                    }
+                });
+        
+                this._on( this.input, {
+                autocompleteselect: function( event, ui ) {
+                    ui.item.option.selected = true;
+                    this._trigger( "select", event, {
+                    item: ui.item.option
+                    });
+                },
+        
+                autocompletechange: "_removeIfInvalid"
+                });
+            },
+        
+            _createShowAllButton: function() {
+                var input = this.input,
+                wasOpen = false;
+        
+                $( "<a>" )
+                .attr( "tabIndex", -1 )
+                .attr( "title", "Tampilkan Semua" )
+                .tooltip()
+                .appendTo( this.wrapper )
+                .button({
+                    icons: {
+                    primary: "ui-icon-triangle-1-s"
+                    },
+                    text: false
+                })
+                .removeClass( "ui-corner-all" )
+                .addClass( "custom-combobox-toggle ui-corner-right" )
+                .on( "mousedown", function() {
+                    wasOpen = input.autocomplete( "widget" ).is( ":visible" );
+                })
+                .on( "click", function() {
+                    input.trigger( "focus" );
+        
+                    // Close if already visible
+                    if ( wasOpen ) {
+                    return;
+                    }
+        
+                    // Pass empty string as value to search for, displaying all results
+                    input.autocomplete( "search", "" );
+                });
+            },
+        
+            _source: function( request, response ) {
+                var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
+                response( this.element.children( "option" ).map(function() {
+                var text = $( this ).text();
+                if ( this.value && ( !request.term || matcher.test(text) ) )
+                    return {
+                    label: text,
+                    value: text,
+                    option: this
+                    };
+                }) );
+            },
+        
+            _removeIfInvalid: function( event, ui ) {
+        
+                // Selected an item, nothing to do
+                if ( ui.item ) {
+                return;
+                }
+        
+                // Search for a match (case-insensitive)
+                var value = this.input.val(),
+                valueLowerCase = value.toLowerCase(),
+                valid = false;
+                this.element.children( "option" ).each(function() {
+                if ( $( this ).text().toLowerCase() === valueLowerCase ) {
+                    this.selected = valid = true;
+                    return false;
+                }
+                });
+        
+                // Found a match, nothing to do
+                if ( valid ) {
+                return;
+                }
+        
+                // Remove invalid value
+                this.input
+                .val( "" )
+                .attr( "title", value + " tidak ada yang cocok" )
+                .tooltip( "open" );
+                this.element.val( "" );
+                this._delay(function() {
+                this.input.tooltip( "close" ).attr( "title", "" );
+                }, 2500 );
+                this.input.autocomplete( "instance" ).term = "";
+            },
+        
+            _destroy: function() {
+                this.wrapper.remove();
+                this.element.show();
+            }
+            });
+        
+            $( "#daftarTindakan" ).combobox();
+            $( "#toggle" ).on( "click", function() {
+            $( "#daftarTindakan" ).toggle();
+            });
+        } );
+    </script>
     </head>
     <body>
 
@@ -130,15 +412,22 @@ if (!isset($_SESSION['level'])) {
                         'ajax': {
                             'url':'ajaxdtrj.php'
                         },
+                        "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+                            if ( aData['biaya_resep'] != "0" ){
+                                $('td', nRow).css('background-color', 'Green');
+                            } else {
+                                $('td', nRow).css('background-color', 'Red');
+                            }
+                        },
                         'columns': [
                             { data: 'id_kunjungan' },
                             { data: 'rm' },
                             { data: 'tgl_periksa' },
                             { data: 'nm_pasien' },
                             { data: 'cabang' },
-                            { data: 'biaya_periksa' },
-                            { data: 'biaya_resep' },
-                            { data: 'biaya_total' },
+                            { data: 'biaya_periksa', render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp ' ) },
+                            { data: 'biaya_resep', render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp ' ) },
+                            { data: 'biaya_total', render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp ' ) },
                             { data: 'tindakan' },
                             { data: 'detail' },
                             // { data: 'lihat' },
@@ -172,6 +461,18 @@ if (!isset($_SESSION['level'])) {
                                         </div>
                                     </div>
                                     <div class="form-group" style="height:26px;">
+                                    <label for="inputHarga" class="col-sm-3 control-label">Harga</label>
+                                    <div class="col-sm-2">
+                                        <?php
+                                        include_once './function.php';
+    
+                                        $harga = '';
+                                        ?>
+    
+                                        <input type="text" name="biaya" class="form-control" id="inputHarga" placeholder="Harga" value="<?php echo $harga; ?>" readonly style="width:100%;">
+                                    </div>
+                                    </div>
+                                    <div class="form-group" style="height:26px;">
                                     <label for="inputTindakan" class="col-sm-3 control-label">Tindakan</label>
                                     <div class="col-sm-9">
                                         <select id="daftarTindakan" name="kdTindakan" class="form-control">
@@ -191,18 +492,6 @@ if (!isset($_SESSION['level'])) {
                                             ?>
                                         </select>
                                     </div>
-                                </div>
-                                <div class="form-group" style="height:26px;">
-                                <label for="inputHarga" class="col-sm-3 control-label">Harga</label>
-                                <div class="col-sm-2">
-                                    <?php
-                                    include_once './function.php';
-
-                                    $harga = '';
-                                    ?>
-
-                                    <input type="text" name="biaya" class="form-control" id="inputHarga" placeholder="Harga" value="<?php echo $harga; ?>" readonly style="width:100%;">
-                                </div>
                                 </div>
                                 <div class="form-group" style="height:26px;">
                                 <label for="inputJmltind" class="col-sm-3 control-label">Jumlah</label>
@@ -225,11 +514,13 @@ if (!isset($_SESSION['level'])) {
                                             <tr>
                                                 <!-- <th>No.</th> -->
                                                 <!-- <th>Poliklinik</th> -->
-                                                <th>Petugas Kesehatan</th>
-                                                <th>Diagnosis</th>
+                                                <!-- <th>Petugas Kesehatan</th>
+                                                <th>Diagnosis</th> -->
+                                                <th>Nama Petugas</th>
                                                 <th>Tindakan</th>
+                                                <th>Harga Tindakan</th>
                                                 <th>Jumlah</th>
-                                                <th>Harga</th>
+                                                <th>Sub Total</th>
                                                 <!-- <th>Hapus</th> -->
                                             </tr>
                                         </thead>
@@ -319,11 +610,11 @@ if (!isset($_SESSION['level'])) {
                                             },
                                             'columns': [
                                                 // { data: 'poliklinik' },
-                                                { data: 'nama_petugas' },
-                                                { data: 'nama_indonesia' },
+                                                { data: 'nama_user' },
                                                 { data: 'nama_tindakan' },
+                                                { data: 'harga_tindakan', render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp ' ) },
                                                 { data: 'jmlh_tind' },
-                                                { data: 'harga_tindakan' }
+                                                { data: 'harga_total', render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp ' ) }
                                                 // { data: 'delete' }
                                             ]
                                         });
@@ -572,31 +863,6 @@ if (!isset($_SESSION['level'])) {
                                                 <input type="text" name="pilihPetugas" class="form-control" id="inputPetrso" readonly>
                                             </div>
                                         </div>
-                                        <!--mengambil obat yang ada didatabase-->
-                                        <div class="form-group" style="height:26px;">
-                                            <label for="inputObat" class="col-sm-3 control-label">Nama Obat</label>
-                                            <div class="col-sm-7">
-                                                <!--memilih obat serta diambil untuk harga dan stok-->
-                                                <select id="daftarObat" name="pilihObat" class="form-control" required="">
-                                                    <option value="KOSONG">......</option>
-                                                    <?php
-                                                    $daftarObat = isset($_POST['daftarObat']) ? $_POST['daftarObat'] : '';
-                                                    $bacaSql = mysqli_query($koneksi, "SELECT * FROM obat ORDER BY nama_obat");
-
-                                                    while ($bacaData = mysqli_fetch_array($bacaSql)) {
-                                                        if ($bacaData['id_obat'] == $daftarObat) {
-                                                            $cek = " selected";
-                                                        } else {
-                                                            $cek = "";
-                                                        }
-
-                                                        echo "<option value='$bacaData[id_obat]' $cek>$bacaData[nama_dagang] [ $bacaData[id_obat] ]</option>";
-                                                    }
-                                                    ?>
-                                                </select>
-
-                                            </div>
-                                        </div>
                                         <!--harga dan stok-->
                                         <div class="form-group" style="height:26px;">
                                             <label for="inputHargaO" class="col-sm-3 control-label">Harga</label>
@@ -612,6 +878,31 @@ if (!isset($_SESSION['level'])) {
                                                 <input type="text" name="stok" class="form-control" id="stok" placeholder="Stok" readonly>
 
                                             </div>
+                                        </div>
+                                        <!--mengambil obat yang ada didatabase-->
+                                        <div class="form-group" style="height:26px;">
+                                            <label for="inputObat" class="col-sm-3 control-label">Nama Obat</label>
+                                            <div class="col-sm-7">
+                                                <!--memilih obat serta diambil untuk harga dan stok-->
+                                                <select id="daftarObat" name="pilihObat" class="form-control" required="">
+                                                    <option value="">......</option>
+                                                    <?php
+                                                    $daftarObat = isset($_POST['daftarObat']) ? $_POST['daftarObat'] : '';
+                                                    $bacaSql = mysqli_query($koneksi, "SELECT * FROM obat ORDER BY nama_obat");
+
+                                                    while ($bacaData = mysqli_fetch_array($bacaSql)) {
+                                                        if ($bacaData['id_obat'] == $daftarObat) {
+                                                            $cek = " selected";
+                                                        } else {
+                                                            $cek = "";
+                                                        }
+
+                                                        echo "<option value='$bacaData[id_obat]' $cek>$bacaData[nama_dagang]</option>";
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                            <button id="toggle">Show underlying select</button>
                                         </div>
                                         <!--mengambil obat dari stok (sementara sebelum klik buat resep)-->
                                         <div class="form-group" style="height:26px;">
@@ -653,11 +944,19 @@ if (!isset($_SESSION['level'])) {
                                                         <!-- <th>No.</th> -->
                                                         <!-- <th>Id Obat</th> -->
                                                         <th>Nama Obat</th>
-                                                        <th>Jumlah Obat</th>
                                                         <th>Aturan Pakai</th>
+                                                        <th>Jumlah Obat</th>
+                                                        <th>Harga Obat</th>
+                                                        <th>Subtotal</th>
                                                         <!-- <th>Delete</th> -->
                                                     </tr>
                                                 </thead>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th colspan="4" style="text-align:right">Total:</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </tfoot>
                                             </table>
                                         </div>
                                     
@@ -668,8 +967,41 @@ if (!isset($_SESSION['level'])) {
                             </div>
                         </div>
                         <script>
-                            function resep() {
+                            function resep(val) {
                                         table = $('#dataObat').DataTable({
+                                            "footerCallback": function ( row, data, start, end, display ) {
+                                                var api = this.api(), data;
+                                    
+                                                // Remove the formatting to get integer data for summation
+                                                var intVal = function ( i ) {
+                                                    return typeof i === 'string' ?
+                                                        i.replace(/[\$,]/g, '')*1 :
+                                                        typeof i === 'number' ?
+                                                            i : 0;
+                                                };
+                                    
+                                                // Total over all pages
+                                                total = api
+                                                    .column( 4 )
+                                                    .data()
+                                                    .reduce( function (a, b) {
+                                                        return intVal(a) + intVal(b);
+                                                    }, 0 );
+                                    
+                                                // Total over this page
+                                                pageTotal = api
+                                                    .column( 4, { page: 'current'} )
+                                                    .data()
+                                                    .reduce( function (a, b) {
+                                                        return intVal(a) + intVal(b);
+                                                    }, 0 );
+                                    
+                                                // Update footer
+                                                var numformat = $.fn.dataTable.render.number( '.', ',', 2, 'Rp ' ).display;
+                                                $( api.column( 4 ).footer() ).html(
+                                                    numformat(pageTotal)
+                                                );
+                                            },
                                             "bLengthChange": false,
                                             "bFilter": false,
                                             language: {
@@ -695,14 +1027,19 @@ if (!isset($_SESSION['level'])) {
                                             'serverSide': true,
                                             'serverMethod': 'post',
                                             'ajax': {
-                                                'url':'ajaxreseptmp.php'
+                                                'url':'ajaxreseptmp.php',
+                                                'data': function(d){
+                                                    d.Idkunj = val
+                                                }
                                             },
                                             'columns': [
                                                 // { data: 'poliklinik' },
                                                 // { data: 'id_obat' },
                                                 { data: 'nama_dagang' },
+                                                { data: 'aturan_pakai' },
                                                 { data: 'jumlah_obat' },
-                                                { data: 'aturan_pakai' }
+                                                { data: 'harga_jual', render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp ' ) },
+                                                { data: 'total_bayar', render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp ' ) }
                                                 // { data: 'jmlh_tind' }
                                                 // { data: 'delete' }
                                             ]
@@ -729,7 +1066,7 @@ if (!isset($_SESSION['level'])) {
                                 })
                             });
 
-                            $('#daftarObat').change(function() {
+                            $('#daftarObat').on('change', function() {
                                 var daftar = document.getElementById('daftarObat');
                                 var harga = document.getElementById('inputHargaO');
 
@@ -746,7 +1083,7 @@ if (!isset($_SESSION['level'])) {
                                 });
                             });
 
-                            $('#daftarObat').change(function() {
+                            $('#daftarObat').on('change', function() {
                                 var daftar = document.getElementById('daftarObat');
                                 var stok = document.getElementById('stok');
                                 var jml = document.getElementById('inputJumlahObat');

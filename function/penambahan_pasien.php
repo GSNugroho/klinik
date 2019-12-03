@@ -245,53 +245,53 @@ if (!isset($_SESSION['level'])) {
                                 </select>
                             </div>
                             <label for="inputRt" class="col-sm-2 control-label" style="width:5%;">RT</label>
-                            <div class="col-sm-1" style="width:10%;">
+                            <div class="col-sm-1" style="width:12%;">
                                 <input type="text" name="rt" id="inputRt" class="form-control" style="width:100%;">
                             </div>
                             <label for="inputRw" class="col-sm-2 control-label" style="width:5%;">RW</label>
-                            <div class="col-sm-1" style="width:10%;">
+                            <div class="col-sm-1" style="width:12%;">
                                 <input type="text" name="rw" id="inputRw" class="form-control" style="width:100%;">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="inputPrs" class="col-sm-2 control-label">Pegawai RS</label>
-                            <div class="col-sm-1" style="width:10%;">
+                            <div class="col-sm-1" style="width:12%;">
                                 <input type="text" name="pegrs" id="inputPrs" class="form-control" placeholder="Y/T" style="width:100%;">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="inputTb" class="col-sm-2 control-label">Tinggi Badan</label>
-                            <div class="col-sm-1" style="width:10%;">
+                            <div class="col-sm-1" style="width:12%;">
                                 <input type="text" name="tinggiBadan" class="form-control" id="inputTb" required="" style="width:100%;">
                             </div>
                             <label for="inputBb" class="col-sm-1 control-label">Berat Badan</label>
-                            <div class="col-sm-1" style="width:10%;">
+                            <div class="col-sm-1" style="width:12%;">
                                 <input type="text" name="beratBadan" class="form-control" id="inputBb" required="" style="width:100%;">
                             </div>
                             <label for="inputLp" class="col-sm-2 control-label">Lingkar Perut</label>
-                            <div class="col-sm-1" style="width:10%;">
+                            <div class="col-sm-1" style="width:12%;">
                                 <input type="text" name="lingkarp" class="form-control" id="inputLp" style="width:100%;">
                             </div>
                             <label for="inputImt" class="col-sm-1 control-label">IMT</label>
-                            <div class="col-sm-1" style="width:10%;">
+                            <div class="col-sm-1" style="width:12%;">
                                 <input type="text" name="imt" class="form-control" id="inputImt" style="width:100%;">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="inputSt" class="col-sm-2 control-label">Sistole</label>
-                            <div class="col-sm-1" style="width:10%;">
+                            <div class="col-sm-1" style="width:12%;">
                                 <input type="text" name="sistole" class="form-control" id="inputSt" required="" style="width:100%;">
                             </div>
                             <label for="inputDt" class="col-sm-1 control-label">Diastole</label>
-                            <div class="col-sm-1" style="width:10%;">
+                            <div class="col-sm-1" style="width:12%;">
                                 <input type="text" name="diastole" class="form-control" id="inputDt" required="" style="width:100%;">
                             </div>
                             <label for="inputRr" class="col-sm-2 control-label">Respiratory Rate</label>
-                            <div class="col-sm-1" style="width:10%;">
+                            <div class="col-sm-1" style="width:12%;">
                                 <input type="text" name="respRate" class="form-control" id="inputRr" style="width:100%;">
                             </div>
                             <label for="inputHr" class="col-sm-1 control-label">Heart Rate</label>
-                            <div class="col-sm-1" style="width:10%;">
+                            <div class="col-sm-1" style="width:12%;">
                                 <input type="text" name="heartRate" class="form-control" id="inputHr" style="width:100%;">
                             </div>
                         </div>

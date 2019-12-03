@@ -30,7 +30,21 @@ if (!isset($_SESSION['level'])) {
         <script type="text/javascript" src="../js/dataTables.colVis.js"></script> -->
 
 <!--        <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>-->
-
+    <style>
+        /* body {
+        font: 90%/1.45em "Helvetica Neue", HelveticaNeue, Verdana, Arial, Helvetica, sans-serif;
+        margin: 0;
+        padding: 0;
+        color: #333;
+        background-color: #fff;
+        } */
+        .red {
+        background-color: red !important;
+        }
+        .green {
+            background-color: green !important;
+        }
+    </style>
     </head>
     <body>
 
@@ -131,15 +145,22 @@ if (!isset($_SESSION['level'])) {
                         'ajax': {
                             'url':'ajaxdtrjhr.php'
                         },
+                        "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+                            if ( aData['biaya_resep'] != "0" ){
+                                $('td', nRow).css('background-color', 'Green');
+                            } else {
+                                $('td', nRow).css('background-color', 'Red');
+                            }
+                        },
                         'columns': [
                             { data: 'id_kunjungan' },
                             { data: 'rm' },
                             { data: 'tgl_periksa' },
                             { data: 'nm_pasien' },
                             { data: 'cabang' },
-                            { data: 'biaya_periksa' },
-                            { data: 'biaya_resep' },
-                            { data: 'biaya_total' },
+                            { data: 'biaya_periksa', render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp ' ) },
+                            { data: 'biaya_resep', render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp ' ) },
+                            { data: 'biaya_total', render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp ' ) },
                             { data: 'tindakan' },
                             { data: 'detail' },
                             // { data: 'lihat' },
@@ -192,7 +213,7 @@ if (!isset($_SESSION['level'])) {
                                             <?php
                                             $daftarTindakan = isset($_POST['daftarTindakan']) ? $_POST['daftarTindakan'] : '';
                                             $bacaSql = mysqli_query($koneksi, "SELECT * FROM daftar_tindakan ORDER BY id_tindakan");
-
+                                
                                             while ($bacaData = mysqli_fetch_array($bacaSql)) {
                                                 if ($bacaData['id_tindakan'] == $daftarTindakan) {
                                                     $cek = " selected";
@@ -204,7 +225,7 @@ if (!isset($_SESSION['level'])) {
                                             ?>
                                         </select>
                                     </div>
-                                </div>
+                                    </div>
                                 <div class="form-group" style="height:26px;">
                                 <label for="inputJmltind" class="col-sm-3 control-label">Jumlah</label>
                                 <div class="col-sm-2">

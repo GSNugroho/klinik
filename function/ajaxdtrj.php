@@ -55,7 +55,8 @@ foreach($empRecords as $row){
     $detail = '<a class="btn btn-info" data-toggle="modal" data-target="#ModalDetail" data-whatever="'.$row["id_kunjungan"].'">Detail</a>';
 
     if (($row['biaya_resep'] == '') || ($row['biaya_resep'] == NULL)){
-        $bresep = '<a class="btn btn-primary" data-toggle="modal" data-target="#modalResep" data-backdrop="static" data-keyboard="false" data-whatever="'.$row["id_kunjungan"].'" onclick="resep()">Resep</a>';
+        // $bresep = '<a class="btn btn-primary" data-toggle="modal" data-target="#modalResep" data-backdrop="static" data-keyboard="false" data-whatever="'.$row["id_kunjungan"].'" onclick="resep()">Resep</a>';
+        $bresep = '<button value="'.$row["id_kunjungan"].'" class="btn btn-primary" data-toggle="modal" data-target="#modalResep" data-backdrop="static" data-keyboard="false" data-whatever="'.$row["id_kunjungan"].'" onclick="resep(this.value)">Resep</button>';
     }else{
         $bresep = '<a class="btn btn-primary" data-toggle="modal" data-whatever="'.$row["id_kunjungan"].'" disabled>Resep</a>';
     }
@@ -65,20 +66,20 @@ foreach($empRecords as $row){
 
 
     if($row['biaya_periksa'] == ''){
-        $biaya = 'Rp 0';
+        $biaya = '0';
     }else{
-        $biaya = 'Rp '.$row['biaya_periksa'];
+        $biaya = $row['biaya_periksa'];
     }
     if(($row['biaya_resep'] == '') || ($row['biaya_resep'] == NULL)){
-        $resep = 'Rp 0';
+        $resep = '0';
     }else{
-        $resep = 'Rp '.$row['biaya_resep'];
+        $resep = $row['biaya_resep'];
     }
     
     $bp = (int)$row['biaya_periksa'];
     $br = (int)$row['biaya_resep'];
     $jmlh_total = $bp+$br;
-    $total = 'Rp '.$jmlh_total;
+    $total = $jmlh_total;
     $data[] = array( 
         "id_kunjungan" => $row['id_kunjungan'],
         "rm" => $row['rm'],
