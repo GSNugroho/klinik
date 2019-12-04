@@ -44,7 +44,7 @@ if ($_GET['id']) {
         $query = "INSERT INTO tindakan_medis (poliklinik, id_diagnosis, id_tindakan, id_petugas, id_kunjungan, jmlh_tind) VALUES ('$poli', '$diag', '$id_tin', '$pet', '$id', '$jmlh')";
         $input_tindakan = mysqli_query($koneksi, $query) or die(mysqli_error($koneksi));
     }
-    $update = mysqli_query($koneksi, "UPDATE kunjungan SET biaya_periksa ='$total' WHERE id_kunjungan = '" . $_GET['id'] . "'") or die(mysql_error());
+    $update = mysqli_query($koneksi, "UPDATE kunjungan SET biaya_periksa ='$total' WHERE id_kunjungan = '" . $_GET['id'] . "'") or die(mysqli_error($koneksi));
 
 
     $delete = "DELETE FROM tmp_tindakan_medis where id_kunjungan='" . $_GET['id'] . "'";

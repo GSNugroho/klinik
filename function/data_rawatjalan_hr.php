@@ -147,9 +147,9 @@ if (!isset($_SESSION['level'])) {
                         },
                         "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                             if ( aData['biaya_resep'] != "0" ){
-                                $('td', nRow).css('background-color', 'Green');
+                                $('td', nRow).css('background-color', 'LightGreen');
                             } else {
-                                $('td', nRow).css('background-color', 'Red');
+                                $('td', nRow).css('background-color', 'LightCoral');
                             }
                         },
                         'columns': [

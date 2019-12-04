@@ -30,7 +30,12 @@ if (!isset($_SESSION['level'])) {
 <!--        <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>-->
     <style>
         .ui-autocomplete {
-        z-index: 9999;
+            z-index: 9999;
+        }
+        .ui-autocomplete { 
+            height: 200px; 
+            overflow-y: scroll; 
+            overflow-x: hidden;
         }
     </style>
     <script>
@@ -164,10 +169,33 @@ if (!isset($_SESSION['level'])) {
                 this.element.show();
             }
             });
-        
+            
+            
             $( "#daftarObat" ).combobox();
+            $("#daftarObat").combobox({ 
+                select: function (event, ui) { 
+                    var harga = document.getElementById('inputHargaO');
+                    var stok = document.getElementById('stok');
+                    var jml = document.getElementById('inputJumlahObat');
+
+                    id = this.value;
+                    var dataString = 'id='+id;
+                    $.ajax({
+                        type: 'GET',
+                        url: 'obat/need/ajax.php',
+                        dataType: 'json',
+                        data: dataString,
+                        success: function(data) {
+                            $('#inputHargaO').val(data['harga_jual']);
+                            $('#stok').val(data['stok']);
+                            // $('#inputJumlahObat').max(data['stok']);
+                            document.getElementById("inputJumlahObat").max = data['stok']; 
+                        }
+                    });
+                } 
+            });
+
             $( "#toggle" ).on( "click", function() {
-            $( "#daftarObat" ).toggle();
             });
         } );
 
@@ -303,6 +331,24 @@ if (!isset($_SESSION['level'])) {
             });
         
             $( "#daftarTindakan" ).combobox();
+            $("#daftarTindakan").combobox({ 
+                select: function (event, ui) { 
+                    // var daftar = document.getElementById('daftarTIndakan');
+                    var harga = document.getElementById('inputHarga');
+                    var daftar = this.value;
+                    // id = daftar.options[daftar.selectedIndex].value();
+                    $.ajax({
+                        url: 'ajax.php',
+                        type: 'POST',
+                        data: {
+                            id_tindakan: daftar,
+                        },
+                        success: function(result) {
+                            harga.value = result;
+                        }
+                    });
+                } 
+            });
             $( "#toggle" ).on( "click", function() {
             $( "#daftarTindakan" ).toggle();
             });
@@ -414,9 +460,9 @@ if (!isset($_SESSION['level'])) {
                         },
                         "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                             if ( aData['biaya_resep'] != "0" ){
-                                $('td', nRow).css('background-color', 'Green');
+                                $('td', nRow).css('background-color', 'LightGreen');
                             } else {
-                                $('td', nRow).css('background-color', 'Red');
+                                $('td', nRow).css('background-color', 'LightCoral');
                             }
                         },
                         'columns': [
@@ -487,7 +533,7 @@ if (!isset($_SESSION['level'])) {
                                                 } else {
                                                     $cek = "";
                                                 }
-                                            echo "<option value='$bacaData[id_tindakan]' $cek>[ $bacaData[id_tindakan] ]  $bacaData[nama_tindakan]</option>";
+                                            echo "<option value='$bacaData[id_tindakan]' $cek>$bacaData[nama_tindakan]</option>";
                                             }
                                             ?>
                                         </select>
@@ -503,11 +549,13 @@ if (!isset($_SESSION['level'])) {
                                     <!-- <input name="btntambah" type="submit" style="cursor:pointer;" class="btn btn-info" value=" Tambah Tindakan " /> -->
                                     <input type="hidden" class="form-control" id="inputIdkunj" name="id_kunjungan">
                                     <input type="hidden" class="form-control" id="inputPetrs" name="petugas_rs">
+                                    <input type="hidden" class="form-control" id="inputUser" name="userin" value="<?php echo $_SESSION['id_user'];?>">
                                     <button type="button" class="btn btn-info" id="tambah" value="tambah">Tambah Tindakan</button>
                                 </div>
                                 </div>
-                                <div>
+                                <br>
                                 <h4 class="sub-header">Daftar Tindakan</h4>
+                                <div>
                                 <div class="table">
                                     <table id="tabeltindakan" class="table table-hover table-bordered" >
                                         <thead >
@@ -681,11 +729,12 @@ if (!isset($_SESSION['level'])) {
                                             var idku = $('#inputIdkunj').val();
                                             var pers = $('#inputPetrs').val();
                                             var jmlh = $('#inputJmltind').val();
+                                            var usin = $('#inputUser').val();
                                             var tambah = $('#tambah').val();
                                             var dataBpjs = $('#tindakanPasien').serialize();
 
                                             var dataString = 'poli='+ poli +'&diag='+ diag +'&tind='+tind+'&harg='+harg
-                                            +'&idku='+idku+'&pers='+pers+'&jmlh='+jmlh+'&tambah='+tambah;
+                                            +'&idku='+idku+'&pers='+pers+'&jmlh='+jmlh+'&tambah='+tambah+'&usin='+usin;
 
                                             $.ajax({
                                                 type: 'post',
@@ -694,6 +743,7 @@ if (!isset($_SESSION['level'])) {
                                                 success: function() {
                                                     $('#tabeltindakan').DataTable().ajax.reload();
                                                     document.getElementById('daftarTindakan').value = "";
+                                                    $('.ui-autocomplete-input').focus().val('');
                                                     document.getElementById('inputHarga').value = "";
                                                     document.getElementById('inputJmltind').value ="1";
                                                     if(jmlh > 0) {
@@ -902,7 +952,6 @@ if (!isset($_SESSION['level'])) {
                                                     ?>
                                                 </select>
                                             </div>
-                                            <button id="toggle">Show underlying select</button>
                                         </div>
                                         <!--mengambil obat dari stok (sementara sebelum klik buat resep)-->
                                         <div class="form-group" style="height:26px;">
@@ -1066,7 +1115,7 @@ if (!isset($_SESSION['level'])) {
                                 })
                             });
 
-                            $('#daftarObat').on('change', function() {
+                            $('#daftarObat').on('autocompletechange', function() {
                                 var daftar = document.getElementById('daftarObat');
                                 var harga = document.getElementById('inputHargaO');
 
@@ -1083,7 +1132,7 @@ if (!isset($_SESSION['level'])) {
                                 });
                             });
 
-                            $('#daftarObat').on('change', function() {
+                            $('#daftarObat').on('autocompletechange', function() {
                                 var daftar = document.getElementById('daftarObat');
                                 var stok = document.getElementById('stok');
                                 var jml = document.getElementById('inputJumlahObat');
@@ -1126,6 +1175,7 @@ if (!isset($_SESSION['level'])) {
                                     success: function() {
                                         $('#dataObat').DataTable().ajax.reload();
                                         document.getElementById('daftarObat').value = "";
+                                        $('.ui-autocomplete-input').focus().val('');
                                         document.getElementById('inputHargaO').value = "";
                                         document.getElementById('stok').value = "";
                                         document.getElementById('inputJumlahObat').value = "";
