@@ -984,6 +984,8 @@ if (!isset($_SESSION['level'])) {
                                             </div>
                                         </div>
                                     </form>
+                                    <input type="hidden" class="form-control" name="inputByp" id="inputBypr">
+                                    <h4 style="text-align: right;"><label style="text-align: right" id="bp"></label><h4>
                                     <h5 class="sub-header">Detail Resep</h5>
                                     
                                         <div class="table" >
@@ -1004,6 +1006,14 @@ if (!isset($_SESSION['level'])) {
                                                     <tr>
                                                         <th colspan="4" style="text-align:right">Total:</th>
                                                         <th></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th colspan="4" style="text-align: right">Total Tindakan + Total Resep:</th>
+                                                        <th></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th colspan="4" style="text-align: right">Diskon:</th>
+                                                        <th><input type="text" id="inputDiskon" name="diskon" style="width: 100%;"></th>
                                                     </tr>
                                                 </tfoot>
                                             </table>
@@ -1046,9 +1056,17 @@ if (!isset($_SESSION['level'])) {
                                                     }, 0 );
                                     
                                                 // Update footer
+                                                tindakan = Number($('#inputBypr').val());
+                                                tindre = pageTotal + tindakan;
                                                 var numformat = $.fn.dataTable.render.number( '.', ',', 2, 'Rp ' ).display;
-                                                $( api.column( 4 ).footer() ).html(
+                                                // $( api.column( 4 ).footer() ).html(
+                                                //     numformat(pageTotal)
+                                                // );
+                                                $( 'tr:eq(0) th:eq(1)', api.table().footer() ).html(
                                                     numformat(pageTotal)
+                                                );
+                                                $( 'tr:eq(1) th:eq(1)', api.table().footer() ).html(
+                                                    numformat(tindre)
                                                 );
                                             },
                                             "bLengthChange": false,
@@ -1111,6 +1129,9 @@ if (!isset($_SESSION['level'])) {
                                         $('#inputNama').val(data['nm_pasien']);
                                         $('#inputPetrso').val(data['nama_petugas']);
                                         $('#inputDiagOb').val(data['nama_indonesia']);
+                                        $('#inputBypr').val(data['biaya_periksa']);
+                                        document.getElementById("bp").innerHTML = 'Total Biaya Tindakan: Rp '+data['biaya_periksa'];
+                                        $('#dataObat').DataTable().ajax.reload();
                                     }
                                 })
                             });
