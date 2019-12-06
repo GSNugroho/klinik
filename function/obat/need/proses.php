@@ -64,6 +64,7 @@ if ($_POST['btnt'] == 'tambaho') {
     $id_kunjungan = $_POST['idku'];
     // $jumlah = $_POST['jumlah_obat'];
     // $aturan_pakai = $_POST['aturan'];
+    $diskon = $_POST['dskn'];
 
     //masukkan nilai statis dari kedalam resep
     $query = mysqli_query($koneksi, "INSERT INTO resep (id_resep, id_kunjungan, id_user) VALUES ('$id_resep', '$id_kunjungan', '" . $_SESSION['id_user'] . "' )");
@@ -84,13 +85,14 @@ if ($_POST['btnt'] == 'tambaho') {
 
         //masukkan nilai dari temp_detail_resep ke dalam detail_resep
         $input_detail = mysqli_query($koneksi, "INSERT INTO detail_resep (id_resep, id_obat, jumlah_obat, aturan_pakai, id_petugas) "
-                . "VALUES ('".$id_resep."', '".$id_obat."', '".$jumlah_obat."', '".$aturan_pakai."', '".$id_petugas."')") or die(mysql_error());
+                . "VALUES ('".$id_resep."', '".$id_obat."', '".$jumlah_obat."', '".$aturan_pakai."', '".$id_petugas."')") or die(mysqli_error($koneksi));
 
         //update nilai stok dari tabel obat
         // $update_stok = mysqli_query($koneksi, "UPDATE obat SET stok = '$sisa' WHERE id_obat = '$id_obat'");
     }
     //masukkan nilai biaya resep yang dihitung dari detail resep
-    $update_resep = mysqli_query($koneksi, "UPDATE resep SET biaya_resep = '$biaya_resep' WHERE id_resep ='" . $id_resep . "'");
+    $biaya_resep = $biaya_resep - $diskon;
+    $update_resep = mysqli_query($koneksi, "UPDATE resep SET biaya_resep = '$biaya_resep', diskon_resep = '$diskon' WHERE id_resep ='" . $id_resep . "'");
 
     //masukkan nilai id_resep dan biaya yang diupdate kedalam kuitansi
     $get_bayar = mysqli_query($koneksi, "SELECT * FROM kuitansi WHERE id_kunjungan = '$id_kunjungan'");
@@ -111,7 +113,7 @@ if ($_POST['btnt'] == 'tambaho') {
 } elseif (isset($_GET['delete'])) {
     $id_kunjungan = $_POST['id_kunjungan'];
     $query = "DELETE FROM tmp_detail_resep WHERE id_tmp_dr =" . $_GET['delete'];
-    $result = mysql_query($query);
+    $result = mysqli_query($koneksi, $query);
     header('location: ../buat_resep.php?id_kunjungan=' . $_SESSION['id_kunjungan']);
 }
 

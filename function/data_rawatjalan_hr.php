@@ -577,6 +577,14 @@ if (!isset($_SESSION['level'])) {
                                                 <th colspan="4" style="text-align:right">Total:</th>
                                                 <th></th>
                                             </tr>
+                                            <tr>
+                                                <th colspan="4" style="text-align: right">Diskon:</th>
+                                                <th><input type="text" id="inputDiskonT" name="diskonT" style="width: 100%;"></th>
+                                            </tr>
+                                            <tr>
+                                                <th colspan="4" style="text-align: right">Total Biaya Tindakan:</th>
+                                                <th></th>
+                                            </tr>
                                         </tfoot>
                                     </table>
                                 </div>
@@ -587,6 +595,13 @@ if (!isset($_SESSION['level'])) {
                                     <button type="button" class="btn btn-primary" id="submit">Simpan</button>
                                 </div>
                                 <script>
+                                    diskon = 0;
+                                    $(function() {
+                                        $('#inputDiskonT').on('keyup', function(){
+                                            diskon = Number($('#inputDiskonT').val());
+                                            $('#tabeltindakan').DataTable().ajax.reload();
+                                        })
+                                    });
                                     function load(val) {
                                         table = $('#tabeltindakan').DataTable({
                                             // columnDefs: [{
@@ -619,11 +634,15 @@ if (!isset($_SESSION['level'])) {
                                                     .reduce( function (a, b) {
                                                         return intVal(a) + intVal(b);
                                                     }, 0 );
-                                    
+
+                                                totalbyr = pageTotal - diskon;
                                                 // Update footer
                                                 var numformat = $.fn.dataTable.render.number( '.', ',', 2, 'Rp ' ).display;
-                                                $( api.column( 4 ).footer() ).html(
+                                                $( 'tr:eq(0) th:eq(1)', api.table().footer() ).html(
                                                     numformat(pageTotal)
+                                                );
+                                                $( 'tr:eq(2) th:eq(1)', api.table().footer() ).html(
+                                                    numformat(totalbyr)
                                                 );
                                             },
                                             "bLengthChange": false,
@@ -704,6 +723,7 @@ if (!isset($_SESSION['level'])) {
                                                 $('#inputDiagnosis').val(data['nama_indonesia']);
                                                 $('#inputIdkunj').val(data['id_kunjungan']);
                                                 $('#inputPetrs').val(data['id_petugas']);
+                                                $('#tabeltindakan').DataTable().ajax.reload();
                                             },
                                             error: function(err) {
                                                 console.log(err);
@@ -752,7 +772,8 @@ if (!isset($_SESSION['level'])) {
                                     $(function() {
                                         $('#submit').click(function() {
                                             var idku = $('#inputIdkunj').val();
-                                            var dataString = 'id='+idku;
+                                            var dskn = $('#inputDiskonT').val();
+                                            var dataString = 'id='+idku+'&dskn='+dskn;
                                             $.ajax({
                                                 type: 'get',
                                                 url: 'tambah_rawatjalan.php',
@@ -976,6 +997,14 @@ if (!isset($_SESSION['level'])) {
                                                         <th></th>
                                                     </tr>
                                                     <tr>
+                                                        <th colspan="4" style="text-align: right">Diskon:</th>
+                                                        <th><input type="text" id="inputDiskonO" name="diskonO" style="width: 100%;"></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th colspan="4" style="text-align: right">Total Biaya Resep:</th>
+                                                        <th></th>
+                                                    </tr>
+                                                    <tr>
                                                         <th colspan="4" style="text-align: right">Total Tindakan + Total Resep:</th>
                                                         <th></th>
                                                     </tr>
@@ -990,6 +1019,13 @@ if (!isset($_SESSION['level'])) {
                             </div>
                         </div>
                         <script>
+                            diskono = 0;
+                            $(function() {
+                                $('#inputDiskonO').on('keyup', function(){
+                                    diskono = Number($('#inputDiskonO').val());
+                                    $('#dataObat').DataTable().ajax.reload();
+                                })
+                            })
                             $('#modalResep').on('show.bs.modal', function (event) {
                                 var button = $(event.relatedTarget)
                                 var recipient = button.data('whatever')
@@ -1043,8 +1079,9 @@ if (!isset($_SESSION['level'])) {
                                                     }, 0 );
                                     
                                                 // Update footer
+                                                tdis = pageTotal - diskono;
                                                 tindakan = Number($('#inputBypr').val());
-                                                tindre = pageTotal + tindakan;
+                                                tindre = tdis + tindakan;
                                                 var numformat = $.fn.dataTable.render.number( '.', ',', 2, 'Rp ' ).display;
                                                 // $( api.column( 4 ).footer() ).html(
                                                 //     numformat(pageTotal)
@@ -1052,7 +1089,10 @@ if (!isset($_SESSION['level'])) {
                                                 $( 'tr:eq(0) th:eq(1)', api.table().footer() ).html(
                                                     numformat(pageTotal)
                                                 );
-                                                $( 'tr:eq(1) th:eq(1)', api.table().footer() ).html(
+                                                $( 'tr:eq(2) th:eq(1)', api.table().footer() ).html(
+                                                    numformat(tdis)
+                                                );
+                                                $( 'tr:eq(3) th:eq(1)', api.table().footer() ).html(
                                                     numformat(tindre)
                                                 );
                                             },
@@ -1174,8 +1214,9 @@ if (!isset($_SESSION['level'])) {
                                 var idrp = $('#inputNoResep').val();
                                 var idku = $('#inputIdKunjungan').val();
                                 var btns = $('#btnsimpano').val();
+                                var dskn = $('#inputDiskonO').val();
 
-                                var dataString = 'idku='+idku+'&idrp='+idrp+'&btns='+btns;
+                                var dataString = 'idku='+idku+'&idrp='+idrp+'&btns='+btns+'&dskn='+dskn;
 
                                 $.ajax({
                                     type: 'post',

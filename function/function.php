@@ -40,7 +40,7 @@ function get_list_tindakan_by_kunjungan($id_kunjungan) {
     
 //    mysql_fetch_row($result)
     $hasil = 0;
-    while($result = mysqli_fetch_array($statement, MYSQL_ASSOC)) {
+    while($result = mysqli_fetch_array($statement, MYSQLI_ASSOC)) {
         print_r($result);
         $hasil+= $result['harga_tindakan'];
         echo '<br>';

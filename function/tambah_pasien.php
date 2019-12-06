@@ -89,6 +89,7 @@ if($_POST['no_bpjs'] != ''){
     $cari_diagnosis = mysqli_fetch_array($query_diagnosis, MYSQLI_ASSOC);
     $diag = $cari_diagnosis['id_diagnosis'];
     $cata = $_POST['cata'];
+    $asur = $_POST['asur'];
     $id_kunjungan = buatKode('kunjungan', 'RJ');
     $tgl_periksa = date('Y-m-d');
 

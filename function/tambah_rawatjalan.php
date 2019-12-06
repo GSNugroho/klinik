@@ -25,6 +25,7 @@ if (isset($_POST['tambah'])) {
 
 if ($_GET['id']) {
 
+    $diskon = $_GET['dskn'];
     $query = "SELECT tmp_tindakan_medis.id_kunjungan AS kunjungan ,tmp_tindakan_medis.poliklinik AS poli ,tmp_tindakan_medis.id_diagnosis AS diag ,tmp_tindakan_medis.id_tindakan AS tindakan ,tmp_tindakan_medis.id_petugas AS petugas ,daftar_tindakan.harga_tindakan AS total, tmp_tindakan_medis.jmlh_tind AS jmlh FROM tmp_tindakan_medis 
     INNER JOIN daftar_tindakan ON tmp_tindakan_medis.id_tindakan = daftar_tindakan.id_tindakan WHERE tmp_tindakan_medis.id_kunjungan = '" . $_GET['id'] . "'";
     $date = date('Y-m-d');
@@ -44,7 +45,8 @@ if ($_GET['id']) {
         $query = "INSERT INTO tindakan_medis (poliklinik, id_diagnosis, id_tindakan, id_petugas, id_kunjungan, jmlh_tind) VALUES ('$poli', '$diag', '$id_tin', '$pet', '$id', '$jmlh')";
         $input_tindakan = mysqli_query($koneksi, $query) or die(mysqli_error($koneksi));
     }
-    $update = mysqli_query($koneksi, "UPDATE kunjungan SET biaya_periksa ='$total' WHERE id_kunjungan = '" . $_GET['id'] . "'") or die(mysqli_error($koneksi));
+    $total = $total - $diskon;
+    $update = mysqli_query($koneksi, "UPDATE kunjungan SET biaya_periksa ='$total', diskon_tindakan = '$diskon' WHERE id_kunjungan = '" . $_GET['id'] . "'") or die(mysqli_error($koneksi));
 
 
     $delete = "DELETE FROM tmp_tindakan_medis where id_kunjungan='" . $_GET['id'] . "'";

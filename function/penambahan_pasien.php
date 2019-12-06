@@ -943,6 +943,7 @@ if (!isset($_SESSION['level'])) {
                 var petrs = $('#inputDrrs option:selected').val();
                 var diag = $('#inputDiag').val();
                 var cata = $('#inputCat').val();
+                var asur = $('#inputAsuransi').val();
                 
                 var dataString = 'no_rm='+ norm + '&nm_pasien=' + nmpas + '&jk_pasien=' + jk + '&tmpt_lahir=' + tlahir 
                 + '&nik=' + nik + '&tgl_lahir=' + tgll + '&agm_pasien=' + agm + '&neg_pasien=' + neg + '&sts_kwn=' + stkw
@@ -952,7 +953,8 @@ if (!isset($_SESSION['level'])) {
                 + '&lp_pasien=' + lp + '&imp_pasien=' + imt + '&sis_pasien=' + st + '&dia_pasien=' + ds + '&rr_pasien=' + rr 
                 + '&hr_pasien=' + hr + '&nm_wali=' + nmwl + '&hub_wali=' + hbwl + '&nm_ortu=' + orwl + '&pkrj_wali=' + prwl
                 + '&no_bpjs=' + nobpjs + '&jns_rwt=' + jnswrt + '&kls_rwt=' + klsrwt + '&fks_rwt=' + fksrwt + '&tgl_ruj=' + tglruj
-                + '&no_ruj=' + noruj + '&no_kon=' + nokon + '&poli=' + poli7a + '&pet_rs=' + petrs + '&diag=' + diag + '&cata=' + cata;
+                + '&no_ruj=' + noruj + '&no_kon=' + nokon + '&poli=' + poli7a + '&pet_rs=' + petrs + '&diag=' + diag + '&cata=' + cata
+                + '&asur=' + asur;
 
                 var dataForm = $('#pendaftaran').serialize();
                 $.ajax({
