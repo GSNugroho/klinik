@@ -89,7 +89,8 @@ $data = mysqli_fetch_array($query_pasien);
 //            $totalBayar = 0;
 //            $uangKembali = 0;
 
-            $query = mysqli_query($koneksi, "SELECT * FROM kuitansi WHERE id_kunjungan = '".$id_kunjungan."'") or die(mysqli_error($koneksi));
+            $query = mysqli_query($koneksi, "SELECT kunjungan.no_rm, kunjungan.biaya_periksa, resep.biaya_resep, (kunjungan.diskon_tindakan+resep.diskon_resep) as total_diskon, (kunjungan.total_tindakan+resep.total_resep) as total_bayar FROM kunjungan
+            JOIN resep ON kunjungan.id_kunjungan = resep.id_kunjungan WHERE kunjungan.id_kunjungan = '".$id_kunjungan."'") or die(mysqli_error($koneksi));
             $hasil = mysqli_fetch_array($query);
             ?>
             <tr>
@@ -103,7 +104,12 @@ $data = mysqli_fetch_array($query_pasien);
                 <td  align="right" bgcolor="#F5F5F5"><?php echo format_angka($hasil['biaya_resep']);?></td>
             </tr>
             <tr>
-                <td colspan="4" align="right"><strong>Total Biaya Tindakan (Rp) : </strong></td>
+                <td bgcolor="#F5F5F5">3.</td>
+                <td colspan="3" bgcolor="#F5F5F5">Total Diskon</td>
+                <td  align="right" bgcolor="#F5F5F5"><?php echo format_angka($hasil['total_diskon']);?></td>
+            </tr>
+            <tr>
+                <td colspan="4" align="right"><strong>Total Biaya (Rp) : </strong></td>
                 <td align="right" bgcolor="#F5F5F5"><?php echo  format_angka($hasil['total_bayar']); ?></td>
             </tr>
             

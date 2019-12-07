@@ -578,7 +578,7 @@ if (!isset($_SESSION['level'])) {
                                                 <th></th>
                                             </tr>
                                             <tr>
-                                            <th colspan="4" style="text-align: right">Diskon:</th>
+                                            <th colspan="4" style="text-align: right">Diskon: <select id="pilDiskon"><option value="Rp">Rp</option><option value="%">%</option></select></th>
                                                 <th><input type="text" id="inputDiskonT" name="diskonT" style="width: 100%;"></th>
                                             </tr>
                                             <tr>
@@ -635,8 +635,14 @@ if (!isset($_SESSION['level'])) {
                                                     .reduce( function (a, b) {
                                                         return intVal(a) + intVal(b);
                                                     }, 0 );
-                                    
-                                                totalbyr = pageTotal - diskon;
+                                                    
+                                                if(($('#pilDiskon option:selected').val()) == "Rp"){
+                                                    totalbyr = pageTotal - diskon;
+                                                }else{
+                                                    diskon = pageTotal*(diskon/100);
+                                                    totalbyr = pageTotal - diskon;
+                                                }
+
                                                 // Update footer
                                                 var numformat = $.fn.dataTable.render.number( '.', ',', 2, 'Rp ' ).display;
                                                 $( 'tr:eq(0) th:eq(1)', api.table().footer() ).html(
@@ -736,6 +742,7 @@ if (!isset($_SESSION['level'])) {
                                         document.getElementById('inputDiagnosis').value = "";
                                         document.getElementById('daftarTindakan').value = "";
                                         document.getElementById('inputHarga').value = "";
+                                        document.getElementById('pilDiskon').value = "";
                                         table.destroy();
                                         $('#exampleModal').modal('hide');
                                     }
@@ -794,7 +801,7 @@ if (!isset($_SESSION['level'])) {
                                     $(function() {
                                         $('#submit').click(function() {
                                             var idku = $('#inputIdkunj').val();
-                                            var dskn = $('#inputDiskonT').val();
+                                            var dskn = diskon;
                                             var dataString = 'id='+idku+'&dskn='+dskn;
                                             var databpjs = $('#tindakanPasien').serialize();
                                             $.ajax({
@@ -1029,7 +1036,7 @@ if (!isset($_SESSION['level'])) {
                                                         <th></th>
                                                     </tr>
                                                     <tr>
-                                                        <th colspan="4" style="text-align: right">Diskon:</th>
+                                                        <th colspan="4" style="text-align: right">Diskon: <select id="pilDiskonO"><option value="Rp">Rp</option><option value="%">%</option></select></th>
                                                         <th><input type="text" id="inputDiskonO" name="diskonO" style="width: 100%;"></th>
                                                     </tr>
                                                     <tr>
@@ -1088,7 +1095,12 @@ if (!isset($_SESSION['level'])) {
                                                     }, 0 );
                                     
                                                 // Update footer
-                                                tdis = pageTotal - diskono;
+                                                if(($('#pilDiskonO option:selected').val()) == "Rp"){
+                                                    tdis = pageTotal - diskono;
+                                                }else{
+                                                    diskono = pageTotal*(diskono/100);
+                                                    tdis = pageTotal - diskono;
+                                                }
                                                 tindakan = Number($('#inputBypr').val());
                                                 tindre = tdis + tindakan;
                                                 var numformat = $.fn.dataTable.render.number( '.', ',', 2, 'Rp ' ).display;
@@ -1165,8 +1177,8 @@ if (!isset($_SESSION['level'])) {
                                         $('#inputNama').val(data['nm_pasien']);
                                         $('#inputPetrso').val(data['nama_petugas']);
                                         $('#inputDiagOb').val(data['nama_indonesia']);
-                                        $('#inputBypr').val(data['biaya_periksa']);
-                                        document.getElementById("bp").innerHTML = 'Total Biaya Tindakan: Rp '+data['biaya_periksa'];
+                                        $('#inputBypr').val(data['total_tindakan']);
+                                        document.getElementById("bp").innerHTML = 'Total Biaya Tindakan: Rp '+data['total_tindakan'];
                                         $('#dataObat').DataTable().ajax.reload();
                                     }
                                 })
@@ -1244,7 +1256,8 @@ if (!isset($_SESSION['level'])) {
                                 var idrp = $('#inputNoResep').val();
                                 var idku = $('#inputIdKunjungan').val();
                                 var btns = $('#btnsimpano').val();
-                                var dskn = $('#inputDiskonO').val();
+                                // var dskn = $('#inputDiskonO').val();
+                                var dskn = diskono;
 
                                 var dataString = 'idku='+idku+'&idrp='+idrp+'&btns='+btns+'&dskn='+dskn;
 
@@ -1262,6 +1275,15 @@ if (!isset($_SESSION['level'])) {
                             });
 
                             function ttpresep(){
+                                document.getElementById('inputNoResep').value = "";
+                                document.getElementById('inputIdKunjungan').value = "";
+                                document.getElementById('inputNama').value = "";
+                                document.getElementById('inputDiagOb').value = "";
+                                document.getElementById('inputPetrso').value = "";
+                                document.getElementById('inputHargaO').value = "";
+                                document.getElementById('stok').value = "";
+                                document.getElementById('inputJumlahObat').value = "";
+                                document.getElementById('inputAturan').value = "";
                                 table.destroy();
                                 $('#modalResep').modal('hide');
                             }

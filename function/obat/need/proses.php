@@ -91,8 +91,8 @@ if ($_POST['btnt'] == 'tambaho') {
         // $update_stok = mysqli_query($koneksi, "UPDATE obat SET stok = '$sisa' WHERE id_obat = '$id_obat'");
     }
     //masukkan nilai biaya resep yang dihitung dari detail resep
-    $biaya_resep = $biaya_resep - $diskon;
-    $update_resep = mysqli_query($koneksi, "UPDATE resep SET biaya_resep = '$biaya_resep', diskon_resep = '$diskon' WHERE id_resep ='" . $id_resep . "'");
+    $total_resep = $biaya_resep - $diskon;
+    $update_resep = mysqli_query($koneksi, "UPDATE resep SET biaya_resep = '$biaya_resep', diskon_resep = '$diskon', total_resep = '$total_resep' WHERE id_resep ='" . $id_resep . "'");
 
     //masukkan nilai id_resep dan biaya yang diupdate kedalam kuitansi
     $get_bayar = mysqli_query($koneksi, "SELECT * FROM kuitansi WHERE id_kunjungan = '$id_kunjungan'");

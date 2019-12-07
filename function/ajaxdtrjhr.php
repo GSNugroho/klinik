@@ -36,7 +36,7 @@ foreach($records as $row){
     $totalRecordwithFilter = $row;
 }
 
-$empQuery = mysqli_query($koneksi, "SELECT kunjungan.id_kunjungan as id_kunjungan, kunjungan.no_rm as rm, nm_pasien, cabang, tgl_periksa, biaya_periksa, biaya_resep, (biaya_periksa+biaya_resep) as biaya_total FROM kunjungan 
+$empQuery = mysqli_query($koneksi, "SELECT kunjungan.id_kunjungan as id_kunjungan, kunjungan.no_rm as rm, nm_pasien, cabang, tgl_periksa, total_tindakan, total_resep, (total_tindakan+total_resep) as biaya_total FROM kunjungan 
 INNER JOIN user on kunjungan.id_user = user.id_user 
 LEFT JOIN resep on kunjungan.id_kunjungan = resep.id_kunjungan
 LEFT JOIN pasien_b on kunjungan.no_rm = pasien_b.no_rm
@@ -46,7 +46,7 @@ $empRecords = mysqli_fetch_all($empQuery, MYSQLI_ASSOC);
 
 $data = array();
 foreach($empRecords as $row){
-    if ($row['biaya_periksa'] == '') {
+    if ($row['total_tindakan'] == '') {
         $tindakan = '<button value="'.$row["id_kunjungan"].'" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal" data-backdrop="static" data-keyboard="false" data-whatever="'.$row["id_kunjungan"].'" onclick="load(this.value)">Tindakan</button>';
     }else{
         $tindakan = '<a class="btn btn-warning" data-toggle="modal" data-whatever="'.$row["id_kunjungan"].'" disabled>Tindakan</a>';
@@ -54,7 +54,7 @@ foreach($empRecords as $row){
     
     $detail = '<a class="btn btn-info" data-toggle="modal" data-target="#ModalDetail" data-whatever="'.$row["id_kunjungan"].'">Detail</a>';
 
-    if (($row['biaya_resep'] == '') || ($row['biaya_resep'] == NULL)){
+    if (($row['total_resep'] == '') || ($row['total_resep'] == NULL)){
         // $bresep = '<a class="btn btn-primary" data-toggle="modal" data-target="#modalResep" data-backdrop="static" data-keyboard="false" data-whatever="'.$row["id_kunjungan"].'" onclick="resep()">Resep</a>';
         $bresep = '<button value="'.$row["id_kunjungan"].'" class="btn btn-primary" data-toggle="modal" data-target="#modalResep" data-backdrop="static" data-keyboard="false" data-whatever="'.$row["id_kunjungan"].'" onclick="resep(this.value)">Resep</button>';
     }else{
@@ -64,19 +64,19 @@ foreach($empRecords as $row){
     $kuitansi = '<a class="btn btn-success" href="cetak/cetak_kuitansi.php?i='.$row['id_kunjungan'].'" target="_blank">Kuitansi</a>';
 
 
-    if($row['biaya_periksa'] == ''){
+    if($row['total_tindakan'] == ''){
         $biaya = '0';
     }else{
-        $biaya = $row['biaya_periksa'];
+        $biaya = $row['total_tindakan'];
     }
-    if(($row['biaya_resep'] == '') || ($row['biaya_resep'] == NULL)){
+    if(($row['total_resep'] == '') || ($row['total_resep'] == NULL)){
         $resep = '0';
     }else{
-        $resep = $row['biaya_resep'];
+        $resep = $row['total_resep'];
     }
 
-    $bp = (int)$row['biaya_periksa'];
-    $br = (int)$row['biaya_resep'];
+    $bp = (int)$row['total_tindakan'];
+    $br = (int)$row['total_resep'];
     $jmlh_total = $bp+$br;
     $total = $jmlh_total;
     $data[] = array( 

@@ -578,7 +578,7 @@ if (!isset($_SESSION['level'])) {
                                                 <th></th>
                                             </tr>
                                             <tr>
-                                                <th colspan="4" style="text-align: right">Diskon:</th>
+                                                <th colspan="4" style="text-align: right">Diskon:<select id="pilDiskon"><option value="Rp">Rp</option><option value="%">%</option></select></th>
                                                 <th><input type="text" id="inputDiskonT" name="diskonT" style="width: 100%;"></th>
                                             </tr>
                                             <tr>
@@ -635,7 +635,12 @@ if (!isset($_SESSION['level'])) {
                                                         return intVal(a) + intVal(b);
                                                     }, 0 );
 
-                                                totalbyr = pageTotal - diskon;
+                                                if(($('#pilDiskon option:selected').val()) == "Rp"){
+                                                    totalbyr = pageTotal - diskon;
+                                                }else{
+                                                    diskon = pageTotal*(diskon/100);
+                                                    totalbyr = pageTotal - diskon;
+                                                }
                                                 // Update footer
                                                 var numformat = $.fn.dataTable.render.number( '.', ',', 2, 'Rp ' ).display;
                                                 $( 'tr:eq(0) th:eq(1)', api.table().footer() ).html(
@@ -915,7 +920,6 @@ if (!isset($_SESSION['level'])) {
                                             <label for="inputStok" class="col-sm-1 control-label">Stok</label>
                                             <div class="col-sm-3">
                                                 <input type="text" name="stok" class="form-control" id="stok" placeholder="Stok" readonly>
-
                                             </div>
                                         </div>
                                         <!--mengambil obat yang ada didatabase-->
@@ -997,7 +1001,7 @@ if (!isset($_SESSION['level'])) {
                                                         <th></th>
                                                     </tr>
                                                     <tr>
-                                                        <th colspan="4" style="text-align: right">Diskon:</th>
+                                                        <th colspan="4" style="text-align: right">Diskon: <select id="pilDiskonO"><option value="Rp">Rp</option><option value="%">%</option></select></th>
                                                         <th><input type="text" id="inputDiskonO" name="diskonO" style="width: 100%;"></th>
                                                     </tr>
                                                     <tr>
@@ -1079,7 +1083,12 @@ if (!isset($_SESSION['level'])) {
                                                     }, 0 );
                                     
                                                 // Update footer
-                                                tdis = pageTotal - diskono;
+                                                if(($('#pilDiskonO option:selected').val()) == "Rp"){
+                                                    tdis = pageTotal - diskono;
+                                                }else{
+                                                    diskono = pageTotal*(diskono/100);
+                                                    tdis = pageTotal - diskono;
+                                                }
                                                 tindakan = Number($('#inputBypr').val());
                                                 tindre = tdis + tindakan;
                                                 var numformat = $.fn.dataTable.render.number( '.', ',', 2, 'Rp ' ).display;

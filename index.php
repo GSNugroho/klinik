@@ -43,11 +43,11 @@ if (isset($_GET['Message'])) {
                         <label class="sr-only" for="inputUserName">
                             User Name
                         </label>
-                        <input id="inputUserName" name="username" class="form-control" type="text" autofocus="" required="" placeholder="User Name" maxlength="20" style="margin-bottom:5px;">
+                        <input id="inputUserName" name="username" class="form-control" type="text" autofocus="" required="" placeholder="User Name" maxlength="20" style="margin-bottom:5px;" oncopy="return false;" onpaste="return false;" oncut="return false;">
                         <label class="sr-only" for="inputPassword">
                             Password
                         </label>
-                        <input id="inputPassword" name="password" class="form-control" placeholder="Password" required="" type="password" style="margin-bottom:10px;">
+                        <input id="inputPassword" name="password" class="form-control" placeholder="Password" required="" type="password" style="margin-bottom:10px;" oncopy="return false;" onpaste="return false;" oncut="return false;">
                         <button class="btn btn-lg btn-primary" type="submit">Sign in</button>
                     </form>
                 </div>
