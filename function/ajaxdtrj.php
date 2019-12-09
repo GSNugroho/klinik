@@ -10,8 +10,14 @@ $columnSortOrder = $_POST['order'][0]['dir'];
 $searchValue = $_POST['search']['value'];
 
 $searchQuery = " ";
+if(($_POST['searchByAwal'] != '') && ($_POST['searchByAkhir'] != '')){
+    $searchByAwal = date('Y-m-d', strtotime($_POST['searchByAwal']));
+    $searchByAkhir = date('Y-m-d', strtotime(($_POST['searchByAkhir'])));
+    $searchQuery .= " AND (tgl_periksa BETWEEN '".$searchByAwal."' AND '".$searchByAkhir."' )";
+}
+
 if($searchValue != ''){
-    $searchQuery = " and (kunjungan.no_rm like '%".$searchValue."%' or 
+    $searchQuery .= " and (kunjungan.no_rm like '%".$searchValue."%' or 
     nm_pasien like '%".$searchValue."%' or 
     id_kunjungan like '%".$searchValue."%' or 
     cabang like '%".$searchValue."%' or 
@@ -103,4 +109,3 @@ $response = array(
     "aaData" => $data
 );
 echo json_encode($response);
-?>

@@ -67,5 +67,3 @@ if (isset($_GET['delete'])) {
     $jipot = mysqli_query($koneksi, $query) or die(mysqli_error($koneksi));
     header('location: add_rawatjalan.php?rm=' . $_SESSION['rm']);
 }
-
-?>

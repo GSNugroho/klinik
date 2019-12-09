@@ -42,5 +42,4 @@
     //             </tfoot>';
 
     $callback = array('detail'=>$data); 
-                echo json_encode($callback)
-?>
+                echo json_encode($callback);

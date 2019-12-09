@@ -101,4 +101,3 @@ if($_POST['no_bpjs'] != ''){
 //     header('location: penambahan_pasien.php');
 
 // }
-?>

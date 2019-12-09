@@ -12,19 +12,18 @@ if (!isset($_SESSION['level'])) {
 <html>
     <head>
         <title><?=namaKlinik()?></title>
-        <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
-        <link rel="stylesheet" type="text/css" href="../css/dashboard.css">
-        <!-- <link rel="stylesheet" type="text/css" href="../datepicker/css/bootstrap.min.css"> -->
         <link rel="stylesheet" type="text/css" href="../datepicker/css/ilmudetil.css">
         <link rel="stylesheet" type="text/css" href="../datepicker/css/bootstrap-datetimepicker.css">
+        <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="../css/dashboard.css">
         <link rel="stylesheet" type="text/css" href="../js/jquery-ui-1.11.4/jquery-ui-1.11.4/jquery-ui.min.css"> 
         
         <script src="../datepicker/js/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="../js/jquery-ui-1.11.4/jquery-ui-1.11.4/jquery-ui.js"></script>
+        <script type="text/javascript" src="../js/sweetalert.min.js"></script>
         <script src="../datepicker/js/bootstrap.min.js"></script>
         <script src="../datepicker/js/moment-with-locales.js"></script>
         <script src="../datepicker/js/bootstrap-datetimepicker.js"></script>
-        <script type="text/javascript" src="../js/jquery-ui-1.11.4/jquery-ui-1.11.4/jquery-ui.js"></script>
-        <script type="text/javascript" src="../js/sweetalert.min.js"></script>
         <style>
             table {
                 display: block;

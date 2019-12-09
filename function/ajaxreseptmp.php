@@ -56,4 +56,3 @@ $response = array(
     "aaData" => $data
 );
 echo json_encode($response);
-?>
