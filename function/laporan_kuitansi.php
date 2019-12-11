@@ -54,7 +54,7 @@ if (!isset($_SESSION['level'])) {
 
     <div class="container-fluid">
         <div class="row">
-            <!--                <div class="col-sm-3 sidebar">
+            <!--    <div class="col-sm-3 sidebar">
                     <ul class="nav nav-sidebar ">               
                         <li><a href="../home.php">Home</a></li>
                         <li><a href="penambahan_pasien.php">Penambahan Pasien</a></li>
@@ -100,8 +100,7 @@ if (!isset($_SESSION['level'])) {
                             <tbody id="myTable">
                                 <?php
                                 include_once '../koneksi.php';
-                                //                                    $query = mysql_query("select * from pasien");
-                                $query = mysqli_query($koneksi, "select * from kuitansi p INNER JOIN user u ON p.id_user = u.id_user LEFT JOIN kunjungan s ON p.id_kunjungan = s.id_kunjungan");
+                                $query = mysqli_query($koneksi, "SELECT id_kuitansi, tgl_periksa, no_rm, p.id_kunjungan as id_kunjungan, id_resep, p.biaya_periksa as biaya_periksa, biaya_resep, total_bayar, cabang FROM kuitansi p INNER JOIN user u ON p.id_user = u.id_user LEFT JOIN kunjungan s ON p.id_kunjungan = s.id_kunjungan");
                                 $no = 0;
                                 while ($hasil = mysqli_fetch_array($query)) {
                                     $no++;
@@ -115,9 +114,7 @@ if (!isset($_SESSION['level'])) {
                                         <td>" . $hasil['biaya_periksa'] . "</td>
                                         <td>" . $hasil['biaya_resep'] . "</td>
                                         <td>" . $hasil['total_bayar'] . "</td>
-                                        
                                         <td>" . $hasil['cabang'] . "</td>
-                                        
                                     </tr>";
                                 }
                                 ?>
@@ -126,24 +123,6 @@ if (!isset($_SESSION['level'])) {
                     </div>
                 </div>
                 <script type="text/javascript">
-                    //                        $(document).ready(function() {
-                    //                            $('#kepet').dataTable();
-                    //                        });
-                    //                        
-                    //                        $(document).ready(function() {
-                    //                            $('#kepet').DataTable({
-                    //                                "dom": 'T<"clear">lfrtip',
-                    //                                "tableTools": {
-                    //                                    "aButtons": [
-                    //                                        {
-                    //                                            "sExtends": "print",
-                    //                                            "sButtonText": "Print"
-                    //                                        }
-                    //                                    ]
-                    //                                }
-                    //                            });
-                    //                        });
-                    //                        
                     $(document).ready(function() {
                         var table = $('#tabelku').dataTable();
                         var tt = new $.fn.dataTable.TableTools(table, {
