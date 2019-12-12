@@ -35,6 +35,9 @@ if (isset($_GET['aksi'])) {
 if ($_POST['btnt'] == 'tambaho') {
     //masukkan ke temp_detail_resep /keranjang
     $id_resep = $_POST['idrp'];
+    if($id_resep == ''){
+        $id_resep = buatKode("resep", "R");
+    }
     $id_obat = $_POST['idob'];
     $petugas = $_POST['ptob'];
     $query_petugas = mysqli_query($koneksi, "SELECT id_petugas FROM petugas_kesehatan WHERE nama_petugas = '$petugas'");
@@ -44,6 +47,11 @@ if ($_POST['btnt'] == 'tambaho') {
     $jumlah = $_POST['jmob'];
     $aturan_pakai = $_POST['atpi'];
     $date = date('Y-m-d');
+
+    $cek = mysqli_query($koneksi, "SELECT id_resep FROM resep WHERE id_resep = '".$id_resep."'");
+    if($cek == FALSE){
+        $query_roku = mysqli_query($koneksi, "INSERT INTO resep (id_resep, id_kunjungan, id_user) VALUE ('".$id_resep."', '".$id_kunjungan."', '".$id_petugas."')");
+    }
 
     $qsobat = mysqli_query($koneksi, "SELECT * FROM obat WHERE id_obat='".$id_obat."'");
     while($row = mysqli_fetch_array($qsobat)){

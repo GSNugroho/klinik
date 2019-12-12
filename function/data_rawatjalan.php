@@ -1297,6 +1297,7 @@ if (!isset($_SESSION['level'])) {
                                         $('#inputPetrso').val(data['nama_petugas']);
                                         $('#inputDiagOb').val(data['nama_indonesia']);
                                         $('#inputBypr').val(data['total_tindakan']);
+                                        $('#inputNoResep').val(data['id_resep']);
                                         document.getElementById("bp").innerHTML = 'Total Biaya Tindakan: Rp ' + data['total_tindakan'];
                                         $('#dataObat').DataTable().ajax.reload();
                                     }
@@ -1386,7 +1387,7 @@ if (!isset($_SESSION['level'])) {
                                     data: dataString,
                                     success: function() {
                                         swal("", "Simpan Resep Obat Berhasil", "success");
-                                        document.getElementById('inputDiskono') = "";
+                                        // document.getElementById('inputDiskono') = "";
                                         $('#modalResep').modal('hide');
                                         $('#tabelku').DataTable().ajax.reload();
                                         table.destroy();
@@ -1395,7 +1396,7 @@ if (!isset($_SESSION['level'])) {
                             });
 
                             function ttpresep() {
-                                document.getElementById('inputNoResep').value = "";
+                                // document.getElementById('inputNoResep').value = "";
                                 document.getElementById('inputIdKunjungan').value = "";
                                 document.getElementById('inputNama').value = "";
                                 document.getElementById('inputDiagOb').value = "";
