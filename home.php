@@ -51,7 +51,7 @@ if (!isset($_SESSION['level'])) {
                     if (isset($_SESSION['level'])) { { ?>
                             <a href="function/data_rawatjalan_hr.php"><button type="button" class="btn btn-primary">Rawat Jalan</button></a>
                             <a href="function/obat/data_resep.php"><button type="button" class="btn btn-default">Penjualan Obat</button></a>
-
+                            
                     <?php }
                     }
                     if (!isset($_SESSION['level'])) {
@@ -62,26 +62,22 @@ if (!isset($_SESSION['level'])) {
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <div class="box box-info">
-                        <div class="box-header with-border">
-                            <div class="box-title" style="text-align: center">Grafik Kunjungan Harian</div>
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <div class="panel-title" style="text-align: center">Grafik Kunjungan Harian</div>
                         </div>
-                        <div class="box-body">
-                            <div class="chart">
-                                <div id="hariChart" style="min-width: 315px; height: 400px; max-width:600px; margin:0 auto"></div>
-                            </div>
+                        <div class="panel-body">
+                            <div id="hariChart" style="min-width: 315px; height: 400px; max-width:600px; margin:0 auto"></div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="box box-info">
-                        <div class="box-header with-border">
-                            <div class="box-title" style="text-align: center">Grafik Kunjungan Bulanan</div>
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <div class="panel-title" style="text-align: center">Grafik Kunjungan Bulanan</div>
                         </div>
-                        <div class="box-body">
-                            <div class="chart">
-                                <div id="bulanChart" style="min-width: 315px; height:400px; max-width: 600px; margin:0 auto"></div>
-                            </div>
+                        <div class="panel-body">
+                            <div id="bulanChart" style="min-width: 315px; height:400px; max-width: 600px; margin:0 auto"></div>
                         </div>
                     </div>
                 </div>

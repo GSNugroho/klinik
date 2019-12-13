@@ -455,7 +455,7 @@ if (!isset($_SESSION['level'])) {
                             },
                             "aoColumnDefs": [{
                                 "orderable": false,
-                                "aTargets": [8,9,10,11]
+                                "aTargets": [8, 9, 10, 11]
                             }],
                             'order': [
                                 [0, "asc"]
@@ -926,7 +926,7 @@ if (!isset($_SESSION['level'])) {
                                 <form class="form-horizontal" name="addResep" action="need/proses.php" method="post">
                                     <!--bagian kunjungan-->
                                     <?php
-                                    $noResep = buatKode("resep", "R");
+                                    // $noResep = buatKode("resep", "R");
                                     ?>
                                     <!--input data dari kunjungan-->
                                     <div class="form-group" style="height:26px;">
@@ -1106,6 +1106,18 @@ if (!isset($_SESSION['level'])) {
                                         $('#inputPetrso').val(data['nama_petugas']);
                                         $('#inputDiagOb').val(data['nama_indonesia']);
                                         $('#inputBypr').val(data['total_tindakan']);
+                                        if ((data['id_resep'] !== null) && (data['id_resep'] !== '')) {
+                                            $('#inputNoResep').val(data['id_resep']);
+                                        } else {
+                                            $.ajax({
+                                                type: 'get',
+                                                url: 'ajaxido.php',
+                                                dataType: 'json',
+                                                success: function(value) {
+                                                    $('#inputNoResep').val(value);
+                                                }
+                                            })
+                                        }
                                         document.getElementById("bp").innerHTML = 'Total Biaya Tindakan: Rp ' + data['total_tindakan'];
                                         $('#dataObat').DataTable().ajax.reload();
                                     }
@@ -1315,6 +1327,15 @@ if (!isset($_SESSION['level'])) {
                             });
 
                             function ttpresep() {
+                                document.getElementById('inputNoResep').value = "";
+                                document.getElementById('inputIdKunjungan').value = "";
+                                document.getElementById('inputNama').value = "";
+                                document.getElementById('inputDiagOb').value = "";
+                                document.getElementById('inputPetrso').value = "";
+                                document.getElementById('inputHargaO').value = "";
+                                document.getElementById('stok').value = "";
+                                document.getElementById('inputJumlahObat').value = "";
+                                document.getElementById('inputAturan').value = "";
                                 table.destroy();
                                 $('#modalResep').modal('hide');
                             }

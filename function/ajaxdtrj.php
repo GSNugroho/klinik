@@ -13,13 +13,13 @@ $searchQuery = " ";
 if(($_POST['searchByAwal'] != '') && ($_POST['searchByAkhir'] != '')){
     $searchByAwal = date('Y-m-d', strtotime($_POST['searchByAwal']));
     $searchByAkhir = date('Y-m-d', strtotime(($_POST['searchByAkhir'])));
-    $searchQuery .= " AND (tgl_periksa BETWEEN '".$searchByAwal."' AND '".$searchByAkhir."' )";
+    $searchQuery .= " AND (tgl_periksa BETWEEN '".$searchByAwal."' AND '".$searchByAkhir."' ) ";
 }
 
 if($searchValue != ''){
-    $searchQuery .= " and (kunjungan.no_rm like '%".$searchValue."%' or 
+    $searchQuery .= " AND (kunjungan.no_rm like '%".$searchValue."%' or 
     nm_pasien like '%".$searchValue."%' or 
-    id_kunjungan like '%".$searchValue."%' or 
+    kunjungan.id_kunjungan like '%".$searchValue."%' or 
     cabang like '%".$searchValue."%' or 
     tgl_periksa like'%".$searchValue."%' ) ";
 }

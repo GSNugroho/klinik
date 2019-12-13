@@ -35,9 +35,9 @@ if (isset($_GET['aksi'])) {
 if ($_POST['btnt'] == 'tambaho') {
     //masukkan ke temp_detail_resep /keranjang
     $id_resep = $_POST['idrp'];
-    if($id_resep == ''){
-        $id_resep = buatKode("resep", "R");
-    }
+    // if($id_resep == ''){
+    //     $id_resep = buatKode("resep", "R");
+    // }
     $id_obat = $_POST['idob'];
     $petugas = $_POST['ptob'];
     $query_petugas = mysqli_query($koneksi, "SELECT id_petugas FROM petugas_kesehatan WHERE nama_petugas = '$petugas'");
@@ -48,9 +48,10 @@ if ($_POST['btnt'] == 'tambaho') {
     $aturan_pakai = $_POST['atpi'];
     $date = date('Y-m-d');
 
-    $cek = mysqli_query($koneksi, "SELECT id_resep FROM resep WHERE id_resep = '".$id_resep."'");
+    $q = mysqli_query($koneksi, "SELECT id_resep FROM resep WHERE id_resep = '".$id_resep."'");
+    $cek = mysqli_fetch_array($q);
     if($cek == FALSE){
-        $query_roku = mysqli_query($koneksi, "INSERT INTO resep (id_resep, id_kunjungan, id_user) VALUE ('".$id_resep."', '".$id_kunjungan."', '".$id_petugas."')");
+        $query_roku = mysqli_query($koneksi, "INSERT INTO resep (id_resep, id_kunjungan, id_user) VALUE ('".$id_resep."', '".$id_kunjungan."', '".$_SESSION['id_user']."')");
     }
 
     $qsobat = mysqli_query($koneksi, "SELECT * FROM obat WHERE id_obat='".$id_obat."'");
@@ -75,7 +76,7 @@ if ($_POST['btnt'] == 'tambaho') {
     $diskon = $_POST['dskn'];
 
     //masukkan nilai statis dari kedalam resep
-    $query = mysqli_query($koneksi, "INSERT INTO resep (id_resep, id_kunjungan, id_user) VALUES ('$id_resep', '$id_kunjungan', '" . $_SESSION['id_user'] . "' )");
+    // $query = mysqli_query($koneksi, "INSERT INTO resep (id_resep, id_kunjungan, id_user) VALUES ('$id_resep', '$id_kunjungan', '" . $_SESSION['id_user'] . "' )");
     $biaya_resep = 0;
     //ambil data dari temp_detail_resep yang digunakan untuk menghitung biaya resep dan disimpan di detail_resep
     $detail_resep = mysqli_query($koneksi, "SELECT * FROM tmp_detail_resep tmp INNER JOIN obat o WHERE tmp.id_obat = o.id_obat");

@@ -1004,13 +1004,13 @@ if (!isset($_SESSION['level'])) {
                                 <form class="form-horizontal" name="addResep" action="need/proses.php" method="post" id="buatResep">
                                     <!--bagian kunjungan-->
                                     <?php
-                                    $noResep = buatKode("resep", "R");
+                                    // $noResep = buatKode("resep", "R");
                                     ?>
                                     <!--input data dari kunjungan-->
                                     <div class="form-group" style="height:26px;">
                                         <label for="inputNoResep" class="col-sm-3 control-label">No Resep</label>
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control" id="inputNoResep" placeholder="No Resep" readonly="" name="id_resep" value="<?php echo $noResep; ?>">
+                                            <input type="text" class="form-control" id="inputNoResep" placeholder="No Resep" readonly="" name="id_resep" value="<?php //echo $noResep; ?>">
                                         </div>
                                     </div>
                                     <div class="form-group form-horizontal" style="height:26px;">
@@ -1297,7 +1297,18 @@ if (!isset($_SESSION['level'])) {
                                         $('#inputPetrso').val(data['nama_petugas']);
                                         $('#inputDiagOb').val(data['nama_indonesia']);
                                         $('#inputBypr').val(data['total_tindakan']);
-                                        $('#inputNoResep').val(data['id_resep']);
+                                        if ((data['id_resep'] !== null) && (data['id_resep'] !== '')) {
+                                            $('#inputNoResep').val(data['id_resep']);
+                                        } else {
+                                            $.ajax({
+                                                type: 'get',
+                                                url: 'ajaxido.php',
+                                                dataType: 'json',
+                                                success:function(value) {
+                                                    $('#inputNoResep').val(value);
+                                                }
+                                            })
+                                        }
                                         document.getElementById("bp").innerHTML = 'Total Biaya Tindakan: Rp ' + data['total_tindakan'];
                                         $('#dataObat').DataTable().ajax.reload();
                                     }
@@ -1396,7 +1407,7 @@ if (!isset($_SESSION['level'])) {
                             });
 
                             function ttpresep() {
-                                // document.getElementById('inputNoResep').value = "";
+                                document.getElementById('inputNoResep').value = "";
                                 document.getElementById('inputIdKunjungan').value = "";
                                 document.getElementById('inputNama').value = "";
                                 document.getElementById('inputDiagOb').value = "";
