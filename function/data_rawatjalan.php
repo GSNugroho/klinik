@@ -542,6 +542,7 @@ if (!isset($_SESSION['level'])) {
                                 }
                             ]
                         });
+                        
                         $('#tgl2').on('dp.change', function() {
                             table.draw(true);
                         });

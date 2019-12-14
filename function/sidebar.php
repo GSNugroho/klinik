@@ -13,19 +13,19 @@
         </a></li>
         <li class="prem"><a>Master
             <ul class="menus">
-                <li class='has-submenu'><a class='prem' href='Dropdown 1' title='Dropdown 1'>Tindakan</a>
+                <li class='has-submenu'><a class='prem' href='#' title='Dropdown 1'>Tindakan</a>
                     <ul class='submenu'>
                         <!-- <li class="<?php //$arrActive['tambahTindakan'] ?>"><a href="penambahan_tindakan.php">Penambahan Tindakan</a></li> -->
                         <li class="<?= $arrActive['dataTindakan'] ?>"><a href="data_tindakan.php">Data Tindakan</a></li>
                     </ul>
                 </li>
-                <li class='has-submenu'><a class='prem' href='Dropdown 2' title='Dropdown 1'>Petugas</a>
+                <li class='has-submenu'><a class='prem' href='#' title='Dropdown 1'>Petugas</a>
                     <ul class='submenu'>
                         <!-- <li class="<?php //$arrActive['tambahPetugas'] ?>"><a href="penambahan_petugas.php">Penambahan Petugas Kesehatan</a></li> -->
                         <li class="<?= $arrActive['dataPetugas'] ?>"><a href="data_petugas.php">Data Petugas Kesehatan</a></li>
                     </ul>
                 </li>
-                <li class='has-submenu'><a class='prem' href='Dropdown 2' title='Dropdown 1'>User</a>
+                <li class='has-submenu'><a class='prem' href='#' title='Dropdown 1'>User</a>
                     <ul class='submenu'>
                         <li class="<?= $arrActive['tambahUser'] ?>"><a href="penambahan_user.php">Penambahan User</a></li>
                         <li class="<?= $arrActive['dataUser'] ?>"><a href="data_user.php">Data User</a></li>

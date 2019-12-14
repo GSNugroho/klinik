@@ -832,7 +832,7 @@ if (!isset($_SESSION['level'])) {
                                 $(function() {
                                     $('#submit').click(function() {
                                         var idku = $('#inputIdkunj').val();
-                                        var dskn = $('#inputDiskonT').val();
+                                        var dskn = diskon;
                                         var dataString = 'id=' + idku + '&dskn=' + dskn;
                                         $.ajax({
                                             type: 'get',

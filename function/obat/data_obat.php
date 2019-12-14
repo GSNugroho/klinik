@@ -52,7 +52,7 @@ if (!isset($_SESSION['level'])) {
 
                     <div class="row">
                         <div class="table" >
-                            <table id="data" class="table table-hover display compact">
+                            <table id="data" class="table table-hover display responsive compact" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
                                         <th style="width: 5%">No</th>

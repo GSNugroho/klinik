@@ -90,11 +90,14 @@ if($_POST['no_bpjs'] != ''){
     $diag = $cari_diagnosis['id_diagnosis'];
     $cata = $_POST['cata'];
     $asur = $_POST['asur'];
+    $query_asur = mysqli_query($koneksi, "SELECT vc_k_png FROM pubpng WHERE vc_n_png = '$asur'");
+    $cari_asur = mysqli_fetch_array($query_asur, MYSQLI_ASSOC);
+    $asuransi = $cari_asur['vc_k_png'];
     $id_kunjungan = buatKode('kunjungan', 'RJ');
     $tgl_periksa = date('Y-m-d');
 
-    $cek = mysqli_query($koneksi, "INSERT INTO kunjungan (id_kunjungan, no_rm, id_user, tgl_periksa, id_petugas, poliklinik, id_diagnosis)
-    VALUES ('$id_kunjungan','$no_rm','$id_user', '$tgl_periksa', '$pet_rs', '$poli', '$diag')");
+    $cek = mysqli_query($koneksi, "INSERT INTO kunjungan (id_kunjungan, no_rm, id_user, tgl_periksa, id_petugas, poliklinik, id_diagnosis, jns_asuransi)
+    VALUES ('$id_kunjungan','$no_rm','$id_user', '$tgl_periksa', '$pet_rs', '$poli', '$diag', '$asuransi')");
 
 // }
 // if ($cek){
