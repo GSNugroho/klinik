@@ -36,29 +36,30 @@ if (!isset($_SESSION['level'])) {
             </div>
 
         </div>
-    </nav>
-    <div class="container-fluid">
-        <div class="col-md-12 main">
-            <div class="col-sm-9 col-sm-offset-1 center">
-                <h3 class="page-header" style="text-align: center">Selamat bekerja <?php echo $_SESSION['username']; ?> <span class="glyphicon glyphicon-thumbs-up"></span></h3>
-            </div>
-            <div class="col-sm-9 col-sm-offset-1 center">
-                <div class="center">
+            </nav>
+            <nav>
+                <ul id="menu">
                     <?php
-                    // memulai session
-                    //session_start();
-                    error_reporting(0);
-                    if (isset($_SESSION['level'])) { { ?>
-                            <a href="function/data_rawatjalan_hr.php"><button type="button" class="btn btn-primary">Rawat Jalan</button></a>
-                            <a href="function/obat/data_resep.php"><button type="button" class="btn btn-default">Penjualan Obat</button></a>
-                            
-                    <?php }
-                    }
-                    if (!isset($_SESSION['level'])) {
-                        header('location:index.php');
-                    }
-                    ?>
-                </div>
+                        // memulai session
+                        //session_start();
+                        error_reporting(0);
+                        if (isset($_SESSION['level'])) { { ?>
+                            <li class="home"><a href="function/data_rawatjalan_hr.php">Rawat Jalan</a></li>
+                            <li><a href="function/obat/data_resep.php">Data Obat</a></li>  
+                        <?php }
+                        }
+                        if (!isset($_SESSION['level'])) {
+                            header('location:index.php');
+                        }
+                        ?>
+                </ul> 
+            </nav>
+                <div class="container-fluid">
+                    <div class="col-md-12 main">
+                        <div class="col-sm-9 col-sm-offset-1 center">
+                            <h3 class="page-header" style="text-align: center">Selamat bekerja <?php echo $_SESSION['username']; ?> <span class="glyphicon glyphicon-thumbs-up"></span></h3>
+                        </div>
+                        <div class="col-sm-9 col-sm-offset-1 center">
             </div>
             <div class="row">
                 <div class="col-md-6">

@@ -4,30 +4,31 @@ session_start();
 include '../../../koneksi.php';
 include '../../../library/library.php';
 
-if (isset($_GET['aksi'])) {
+if (isset($_POST['aksi'])) {
     $id_user = $_SESSION['id_user'];
     $id_obat = buatKode("obat", "O");
-    $id_obatD = $_POST['idObat'];
-    $nama_obat = $_POST['namaObat'];
-    $nama_dagang = $_POST['namaDagang'];
-    $harga_beli = $_POST['hargaBeli'];
-    $harga_jual = $_POST['hargaJual'];
-    $stok = $_POST['stok'];
+
+    $idob = $_POST['id'];
+    $nmob = $_POST['nmob'];
+    $nmdg = $_POST['nmdg'];
+    $hrbl = $_POST['hrbl'];
+    $hrjl = $_POST['hrjl'];
+    $jmob = $_POST['jmob'];
 
     //proses membuat obat
-    if ($_GET['aksi'] == 'tambah') {
+    if ($_POST['aksi'] == 'tambah') {
 
         $query = mysqli_query($koneksi, "INSERT INTO obat (id_obat, id_user, nama_obat, nama_dagang, "
-                . "harga_beli, harga_jual, stok) VALUES ('" . $id_obat . "','" . $id_user . "','" . $nama_obat . "','" . $nama_dagang . "','" . $harga_beli . "','" . $harga_jual . "','" . $stok . "')");
+                . "harga_beli, harga_jual, stok) VALUES ('" . $id_obat . "','" . $id_user . "','" . $nmob . "','" . $nmdg . "','" . $hrbl . "','" . $hrjl . "','" . $jmob . "')");
         
         header('location:../data_obat.php');
     }
     //proses mengedit data obat
-    if ($_GET['aksi'] == 'editObat') {
+    if ($_POST['aksi'] == 'editObat') {
 
-        $query1 = mysqli_query($koneksi, "UPDATE obat SET nama_obat = '" . $nama_obat . "' , nama_dagang = '" . $nama_dagang . "', harga_beli ='" . $harga_beli . "', harga_jual ='" . $harga_jual . "', stok = '" . $stok . "' WHERE id_obat = '" . $id_obatD . "' ");
+        $query1 = mysqli_query($koneksi, "UPDATE obat SET nama_obat = '" . $nmob . "' , nama_dagang = '" . $nmdg . "', harga_beli ='" . $hrbl . "', harga_jual ='" . $hrjl . "', stok = '" . $jmob . "' WHERE id_obat = '" . $idob . "' ");
 
-        header('location:../data_obat.php');
+        // header('location:../data_obat.php');
     }
 }
 
