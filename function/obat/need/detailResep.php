@@ -122,13 +122,10 @@ if (isset($_GET['id_resep'])) {
 
                             $(colvis.button()).insertBefore('div.table');
                         });
-
-
-
                     </script>
-
                 </div>
             </div>
         </div>
+
     </body>
 </html>

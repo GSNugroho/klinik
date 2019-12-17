@@ -52,7 +52,7 @@ if ($_POST['btnt'] == 'tambaho') {
     $q = mysqli_query($koneksi, "SELECT id_resep FROM resep WHERE id_resep = '".$id_resep."'");
     $cek = mysqli_fetch_array($q);
     if($cek == FALSE){
-        $query_roku = mysqli_query($koneksi, "INSERT INTO resep (id_resep, id_kunjungan, id_user) VALUE ('".$id_resep."', '".$id_kunjungan."', '".$_SESSION['id_user']."')");
+        $query_roku = mysqli_query($koneksi, "INSERT INTO resep (id_resep, id_kunjungan, id_user, tgl_trs) VALUE ('".$id_resep."', '".$id_kunjungan."', '".$_SESSION['id_user']."', '".$date."')");
     }
 
     $qsobat = mysqli_query($koneksi, "SELECT * FROM obat WHERE id_obat='".$id_obat."'");
@@ -74,7 +74,11 @@ if ($_POST['btnt'] == 'tambaho') {
     $id_kunjungan = $_POST['idku'];
     // $jumlah = $_POST['jumlah_obat'];
     // $aturan_pakai = $_POST['aturan'];
-    $diskon = $_POST['dskn'];
+    if(($_POST['dskn'] != 0) || ($_POST['dskn'] != '')){
+        $diskon = $_POST['dskn'];
+    }else{
+        $diskon = '0';
+    }
 
     //masukkan nilai statis dari kedalam resep
     // $query = mysqli_query($koneksi, "INSERT INTO resep (id_resep, id_kunjungan, id_user) VALUES ('$id_resep', '$id_kunjungan', '" . $_SESSION['id_user'] . "' )");

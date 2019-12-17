@@ -19,7 +19,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM resep r "
         . "LEFT JOIN kunjungan k ON r.id_kunjungan = k.id_kunjungan "
         . "LEFT JOIN user u ON k.id_user = u.id_user "
         . "LEFT JOIN petugas_kesehatan pk ON dr.id_petugas = pk.id_petugas "
-        . "LEFT JOIN pasien_b p ON k.no_rm = p.no_rm WHERE r.id_resep = '$id_resep'") or die(mysql_error());
+        . "LEFT JOIN pasien_b p ON k.no_rm = p.no_rm WHERE r.id_resep = '$id_resep'") or die(mysqli_error($koneksi));
 $hasil = mysqli_fetch_array($query);
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -35,7 +35,7 @@ $hasil = mysqli_fetch_array($query);
             </script>
     </head>
     <body onLoad="window.print()">
-        <table class="table-list" width="714" border="0" cellspacing="0" cellpadding="2">
+        <table class="table-list" width="600" border="0" cellspacing="0" cellpadding="2">
             <tr>
                 <td height="87" colspan="5" align="center"><p><strong><?=namaKlinik3()?></strong><br />
                         <br />
@@ -83,7 +83,7 @@ $hasil = mysqli_fetch_array($query);
                     . "LEFT JOIN obat o ON dr.id_obat = o.id_obat "
                     . "LEFT JOIN petugas_kesehatan pk ON dr.id_petugas = pk.id_petugas "
                     . "LEFT JOIN kunjungan k ON r.id_kunjungan = k.id_kunjungan "
-                    . "LEFT JOIN pasien p ON k.no_rm = p.no_rm WHERE r.id_resep = '$id_resep'") or die(mysql_error());
+                    . "LEFT JOIN pasien p ON k.no_rm = p.no_rm WHERE r.id_resep = '$id_resep'") or die(mysqli_error($koneksi));
             $no = 0;
             while ($detail = mysqli_fetch_array($query)) {
                 $no++;
