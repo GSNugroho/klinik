@@ -12,13 +12,19 @@ if (!isset($_SESSION['level'])) {
 
 <head>
     <title><?= namaKlinik2() ?></title>
+    <link rel="stylesheet" type="text/css" href="../../datepicker/css/ilmudetil.css">
+    <link rel="stylesheet" type="text/css" href="../../datepicker/css/bootstrap-datetimepicker.css">
+    <link rel="stylesheet" type="text/css" href="../../../css/dataTables.bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../../css/dashboard.css">
     <link rel="stylesheet" type="text/css" href="../../css/jquery.dataTables.css">
     <link rel="stylesheet" type="text/css" href="../../css/dataTables.tableTools.css">
     <link rel="stylesheet" type="text/css" href="../../css/dataTables.colVis.css">
+
     <script type="text/javascript" src="../../js/jquery.js"></script>
     <script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+    <script src="../../datepicker/js/moment-with-locales.js"></script>
+    <script src="../../datepicker/js/bootstrap-datetimepicker.js"></script>
     <script type="text/javascript" src="../../js/jquery.dataTables.js"></script>
     <script type="text/javascript" src="../../js/dataTables.bootstrap.js"></script>
     <script type="text/javascript" src="../../js/dataTables.tableTools.js"></script>
@@ -53,14 +59,14 @@ if (!isset($_SESSION['level'])) {
                 <h4 class="page-header">Data Resep</h4>
 
                 <div class="row">
-                    <table>
+                    <table style="position: relative;">
                         <tr>
                             <td>
-                                <input type="text" name="tgl1" id="tgl1" class="form-control">
+                                <input type="text" name="tgl1" id="tgl1" class="form-control" placeholder="dd-mm-yyyy">
                             </td>
-                            <td><label>-</label> </td>
+                            <td>&nbsp;&nbsp;-&nbsp;&nbsp;</td>
                             <td>
-                                <input type="text" name="tgl2" id="tgl2" class="form-control">
+                                <input type="text" name="tgl2" id="tgl2" class="form-control" placeholder="dd-mm-yyyy">
                             </td>
                         </tr>
                     </table>
@@ -114,14 +120,14 @@ if (!isset($_SESSION['level'])) {
                             'serverSide': true,
                             'serverMethod': 'post',
                             'ajax': {
-                                'url': 'ajaxdtre.php'
-                                // 'data': function(data) {
-                                //     var awal = $('#tgl1').val();
-                                //     var akhir = $('#tgl2').val();
+                                'url': 'ajaxdtre.php',
+                                'data': function(data) {
+                                    var awal = $('#tgl1').val();
+                                    var akhir = $('#tgl2').val();
 
-                                //     data.searchByAwal = awal;
-                                //     data.searchByAkhir = akhir;
-                                // }
+                                    data.searchByAwal = awal;
+                                    data.searchByAkhir = akhir;
+                                }
                             },
                             'order':[
                                 [1, "desc"]
@@ -165,7 +171,13 @@ if (!isset($_SESSION['level'])) {
                                 }
                             ]
                         });
+                        $('#tgl2').on('dp.change', function() {
+                            table.draw(true);
+                        });
                     });
+
+                    $('#tgl1').datetimepicker({locale: 'id', format: 'DD-MM-YYYY'});
+                    $('#tgl2').datetimepicker({locale: 'id', format: 'DD-MM-YYYY'});
                 </script>
             </div>
         </div>

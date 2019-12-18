@@ -10,18 +10,18 @@ $columnSortOrder = $_POST['order'][0]['dir'];
 $searchValue = $_POST['search']['value'];
 
 $searchQuery = " ";
-// if(($_POST['searchByAwal'] != '') && ($_POST['searchByAkhir'] != '')){
-//     $searchByAwal = date('Y-m-d', strtotime($_POST['searchByAwal']));
-//     $searchByAkhir = date('Y-m-d', strtotime(($_POST['searchByAkhir'])));
-//     $searchQuery .= " AND (tgl_periksa BETWEEN '".$searchByAwal."' AND '".$searchByAkhir."' ) ";
-// }
+if(($_POST['searchByAwal'] != '') && ($_POST['searchByAkhir'] != '')){
+    $searchByAwal = date('Y-m-d', strtotime($_POST['searchByAwal']));
+    $searchByAkhir = date('Y-m-d', strtotime(($_POST['searchByAkhir'])));
+    $searchQuery .= " AND (tgl_trs BETWEEN '".$searchByAwal."' AND '".$searchByAkhir."' ) ";
+}
 
 if($searchValue != ''){
-    $searchQuery = " AND (pasien_b.no_rm like '%".$searchValue."%' or 
+    $searchQuery .= " AND (pasien_b.no_rm like '%".$searchValue."%' or 
     id_resep like '%".$searchValue."%' or 
     kunjungan.id_kunjungan like '%".$searchValue."%' or 
     nm_pasien like '%".$searchValue."%' or 
-    tgl_periksa like'%".$searchValue."%' ) ";
+    tgl_trs like'%".$searchValue."%' ) ";
 }
 
 $sel = mysqli_query($koneksi, "SELECT count(*) FROM resep LEFT JOIN kunjungan ON resep.id_kunjungan = kunjungan.id_kunjungan 

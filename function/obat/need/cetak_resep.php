@@ -35,9 +35,9 @@ $hasil = mysqli_fetch_array($query);
             </script>
     </head>
     <body onLoad="window.print()">
-        <table class="table-list" width="600" border="0" cellspacing="0" cellpadding="2">
+        <table class="table-list" width="520" border="0" cellspacing="0" cellpadding="2">
             <tr>
-                <td height="87" colspan="5" align="center"><p><strong><?=namaKlinik3()?></strong><br />
+                <td height="87" colspan="6" align="center"><p><strong><?=namaKlinik3()?></strong><br />
                         <br />
                         Rincian Resep Pelayanan Rawat Jalan</p>    </td>
             </tr>
@@ -45,36 +45,37 @@ $hasil = mysqli_fetch_array($query);
                 <td width="62"><strong>Id Kunjungan </strong></td>
                 <td width="13">:</td>
                 <td><?php echo $hasil['id_kunjungan']; ?></td>
-                <td colspan="2" align="right">Surakarta, <?php echo IndonesiaTgl($hasil['tgl_periksa']); ?></td>
+                <td colspan="4" align="right">Surakarta, <?php echo IndonesiaTgl($hasil['tgl_periksa']); ?></td>
             </tr>
             <tr>
                 <td width="62"><strong>Id Resep </strong></td>
                 <td width="13">:</td>
                 <td><?php echo $hasil['id_resep']; ?></td>
-                <td colspan="2"></td>
+                <td colspan="3"></td>
             </tr>
             <tr>
                 <td>No. RM </td>
                 <td>:</td>
                 <td><?php echo $hasil['no_rm']; ?></td>
-                <td colspan="2"></td>
+                <td colspan="3"></td>
             </tr>
             <tr>
-                <td colspan="5">Pasien   : <?php echo $hasil['nm_pasien']; ?></td>
+                <td colspan="6">Pasien   : <?php echo $hasil['nm_pasien']; ?></td>
             </tr>
             <tr>
-                <td colspan="5">User     : <?php echo $hasil['username']; ?></td>
+                <td colspan="6">User     : <?php echo $hasil['username']; ?></td>
             </tr>
             <tr>
-                <td colspan="5">Cabang   : <?php echo $hasil['cabang']; ?><br /></td>
+                <td colspan="6">Cabang   : <?php echo $hasil['cabang']; ?><br /></td>
             </tr>
 
             <tr>
-                <td colspan="1" bgcolor="#F5F5F5"><strong>No</strong></td>
-                <td width="266" bgcolor="#F5F5F5"><strong>Daftar Obat </strong></td>
-                <td width="266" bgcolor="#F5F5F5"><strong>Jumlah Obat </strong></td>
+                <td colspan="1"  bgcolor="#F5F5F5"><strong>No</strong></td>
                 <td width="226" bgcolor="#F5F5F5"><strong>Petugas Kesehatan</strong></td>
-                <td width="127" align="right" bgcolor="#F5F5F5"><strong>Harga</strong></td>
+                <td width="266" bgcolor="#F5F5F5"><strong>Daftar Obat </strong></td>
+                <td width="100" bgcolor="#F5F5F5"><strong>Jumlah Obat </strong></td>
+                <td width="100" align="right" bgcolor="#F5F5F5"><strong>Harga</strong></td>
+                <td width="100" align="right" bgcolor="#F5F5F5"><strong>Total Harga</strong></td>
             </tr>
             <?php
 
@@ -83,7 +84,7 @@ $hasil = mysqli_fetch_array($query);
                     . "LEFT JOIN obat o ON dr.id_obat = o.id_obat "
                     . "LEFT JOIN petugas_kesehatan pk ON dr.id_petugas = pk.id_petugas "
                     . "LEFT JOIN kunjungan k ON r.id_kunjungan = k.id_kunjungan "
-                    . "LEFT JOIN pasien p ON k.no_rm = p.no_rm WHERE r.id_resep = '$id_resep'") or die(mysqli_error($koneksi));
+                    . "LEFT JOIN pasien_b p ON k.no_rm = p.no_rm WHERE r.id_resep = '$id_resep'") or die(mysqli_error($koneksi));
             $no = 0;
             while ($detail = mysqli_fetch_array($query)) {
                 $no++;
@@ -91,14 +92,15 @@ $hasil = mysqli_fetch_array($query);
                 ?>
                 <tr>
                     <td colspan="1"><?php echo $no; ?></td>
+                    <td><?php echo $detail['nama_petugas']; ?></td>
                     <td><?php echo $detail['nama_dagang']; ?></td>
                     <td><?php echo $detail['jumlah_obat']; ?></td>
-                    <td><?php echo $detail['nama_petugas']; ?></td>
                     <td align="right"><?php echo format_angka($detail['harga_jual']); ?></td>
+                    <td align="right"><?php echo format_angka(($detail['harga_jual'] * $detail['jumlah_obat'])); ?></td>
                 </tr>
             <?php } ?>
             <tr>
-                <td colspan="4" align="right"><strong>Total Biaya Resep (Rp) : </strong></td>
+                <td colspan="5" align="right"><strong>Total Biaya Resep (Rp) : </strong></td>
                 <td align="right"><?php echo format_angka($biaya_resep); ?></td>
             </tr>
 
