@@ -7,7 +7,7 @@
         <li><a href="data_pasien.php">Data Pasien</a></li>
         <li><a>Rawat Jalan
             <ul class="menus">
-                <li class='has-submenu'><a href="data_rawatjalan_hr.php">Rawat Jalan</a></li>
+                <li class='has-submenu'><a href="data_rawatjalan_hr.php">Rawat Jalan Hari Ini</a></li>
                 <li class='has-submenu'><a href="data_rawatjalan.php">Data Rawat Jalan</a></li>    
             </ul>
         </a></li>

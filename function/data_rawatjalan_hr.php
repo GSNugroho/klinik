@@ -407,7 +407,7 @@ if (!isset($_SESSION['level'])) {
             ?>
 
             <div class="main">
-                <h4 class="page-header">Rawat Jalan</h4>
+                <h4 class="page-header">Rawat Jalan Hari Ini</h4>
 
                 <div class="row">
                     <div class="table">
@@ -597,7 +597,7 @@ if (!isset($_SESSION['level'])) {
                                                     <!-- <th>No.</th> -->
                                                     <!-- <th>Poliklinik</th> -->
                                                     <!-- <th>Petugas Kesehatan</th>
-                                                <th>Diagnosis</th> -->
+                                                    <th>Diagnosis</th> -->
                                                     <th>Nama Petugas</th>
                                                     <th>Tindakan</th>
                                                     <th>Harga Tindakan</th>
@@ -1279,7 +1279,8 @@ if (!isset($_SESSION['level'])) {
                                 var idob = $('#daftarObat option:selected').val();
                                 var jmob = $('#inputJumlahObat').val();
                                 var maxs = document.getElementById('inputJumlahObat').max;
-                                if (jmob > maxs) {
+                                maximal = parseInt(maxs);
+                                if (jmob > maximal) {
                                     $('#inputJumlahObat').focus();
                                     swal("", "Jumlah Obat Tidak Sesuai Stok!", "warning");
                                     return false;
@@ -1309,7 +1310,7 @@ if (!isset($_SESSION['level'])) {
                                 var idrp = $('#inputNoResep').val();
                                 var idku = $('#inputIdKunjungan').val();
                                 var btns = $('#btnsimpano').val();
-                                var dskn = $('#inputDiskonO').val();
+                                var dskn = diskono;
 
                                 var dataString = 'idku=' + idku + '&idrp=' + idrp + '&btns=' + btns + '&dskn=' + dskn;
 
